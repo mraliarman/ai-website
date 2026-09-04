@@ -35,13 +35,11 @@ npm run build
 
 ## به‌روزرسانی منبع اصلی
 
-برای دریافت آخرین تغییرات منبع و بازسازی سایت:
-
 ```bash
 npm run update-source
 ```
 
-این دستور submodule را به آخرین commit شاخه اصلی منبع می‌رساند، pointer آن را commit می‌کند و سپس سایت را build می‌کند. بعد از آن، تغییرات مخزن اصلی را push کنید:
+این دستور submodule را به آخرین commit شاخه اصلی منبع می‌رساند، pointer آن را commit می‌کند و سپس سایت را build می‌کند. بعد از آن تغییرات را push کنید:
 
 ```bash
 git push origin main
@@ -64,12 +62,10 @@ git push origin main
 
 ## توسعه
 
-قبل از commit تغییرات، اجرای زیر توصیه می‌شود:
-
 ```bash
 npm run build
 ```
 
 ## مجوز و اعتبار
 
-لطفاً شرایط مجوز و attribution پروژه اصلی را بررسی کنید و اعتبار منبع را حفظ کنید.
+شرایط مجوز و attribution پروژه اصلی باید حفظ شود.
