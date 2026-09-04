@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.2",
+    "tailwindcss": "^4.3.2"
+  },
+  "scripts": {
+    "watch": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --watch --minify",
+    "build": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --minify"
+  }
+}
