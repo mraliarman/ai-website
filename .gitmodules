@@ -1,0 +1,3 @@
+[submodule "public/source/llm-for-humans"]
+	path = public/source/llm-for-humans
+	url = https://github.com/3lf/llm-for-humans.git
