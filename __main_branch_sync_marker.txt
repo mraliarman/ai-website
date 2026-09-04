@@ -1,1 +1,0 @@
-Main branch contains the latest requested build, SEO, schema, Tailwind, and HTML parsing fixes.
