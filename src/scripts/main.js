@@ -26,6 +26,7 @@ window.searchState = () => ({
     show() { this.open = true; this.$nextTick(() => this.$refs.input?.focus()); },
     hide() { this.open = false; this.query = ''; this.results = []; }
 });
+if (document.body) document.body.setAttribute('x-data', '{ mobileOpen: false }');
 document.addEventListener('keydown', event => {
     if (event.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
         event.preventDefault();
