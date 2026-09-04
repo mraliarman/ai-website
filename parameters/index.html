@@ -1,5 +1,4 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed"><link rel="canonical" href="https://example.com/parameters/"><meta property="og:type" content="article"><meta property="og:title" content="پارامترهای مدل"><meta property="og:description" content="Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>پارامترهای مدل | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / پارامترهای مدل</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">PARAMETERS</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">پارامترهای مدل</h1><p class="mt-5 text-lg text-smoke">Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed</p></header><div class="prose-llm max-w-none"><h1>پارامترهای مهم در کار با LLMها ⚙️</h1>
-<p><strong>نکته مهم:</strong> اگه فقط با چت‌بات‌های معمولی مثل ChatGPT یا Gemini کار می‌کنی، احتمالاً نیازی به دستکاری این پارامترها نداری یا اصلاً بهشون دسترسی نداری. ولی دونستن‌شون کمک می‌کنه بفهمی پشت صحنه چه خبره. 😉
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed"><link rel="canonical" href="https://example.com/parameters/"><meta property="og:type" content="article"><meta property="og:title" content="پارامترهای مدل"><meta property="og:description" content="Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>پارامترهای مدل | LLM به زبان آدمیزاد</title></head><body><header class="border-b border-graphite"><nav class="site-shell relative flex min-h-[76px] items-center justify-between gap-4 py-4"><a href="/" class="shrink-0 text-lg text-chalk no-underline md:text-xl">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke transition hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke transition hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke transition hover:text-chalk">درباره پروژه</a></div><div class="flex items-center gap-2"><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-4 py-2 text-xs text-chalk transition hover:border-signal-white">جستجو /</button><button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="باز کردن منو" class="rounded-card border border-iron px-3 py-2 text-chalk md:hidden"><span class="block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span></button></div><div id="mobile-navigation" x-data="{ mobileOpen: false }" x-show="mobileOpen" x-transition.origin.top @click.outside="mobileOpen = false" class="absolute inset-x-0 top-full z-40 border-b border-graphite bg-carbon p-4 md:hidden"><div class="grid gap-1"><a @click="mobileOpen = false" href="/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">خانه</a><a @click="mobileOpen = false" href="/developer-prompts/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a @click="mobileOpen = false" href="/about/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">درباره پروژه</a></div></div></nav></header><main><article class="site-shell py-16 sm:py-20"><div class="text-xs text-smoke">خانه / پارامترهای مدل</div><header class="mt-10 border-b border-graphite pb-10 sm:mt-12"><span class="font-mono text-xs text-smoke">PARAMETERS</span><h1 class="mt-5 max-w-5xl text-[34px] font-normal leading-[1.3] sm:text-[44px]">پارامترهای مدل</h1><p class="mt-5 max-w-3xl text-base text-smoke sm:text-lg">Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed</p></header><section class="toc mt-8 p-4 sm:p-5" aria-labelledby="toc-title"><div class="mb-3 flex items-center justify-between gap-4"><h2 id="toc-title" class="text-lg font-normal text-chalk">فهرست مطالب</h2><span class="font-mono text-xs text-smoke">11 بخش</span></div><nav class="grid gap-0"><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-0">مقدار Temperature (دمای خلاقیت / دقت) 🌡️</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-1">مقدار Top-p (Nucleus Sampling) 🎲</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-2">مقدار Frequency Penalty (جریمه تکرار کلمه) 🔄</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-3">مقدار Presence Penalty (جریمه تکرار موضوع/توکن) 🚫</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-4">مقدار Top-k (گزینش از k تای برتر) 📝</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-5">مقدار Max Tokens (حداکثر طول خروجی) 📏</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-6">رشته‌های توقف (Stop Sequences) ⛔</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-7">پارامتر Seed 🌱</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-8">خلاصه تفاوت پارامترها به زبان ساده 🤔</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-9">پیش‌تنظیم‌های پیشنهادی برای کارهای رایج 📋</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-10">یه پیشنهاد کاربردی در آخر 💡</a></nav></section><div class="article-layout mt-12"><div class="article-content"><div class="prose-llm"><p><strong>نکته مهم:</strong> اگه فقط با چت‌بات‌های معمولی مثل ChatGPT یا Gemini کار می‌کنی، احتمالاً نیازی به دستکاری این پارامترها نداری یا اصلاً بهشون دسترسی نداری. ولی دونستن‌شون کمک می‌کنه بفهمی پشت صحنه چه خبره. 😉
 <strong>اما:</strong> اگه برنامه‌نویسی می‌کنی و داری از <strong>API</strong> مدل‌ها استفاده می‌کنی، یا می‌خوای خروجی‌های خیلی خاص و کنترل‌شده بگیری، این پارامترها برات حکم <strong>دکمه‌های تنظیم جادویی</strong> رو دارن! مثلاً برای تولید محتوای خلاقانه، کدنویسی دقیق، تحلیل متن یا ساختن ربات‌های خاص، باهاشون می‌تونی رفتار مدل رو دقیقاً اونجوری که می‌خوای شکل بدی.</p>
 <blockquote>
 <p>🧠 <strong>نکته نسل جدید:</strong> مدل‌های استدلالی (مثل خانواده GPT-5.x) خیلی از این پارامترهای کلاسیک رو قفل کردن یا فقط وقتی قبولشون می‌کنن که استدلال رو خاموش کنی (تو OpenAI با <code>reasoning_effort=&quot;none&quot;</code>). پس اگه از API ارور گرفتی تعجب نکن؛ تو بخش <a href="#%D9%85%D8%AF%D9%84%E2%80%8C%D9%87%D8%A7%DB%8C-chat-vs-reasoning-vs-realtime-%D8%B5%D9%88%D8%AA%DB%8C-%EF%B8%8F">مدل‌های Chat vs Reasoning vs Realtime</a> بیشتر در این باره حرف می‌زنیم.</p>
@@ -9,11 +8,8 @@
 
 <div align="center">
 
-<h2>مقدار Temperature (دمای خلاقیت / دقت) 🌡️</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>مثل یه <strong>ولوم خلاقیت</strong> برای مدل می‌مونه. تعیین می‌کنه مدل چقدر در انتخاب کلمه بعدی &quot;ریسک&quot; کنه. یعنی چقدر جواب‌هاش قابل پیش‌بینی یا خلاقانه و غیرمنتظره باشه.</p>
-<h4><strong>عدد کم (مثلاً <code>0.1</code> یا <code>0.2</code>)</strong>:</h4>
-<ul>
+<h2 id="s-0">مقدار Temperature (دمای خلاقیت / دقت) 🌡️</h2><h4 id="s-1"><strong>چی هست؟</strong></h4><p>مثل یه <strong>ولوم خلاقیت</strong> برای مدل می‌مونه. تعیین می‌کنه مدل چقدر در انتخاب کلمه بعدی &quot;ریسک&quot; کنه. یعنی چقدر جواب‌هاش قابل پیش‌بینی یا خلاقانه و غیرمنتظره باشه.</p>
+<h4 id="s-2"><strong>عدد کم (مثلاً <code>0.1</code> یا <code>0.2</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل <strong>محافظه‌کار</strong> و <strong>دقیق</strong> می‌شه. جواب‌های <strong>معمول، قابل پیش‌بینی</strong> و خیلی نزدیک به محتمل‌ترین گزینه‌ها رو می‌ده. انگار داره از روی یه متن خیلی خشک و مشخص می‌خونه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>توضیح کد (Code Explanation):</strong> می‌خوای یه کد پایتون رو خط به خط توضیح بده. نیاز به دقت ۱۰۰٪ داری، نه تفسیر خلاقانه. <code>temperature=0.1</code> عالیه.</li>
@@ -22,8 +18,7 @@
 </ul>
 </li>
 </ul>
-<h4><strong>عدد زیاد (مثلاً <code>0.8</code> یا <code>1.0</code>)</strong>:</h4>
-<ul>
+<h4 id="s-3"><strong>عدد زیاد (مثلاً <code>0.8</code> یا <code>1.0</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل <strong>جسور و خلاق</strong> می‌شه! جواب‌های <strong>غیرمنتظره، متنوع، جدید</strong> و گاهی حتی بامزه می‌ده. انگار یه نویسنده یا ایده‌پرداز داره برات می‌نویسه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>ایده‌پردازی (Brainstorming):</strong> دنبال ایده‌های جدید برای داستان، کمپین تبلیغاتی، یا اسم برای یه محصولی؟ مقدار <code>temperature=0.9</code> مدل رو به سمت ایده‌های خارج از چارچوب هل می‌ده.</li>
@@ -38,11 +33,8 @@
 
 <div align="center">
 
-<h2>مقدار Top-p (Nucleus Sampling) 🎲</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>اینم یه راه دیگه برای کنترل خلاقیت، ولی یه کم هوشمندتر از Temperature. به مدل می‌گه: &quot;به جای اینکه بین <em>همه</em> کلمات ممکن بعدی انتخاب کنی، فقط اون کلماتی رو در نظر بگیر که <strong>مجموع احتمالشون</strong> به عدد <code>p</code> برسه&quot;. انگار یه <strong>دایره لغات مجاز پویا</strong> برای هر قدم تعریف می‌کنه.</p>
-<h4><strong>عدد کم (مثلاً <code>0.1</code> یا <code>0.2</code>)</strong>:</h4>
-<ul>
+<h2 id="s-4">مقدار Top-p (Nucleus Sampling) 🎲</h2><h4 id="s-5"><strong>چی هست؟</strong></h4><p>اینم یه راه دیگه برای کنترل خلاقیت، ولی یه کم هوشمندتر از Temperature. به مدل می‌گه: &quot;به جای اینکه بین <em>همه</em> کلمات ممکن بعدی انتخاب کنی، فقط اون کلماتی رو در نظر بگیر که <strong>مجموع احتمالشون</strong> به عدد <code>p</code> برسه&quot;. انگار یه <strong>دایره لغات مجاز پویا</strong> برای هر قدم تعریف می‌کنه.</p>
+<h4 id="s-6"><strong>عدد کم (مثلاً <code>0.1</code> یا <code>0.2</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> دایره انتخاب کلمات خیلی <strong>کوچیک و محدود</strong> می‌شه. مدل فقط می‌تونه از بین یکی دو تا کلمه خیلی خیلی محتمل انتخاب کنه. جواب‌ها <strong>یکنواخت و قابل پیش‌بینی</strong> می‌شن.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>ساخت ربات پاسخگویی به سوالات متداول (FAQ Bot):</strong> می‌خوای جواب‌ها کوتاه، استاندارد و همیشه شبیه هم باشن؟ <code>top_p=0.1</code> کمک می‌کنه مدل زیادی خلاق نشه و جواب‌های یکدست بده.</li>
@@ -50,8 +42,7 @@
 </ul>
 </li>
 </ul>
-<h4><strong>عدد زیاد (مثلاً <code>0.9</code> یا <code>0.95</code>)</strong>:</h4>
-<ul>
+<h4 id="s-7"><strong>عدد زیاد (مثلاً <code>0.9</code> یا <code>0.95</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> دایره انتخاب <strong>گسترده‌تر</strong> می‌شه و کلمات بیشتری (حتی اونایی که یه کم کمتر محتملن ولی مناسبن) شانس انتخاب شدن پیدا می‌کنن. متن <strong>متنوع‌تر و جذاب‌تر</strong> می‌شه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>نوشتن پست وبلاگ یا مقاله:</strong> می‌خوای متن پر از توصیف‌های زنده و واژه‌های غنی باشه؟ <code>top_p=0.9</code> به مدل اجازه می‌ده از صفت‌ها و فعل‌های متنوع‌تری استفاده کنه و متن خسته‌کننده نشه.</li>
@@ -65,11 +56,8 @@
 
 <div align="center">
 
-<h2>مقدار Frequency Penalty (جریمه تکرار کلمه) 🔄</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>این پارامتر مدل رو <strong>جریمه می‌کنه</strong> اگه بخواد یه <strong>کلمه خاص</strong> رو <strong>زیاد تکرار</strong> کنه. هرچی عددش بالاتر باشه، مدل بیشتر سعی می‌کنه از اون کلمه دوری کنه و دنبال جایگزین بگرده. (تو بعضی APIها بازه‌ای شبیه <code>-2</code> تا <code>2</code> داره.)</p>
-<h4><strong>عدد کم (مثلاً <code>0</code> یا <code>0.2</code>)</strong>:</h4>
-<ul>
+<h2 id="s-8">مقدار Frequency Penalty (جریمه تکرار کلمه) 🔄</h2><h4 id="s-9"><strong>چی هست؟</strong></h4><p>این پارامتر مدل رو <strong>جریمه می‌کنه</strong> اگه بخواد یه <strong>کلمه خاص</strong> رو <strong>زیاد تکرار</strong> کنه. هرچی عددش بالاتر باشه، مدل بیشتر سعی می‌کنه از اون کلمه دوری کنه و دنبال جایگزین بگرده. (تو بعضی APIها بازه‌ای شبیه <code>-2</code> تا <code>2</code> داره.)</p>
+<h4 id="s-10"><strong>عدد کم (مثلاً <code>0</code> یا <code>0.2</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل هیچ جریمه‌ای نمی‌شه و راحت کلمات رو تکرار می‌کنه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>نوشتن مستندات فنی (Technical Documentation):</strong> لازمه اسم یه تابع خاص، مثلاً <code>getUserProfile()</code>، بارها تکرار بشه تا متن دقیق باشه. <code>frequency_penalty=0</code> اینجا عالیه.</li>
@@ -77,8 +65,7 @@
 </ul>
 </li>
 </ul>
-<h4><strong>عدد زیاد (مثلاً <code>1.0</code> یا <code>1.5</code>)</strong>:</h4>
-<ul>
+<h4 id="s-11"><strong>عدد زیاد (مثلاً <code>1.0</code> یا <code>1.5</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل <strong>مجبور می‌شه</strong> خلاقیت به خرج بده و از تکرار بیش از حد کلمات کلیدی پرهیز کنه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>نوشتن نقد فیلم یا کتاب طولانی:</strong> اگه مدل هی بگه &quot;فیلم خیلی خوب بود&quot;، متن ضعیف می‌شه. با <code>frequency_penalty=1.2</code>، مدل مجبوره بگه &quot;جذاب بود&quot;، &quot;تاثیرگذار بود&quot;، &quot;خوش‌ساخت بود&quot; و ... .</li>
@@ -91,11 +78,8 @@
 
 <div align="center">
 
-<h2>مقدار Presence Penalty (جریمه تکرار موضوع/توکن) 🚫</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>این یکی شبیه قبلیه، ولی یه کم سخت‌گیرتر! کاری به <em>تعداد دفعات</em> تکرار نداره؛ همین که یه کلمه (یا دقیق‌تر بگیم، یه توکن) <strong>حداقل یک بار</strong> تو متن ظاهر بشه، احتمال استفاده دوباره ازش رو کم می‌کنه (جریمه بار دوم و سوم و بعدش هم معمولاً یکسانه). هدف اصلیش اینه که مدل رو تشویق کنه <strong>موضوعات و کلمات جدید</strong> رو به بحث اضافه کنه. (تو بعضی APIها بازه‌ای شبیه <code>-2</code> تا <code>2</code> داره.)</p>
-<h4><strong>عدد کم (<code>0</code> یا <code>0.2</code>)</strong>:</h4>
-<ul>
+<h2 id="s-12">مقدار Presence Penalty (جریمه تکرار موضوع/توکن) 🚫</h2><h4 id="s-13"><strong>چی هست؟</strong></h4><p>این یکی شبیه قبلیه، ولی یه کم سخت‌گیرتر! کاری به <em>تعداد دفعات</em> تکرار نداره؛ همین که یه کلمه (یا دقیق‌تر بگیم، یه توکن) <strong>حداقل یک بار</strong> تو متن ظاهر بشه، احتمال استفاده دوباره ازش رو کم می‌کنه (جریمه بار دوم و سوم و بعدش هم معمولاً یکسانه). هدف اصلیش اینه که مدل رو تشویق کنه <strong>موضوعات و کلمات جدید</strong> رو به بحث اضافه کنه. (تو بعضی APIها بازه‌ای شبیه <code>-2</code> تا <code>2</code> داره.)</p>
+<h4 id="s-14"><strong>عدد کم (<code>0</code> یا <code>0.2</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل آزاده که روی مفاهیم و کلماتی که قبلاً معرفی کرده، دوباره تاکید کنه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>نوشتن متن آموزشی:</strong> داری &quot;زنجیره بلوکی (Blockchain)&quot; رو توضیح می‌دی؟ لازمه مفاهیم کلیدی مثل &quot;بلاک&quot;، &quot;هش&quot;، &quot;دفتر کل توزیع‌شده&quot; چند بار تکرار بشن تا جا بیفتن. <code>presence_penalty=0</code> به مدل این اجازه رو می‌ده.</li>
@@ -103,8 +87,7 @@
 </ul>
 </li>
 </ul>
-<h4><strong>عدد زیاد (<code>1.0</code> یا <code>1.5</code>)</strong>:</h4>
-<ul>
+<h4 id="s-15"><strong>عدد زیاد (<code>1.0</code> یا <code>1.5</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل تا جای ممکن سراغ <strong>حرف‌های جدید</strong> می‌ره و از اینکه هی به یه موضوع برگرده یا کلمه‌های قبلیش رو دوباره به کار ببره، دوری می‌کنه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>تولید لیست ایده‌های متنوع:</strong> می‌خوای لیستی از ایده‌های کاملاً متفاوت برای سفر، آشپزی، تکنولوژی و ... تولید کنی؟ <code>presence_penalty=1.0</code> مدل رو مجبور می‌کنه بعد از گفتن &quot;سفر به تایلند&quot;، سراغ موضوعات دیگه بره و هی نگه &quot;جاهای دیدنی تایلند&quot;، &quot;غذای تایلندی&quot; و ... .</li>
@@ -117,13 +100,10 @@
 
 <div align="center">
 
-<h2>مقدار Top-k (گزینش از k تای برتر) 📝</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>این پارامتر خیلی سرراسته. به مدل می‌گه در هر مرحله، فقط از بین <strong>k</strong> تا از محتمل‌ترین کلمات بعدی، یکی رو انتخاب کن. بقیه کلمات کلاً از دایره انتخاب حذف می‌شن؛ حتی اونایی که احتمال نسبتاً خوبی دارن.</p>
+<h2 id="s-16">مقدار Top-k (گزینش از k تای برتر) 📝</h2><h4 id="s-17"><strong>چی هست؟</strong></h4><p>این پارامتر خیلی سرراسته. به مدل می‌گه در هر مرحله، فقط از بین <strong>k</strong> تا از محتمل‌ترین کلمات بعدی، یکی رو انتخاب کن. بقیه کلمات کلاً از دایره انتخاب حذف می‌شن؛ حتی اونایی که احتمال نسبتاً خوبی دارن.</p>
 <p><strong>نکته مهم:</strong> پارامتر Top-k توی همه سرویس‌ها وجود نداره؛ بیشتر توی مدل‌های متن‌باز و فریم‌ورک‌های اجرا (Inference) می‌بینیش، نه لزوماً توی همه APIهای چت.</p>
 <p><strong>بازه معمول:</strong> یه بازه و سقف مشترک وجود نداره. در <code>top_k=1</code>، مدل فقط یک گزینه برای انتخاب داره و عملاً وارد حالت Greedy می‌شه؛ عددهایی مثل <code>40</code> یا <code>50</code> تو بعضی مدل‌ها و ابزارهای اجرا رایجن، اما مقدار پیش‌فرض، سقف مجاز و حتی پشتیبانی از این پارامتر رو باید تو مستندات همون مدل یا سرویس چک کنی.</p>
-<h4><strong>عدد کم (مثلاً <code>1</code> یا <code>3</code>)</strong>:</h4>
-<ul>
+<h4 id="s-18"><strong>عدد کم (مثلاً <code>1</code> یا <code>3</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> انتخاب‌ها <strong>بسیار محدود</strong> و خروجی <strong>خیلی قابل پیش‌بینی</strong> می‌شه. اگه <code>k=1</code> باشه، مدل همیشه فقط و فقط محتمل‌ترین کلمه رو انتخاب می‌کنه (بهش می‌گن حالت Greedy یا حریصانه).</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>تکمیل خودکار دستورات (Autocomplete):</strong> داری یه ابزار برای تکمیل دستورات لینوکس می‌سازی؟ می‌خوای فقط ۲-۳ تا از محتمل‌ترین دستورات بعدی رو پیشنهاد بده، نه یه لیست طولانی. <code>top_k=3</code> مناسبه.</li>
@@ -131,17 +111,15 @@
 </ul>
 </li>
 </ul>
-<h4><strong>عدد زیاد (مثلاً <code>40</code> یا <code>50</code>)</strong>:</h4>
-<ul>
+<h4 id="s-19"><strong>عدد زیاد (مثلاً <code>40</code> یا <code>50</code>)</strong>:</h4><ul>
 <li><strong>رفتار مدل:</strong> مدل گزینه‌های بیشتری برای انتخاب داره و خروجی <strong>متنوع‌تر</strong> می‌شه؛ ولی انتخاب‌ها همچنان به <code>k</code> تای برتر محدوده و جلوی کلمات خیلی خیلی نامحتمل گرفته می‌شه.</li>
 <li><strong>کِی به درد می‌خوره؟ (مثال واقعی):</strong><ul>
 <li><strong>نوشتن دیالوگ برای شخصیت‌های بازی:</strong> می‌خوای شخصیت یه کم غیرقابل‌پیش‌بینی باشه، ولی پرت و پلا نگه؟ <code>top_k=50</code> به مدل یه فضای خوبی برای انتخاب می‌ده بدون اینکه خیلی عجیب غریب بشه. (برخلاف Top-p که بر اساس مجموع احتمال کار می‌کنه.)</li>
 </ul>
 </li>
 </ul>
-<h4><strong>مقایسه با Top-p:</strong></h4>
-<p>مقدار <code>Top-k</code> تعداد <em>ثابتی</em> از کلمات رو در نظر می‌گیره (مثلاً ۵۰ تا). <code>Top-p</code> تعداد <em>متغیری</em> از کلمات رو بر اساس <em>مجموع احتمال</em> انتخاب می‌کنه (مثلاً هر تعداد کلمه‌ای که لازم باشه تا جمع احتمالشون ۹۰٪ بشه). برای همین <code>Top-p</code> معمولاً انعطاف‌پذیرتر و محبوب‌تره، ولی <code>Top-k</code> هم ساده‌تره و برای بعضی کارها خوب جواب می‌ده.</p>
-<p><img src="images/vis-07-sampling-controls.png" alt="سه پنل که اثر Temperature و Top-p و Top-k رو روی یک مجموعه توکن نامزد مقایسه می‌کنن"></p>
+<h4 id="s-20"><strong>مقایسه با Top-p:</strong></h4><p>مقدار <code>Top-k</code> تعداد <em>ثابتی</em> از کلمات رو در نظر می‌گیره (مثلاً ۵۰ تا). <code>Top-p</code> تعداد <em>متغیری</em> از کلمات رو بر اساس <em>مجموع احتمال</em> انتخاب می‌کنه (مثلاً هر تعداد کلمه‌ای که لازم باشه تا جمع احتمالشون ۹۰٪ بشه). برای همین <code>Top-p</code> معمولاً انعطاف‌پذیرتر و محبوب‌تره، ولی <code>Top-k</code> هم ساده‌تره و برای بعضی کارها خوب جواب می‌ده.</p>
+<p><img src="/source/llm-for-humans/images/vis-07-sampling-controls.png" alt="سه پنل که اثر Temperature و Top-p و Top-k رو روی یک مجموعه توکن نامزد مقایسه می‌کنن"></p>
 <blockquote>
 <p>🖼️ پارامتر Temperature شکل احتمال‌ها رو عوض می‌کنه؛ Top-p با جمع احتمال و Top-k با تعداد ثابت گزینه‌ها رو محدود می‌کنن.</p>
 </blockquote>
@@ -150,17 +128,13 @@
 
 <div align="center">
 
-<h2>مقدار Max Tokens (حداکثر طول خروجی) 📏</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>این پارامتر مشخص می‌کنه مدل <strong>حداکثر چند توکن</strong> تو خروجیش تولید کنه. مثل اینکه بگی «جوابت رو تو ۵۰۰ کلمه بنویس» ولی دقیق‌تر، چون بر اساس توکن حساب می‌شه و سفت‌وسخت اعمال می‌شه.</p>
-<h4><strong>چرا مهمه؟</strong></h4>
-<ul>
+<h2 id="s-21">مقدار Max Tokens (حداکثر طول خروجی) 📏</h2><h4 id="s-22"><strong>چی هست؟</strong></h4><p>این پارامتر مشخص می‌کنه مدل <strong>حداکثر چند توکن</strong> تو خروجیش تولید کنه. مثل اینکه بگی «جوابت رو تو ۵۰۰ کلمه بنویس» ولی دقیق‌تر، چون بر اساس توکن حساب می‌شه و سفت‌وسخت اعمال می‌شه.</p>
+<h4 id="s-23"><strong>چرا مهمه؟</strong></h4><ul>
 <li><strong>کنترل هزینه:</strong> هر توکن خروجی پول داره. اگه فقط یه خلاصه دو خطی می‌خوای، چرا اجازه بدی مدل ۲۰۰۰ توکن تولید کنه؟</li>
 <li><strong>جلوگیری از پرحرفی:</strong> بعضی وقتا مدل می‌خواد رمان بنویسه! با این پارامتر جلوش رو می‌گیری.</li>
 <li><strong>کنترل زمان پاسخ:</strong> خروجی کوتاه‌تر یعنی جواب سریع‌تر.</li>
 </ul>
-<h4><strong>مثال:</strong></h4>
-<pre><code class="language-python">response = client.chat.completions.create(
+<h4 id="s-24"><strong>مثال:</strong></h4><pre><code class="language-python">response = client.chat.completions.create(
     model=&quot;gpt-5.5&quot;,
     reasoning_effort=&quot;none&quot;,  # استدلال خاموش؛ برای جواب کوتاه و سریع
     messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;پایتخت فرانسه کجاست؟&quot;}],
@@ -175,17 +149,13 @@
 
 <div align="center">
 
-<h2>رشته‌های توقف (Stop Sequences) ⛔</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>به مدل می‌گی «وقتی به این کلمه یا عبارت رسیدی، دیگه ادامه نده و همین‌جا متوقف شو.» مثل علامت ایست تو رانندگی!</p>
-<h4><strong>کِی به درد می‌خوره؟</strong></h4>
-<ul>
+<h2 id="s-25">رشته‌های توقف (Stop Sequences) ⛔</h2><h4 id="s-26"><strong>چی هست؟</strong></h4><p>به مدل می‌گی «وقتی به این کلمه یا عبارت رسیدی، دیگه ادامه نده و همین‌جا متوقف شو.» مثل علامت ایست تو رانندگی!</p>
+<h4 id="s-27"><strong>کِی به درد می‌خوره؟</strong></h4><ul>
 <li>وقتی فقط <strong>یه جواب</strong> می‌خوای و نمی‌خوای مدل توضیح اضافه بده.</li>
 <li>وقتی داری <strong>چند سوال متوالی</strong> می‌پرسی و می‌خوای جواب هر کدوم جدا باشه.</li>
 <li>وقتی فرمت خروجیت مشخصه و می‌خوای مدل بعد از تکمیل فرمت متوقف بشه.</li>
 </ul>
-<h4><strong>مثال:</strong></h4>
-<pre><code class="language-python">response = client.chat.completions.create(
+<h4 id="s-28"><strong>مثال:</strong></h4><pre><code class="language-python">response = client.chat.completions.create(
     model=&quot;gpt-5.5&quot;,
     reasoning_effort=&quot;none&quot;,
     messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;سه تا اسم پسر ایرانی بگو (فقط اسم‌ها):&quot;}],
@@ -200,16 +170,12 @@
 
 <div align="center">
 
-<h2>پارامتر Seed 🌱</h2>
-<h4><strong>چی هست؟</strong></h4>
-<p>وقتی یه عدد <code>seed</code> مشخص می‌کنی، به مدل می‌گی «هر بار که این سوال رو با همین تنظیمات بپرسم، <strong>تا حد ممکن</strong> همون جواب رو بده.» مثل اینکه بخوای یه آزمایش رو دقیقاً تکرار کنی.</p>
-<h4><strong>کِی به درد می‌خوره؟</strong></h4>
-<ul>
+<h2 id="s-29">پارامتر Seed 🌱</h2><h4 id="s-30"><strong>چی هست؟</strong></h4><p>وقتی یه عدد <code>seed</code> مشخص می‌کنی، به مدل می‌گی «هر بار که این سوال رو با همین تنظیمات بپرسم، <strong>تا حد ممکن</strong> همون جواب رو بده.» مثل اینکه بخوای یه آزمایش رو دقیقاً تکرار کنی.</p>
+<h4 id="s-31"><strong>کِی به درد می‌خوره؟</strong></h4><ul>
 <li><strong>تست و دیباگ:</strong> وقتی داری پرامپت رو بهینه می‌کنی و می‌خوای مطمئن بشی تفاوت خروجی از تغییر پرامپته، نه از تصادفی بودن مدل.</li>
 <li><strong>تکرارپذیری:</strong> برای گزارش‌ها یا آزمایش‌هایی که نتیجه‌شون باید قابل بازتولید باشه.</li>
 </ul>
-<h4><strong>مثال:</strong></h4>
-<pre><code class="language-python">response = client.chat.completions.create(
+<h4 id="s-32"><strong>مثال:</strong></h4><pre><code class="language-python">response = client.chat.completions.create(
     model=&quot;gpt-5.5&quot;,
     reasoning_effort=&quot;none&quot;,
     messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;یه جمله انگیزشی بگو&quot;}],
@@ -224,8 +190,7 @@
 
 <div align="center">
 
-<h2>خلاصه تفاوت پارامترها به زبان ساده 🤔</h2>
-<ul>
+<h2 id="s-33">خلاصه تفاوت پارامترها به زبان ساده 🤔</h2><ul>
 <li>مقدار <strong>Temperature:</strong> مثل <strong>ولوم خلاقیت/ریسک‌پذیری</strong>. کم یعنی قابل پیش‌بینی، زیاد یعنی خلاق و غیرمنتظره.</li>
 <li>مقدار <strong>Top-p:</strong> مثل <strong>اندازه دایره لغات مجاز</strong> در هر لحظه (بر اساس جمع احتمال). کم یعنی فقط کلمات خیلی محتمل، زیاد یعنی کلمات متنوع‌تر.</li>
 <li>مقدار <strong>Frequency Penalty:</strong> <strong>جریمه تکرار <em>زیادِ همون کلمه</em></strong>. زیاد یعنی مدل کمتر کلمات رو تکرار می‌کنه.</li>
@@ -240,8 +205,7 @@
 
 <div align="center">
 
-<h2>پیش‌تنظیم‌های پیشنهادی برای کارهای رایج 📋</h2>
-<p>اگه حوصله نداری خودت پارامترها رو تنظیم کنی، این جدول یه نقطه شروع خوب بهت می‌ده:</p>
+<h2 id="s-34">پیش‌تنظیم‌های پیشنهادی برای کارهای رایج 📋</h2><p>اگه حوصله نداری خودت پارامترها رو تنظیم کنی، این جدول یه نقطه شروع خوب بهت می‌ده:</p>
 <table>
 <thead>
 <tr>
@@ -303,8 +267,7 @@
 
 <div align="center">
 
-<h2>یه پیشنهاد کاربردی در آخر 💡</h2>
-<p>اگه مطمئن نیستی دقیقاً چه ترکیبی از این پارامترها برای کار <em>تو</em> بهتره، می‌تونی <strong>از خود مدل کمک بگیری!</strong> (البته این سوال رو توی چت با مدل می‌پرسی، نه توی تنظیمات API). مثلاً بپرس:</p>
+<h2 id="s-35">یه پیشنهاد کاربردی در آخر 💡</h2><p>اگه مطمئن نیستی دقیقاً چه ترکیبی از این پارامترها برای کار <em>تو</em> بهتره، می‌تونی <strong>از خود مدل کمک بگیری!</strong> (البته این سوال رو توی چت با مدل می‌پرسی، نه توی تنظیمات API). مثلاً بپرس:</p>
 <pre><code>سلام، من دارم از API شما استفاده می‌کنم تا بتونم خلاصه‌های خیلی کوتاه و دقیق از مقالات علمی طولانی تهیه کنم. هدف اصلیم اینه که خلاصه کاملاً به متن اصلی وفادار باشه، اطلاعات کلیدی رو منتقل کنه و هیچ تفسیر یا خلاقیت اضافه‌ای نداشته باشه.
 برای این کار، به نظرت بهترین مقادیر پیشنهادی برای پارامترهای temperature، top_p، frequency_penalty و presence_penalty چی هستن؟ لطفاً راهنماییم کن.
 </code></pre>
@@ -326,4 +289,4 @@
 <hr>
 <br>
 
-<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">مقدار Temperature (دمای خلاقیت / دقت) 🌡️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">مقدار Top-p (Nucleus Sampling) 🎲</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">مقدار Frequency Penalty (جریمه تکرار کلمه) 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">مقدار Presence Penalty (جریمه تکرار موضوع/توکن) 🚫</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">مقدار Top-k (گزینش از k تای برتر) 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">مقدار Max Tokens (حداکثر طول خروجی) 📏</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">رشته‌های توقف (Stop Sequences) ⛔</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">پارامتر Seed 🌱</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">خلاصه تفاوت پارامترها به زبان ساده 🤔</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">پیش‌تنظیم‌های پیشنهادی برای کارهای رایج 📋</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">یه پیشنهاد کاربردی در آخر 💡</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
+<div align="center"></div></div></div></article></main><footer class="mt-32 border-t border-graphite"><div class="site-shell flex flex-col gap-4 py-10 text-sm text-smoke md:flex-row md:items-center md:justify-between"><span>LLM به زبان آدمیزاد</span><a class="text-smoke hover:text-chalk" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی در GitHub</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-8 max-w-3xl border border-graphite bg-carbon p-4 sm:mt-16 sm:p-6"><div class="flex gap-2"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-sm text-chalk outline-none"><button @click="hide()" class="shrink-0 border border-iron px-4 text-smoke" aria-label="بستن">بستن</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

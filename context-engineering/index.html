@@ -1,13 +1,11 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد"><link rel="canonical" href="https://example.com/context-engineering/"><meta property="og:type" content="article"><meta property="og:title" content="مهندسی کانتکست"><meta property="og:description" content="طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مهندسی کانتکست | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / مهندسی کانتکست</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">CONTEXT-ENGINEERING</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">مهندسی کانتکست</h1><p class="mt-5 text-lg text-smoke">طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد</p></header><div class="prose-llm max-w-none"><h1>مهندسی کانتکست (Context Engineering) 🧠</h1>
-<p>خب، حالا که با پرامپت آشنا شدیم، بریم سراغ یه بحث خیلی مهم به اسم «مهندسی کانتکست» یا همون Context Engineering. شاید بپرسی فرقش با پرامپت چیه؟ 🤔</p>
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد"><link rel="canonical" href="https://example.com/context-engineering/"><meta property="og:type" content="article"><meta property="og:title" content="مهندسی کانتکست"><meta property="og:description" content="طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مهندسی کانتکست | LLM به زبان آدمیزاد</title></head><body><header class="border-b border-graphite"><nav class="site-shell relative flex min-h-[76px] items-center justify-between gap-4 py-4"><a href="/" class="shrink-0 text-lg text-chalk no-underline md:text-xl">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke transition hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke transition hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke transition hover:text-chalk">درباره پروژه</a></div><div class="flex items-center gap-2"><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-4 py-2 text-xs text-chalk transition hover:border-signal-white">جستجو /</button><button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="باز کردن منو" class="rounded-card border border-iron px-3 py-2 text-chalk md:hidden"><span class="block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span></button></div><div id="mobile-navigation" x-data="{ mobileOpen: false }" x-show="mobileOpen" x-transition.origin.top @click.outside="mobileOpen = false" class="absolute inset-x-0 top-full z-40 border-b border-graphite bg-carbon p-4 md:hidden"><div class="grid gap-1"><a @click="mobileOpen = false" href="/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">خانه</a><a @click="mobileOpen = false" href="/developer-prompts/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a @click="mobileOpen = false" href="/about/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">درباره پروژه</a></div></div></nav></header><main><article class="site-shell py-16 sm:py-20"><div class="text-xs text-smoke">خانه / مهندسی کانتکست</div><header class="mt-10 border-b border-graphite pb-10 sm:mt-12"><span class="font-mono text-xs text-smoke">CONTEXT-ENGINEERING</span><h1 class="mt-5 max-w-5xl text-[34px] font-normal leading-[1.3] sm:text-[44px]">مهندسی کانتکست</h1><p class="mt-5 max-w-3xl text-base text-smoke sm:text-lg">طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد</p></header><section class="toc mt-8 p-4 sm:p-5" aria-labelledby="toc-title"><div class="mb-3 flex items-center justify-between gap-4"><h2 id="toc-title" class="text-lg font-normal text-chalk">فهرست مطالب</h2><span class="font-mono text-xs text-smoke">17 بخش</span></div><nav class="grid gap-0"><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-0">کانتکست چیه و چرا از پرامپت جداست؟ 🧩</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-1">انواع کانتکست 📚</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-2">۱. دستورالعمل‌ها (Instructions) 📝</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-3">۲. مثال‌ها (Few-shot) 💡</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-4">۳. دانش بازیابی‌شده (RAG) 🔍</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-5">۴. تاریخچه گفت‌وگو (Conversation History) 💬</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-6">۵. حافظه بیرونی (External Memory) 🧠</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-7">۶. نتایج ابزارها (Tool-use Results) 🔧</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-8">یه مثال خیلی واضح (Prompt vs Context) 👀</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-9">استراتژی‌های مدیریت کانتکست 🧠</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-10">۱. تکه‌تکه کردن (Chunking) 🍰</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-11">۲. متادیتا (Metadata) 🏷️</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-12">۳. خلاصه‌سازی (Summarization) 📝</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-13">۴. اولویت‌بندی و ترتیب اطلاعات (Context Ordering) 📊</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-14">۵. کش کردن کانتکست (Context Caching) 💾</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-15">۶. کانتکست چندوجهی (Multimodal Context) 🖼️</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-16">نبایدها (Anti-patterns): این کارها رو نکن! ⛔</a></nav></section><div class="article-layout mt-12"><div class="article-content"><div class="prose-llm"><p>خب، حالا که با پرامپت آشنا شدیم، بریم سراغ یه بحث خیلی مهم به اسم «مهندسی کانتکست» یا همون Context Engineering. شاید بپرسی فرقش با پرامپت چیه؟ 🤔</p>
 <p>ببین، اگه پرامپت اون «سوالی» باشه که می‌پرسی، کانتکست اون «فضا و اطلاعات پس‌زمینه‌ای» هست که سوالت توش مطرح می‌شه. مثل اینه که قبل از اینکه از دوستت یه سوال سخت بپرسی، کلی براش مقدمه‌چینی کنی تا دقیقاً بدونه جریان چیه.</p>
 <hr>
 <br>
 
 <div align="center">
 
-<h2>کانتکست چیه و چرا از پرامپت جداست؟ 🧩</h2>
-<p>خیلی ساده بخوام بگم:</p>
+<h2 id="s-0">کانتکست چیه و چرا از پرامپت جداست؟ 🧩</h2><p>خیلی ساده بخوام بگم:</p>
 <ul>
 <li><strong>پرامپت:</strong> همون دستور یا سوالیه که الان داری می‌پرسی (مثلاً: &quot;این متن رو خلاصه کن&quot;).</li>
 <li><strong>کانتکست:</strong> تمام چیزاییه که مدل باید &quot;بدونه&quot; تا بتونه اون دستور رو درست انجام بده (مثلاً: متن مقاله، تاریخچه چت‌های قبلی، یا یه سری قوانین کلی).</li>
@@ -18,32 +16,24 @@
 
 <div align="center">
 
-<h2>انواع کانتکست 📚</h2>
-<p>کانتکست فقط یه مشت متن نیست! می‌تونیم دسته‌بندیش کنیم:</p>
-<h3>۱. دستورالعمل‌ها (Instructions) 📝</h3>
-<p>این همون قوانین بازیه. مثلاً بهش می‌گی: &quot;همیشه رسمی حرف بزن&quot; یا &quot;جوابت نباید بیشتر از ۳ خط باشه&quot;. اینا معمولاً توی System Prompt میان.</p>
-<h3>۲. مثال‌ها (Few-shot) 💡</h3>
-<p>قبلاً گفتیم (یادته؟)، ولی اینجا هم مهمه. وقتی به مدل چند تا نمونه نشون می‌دی (مثلاً: &quot;اینجوری ترجمه کن: ...&quot;)، داری براش کانتکست می‌سازی تا الگوت رو بفهمه.</p>
-<h3>۳. دانش بازیابی‌شده (RAG) 🔍</h3>
-<p>اونی که بالاتر گفتیم! وقتی مدل می‌ره از یه دیتابیس یا اینترنت یه سری اطلاعات رو &quot;پیدا می‌کنه&quot; و میاره توی مکالمه، اون اطلاعاتِ پیدا شده می‌شه بخشی از کانتکست جاری.</p>
-<h3>۴. تاریخچه گفت‌وگو (Conversation History) 💬</h3>
-<p>همین پیام‌هایی که تا الان ردوبدل کردیم! اینکه مدل یادشه دو دقیقه پیش چی گفتی، یعنی پیام‌های قبلی هنوز توی &quot;کانتکست&quot; هستن. اگه کانتکست پر بشه، مدل حرف‌های اول گفت‌وگو رو یادش می‌ره! 😲
+<h2 id="s-1">انواع کانتکست 📚</h2><p>کانتکست فقط یه مشت متن نیست! می‌تونیم دسته‌بندیش کنیم:</p>
+<h3 id="s-2">۱. دستورالعمل‌ها (Instructions) 📝</h3><p>این همون قوانین بازیه. مثلاً بهش می‌گی: &quot;همیشه رسمی حرف بزن&quot; یا &quot;جوابت نباید بیشتر از ۳ خط باشه&quot;. اینا معمولاً توی System Prompt میان.</p>
+<h3 id="s-3">۲. مثال‌ها (Few-shot) 💡</h3><p>قبلاً گفتیم (یادته؟)، ولی اینجا هم مهمه. وقتی به مدل چند تا نمونه نشون می‌دی (مثلاً: &quot;اینجوری ترجمه کن: ...&quot;)، داری براش کانتکست می‌سازی تا الگوت رو بفهمه.</p>
+<h3 id="s-4">۳. دانش بازیابی‌شده (RAG) 🔍</h3><p>اونی که بالاتر گفتیم! وقتی مدل می‌ره از یه دیتابیس یا اینترنت یه سری اطلاعات رو &quot;پیدا می‌کنه&quot; و میاره توی مکالمه، اون اطلاعاتِ پیدا شده می‌شه بخشی از کانتکست جاری.</p>
+<h3 id="s-5">۴. تاریخچه گفت‌وگو (Conversation History) 💬</h3><p>همین پیام‌هایی که تا الان ردوبدل کردیم! اینکه مدل یادشه دو دقیقه پیش چی گفتی، یعنی پیام‌های قبلی هنوز توی &quot;کانتکست&quot; هستن. اگه کانتکست پر بشه، مدل حرف‌های اول گفت‌وگو رو یادش می‌ره! 😲
 یعنی عملاً پیام‌های قدیمی از <strong>پنجره کانتکست</strong> بیرون می‌افتن و مدل دیگه بهشون دسترسی نداره.</p>
-<h3>۵. حافظه بیرونی (External Memory) 🧠</h3>
-<p>این یکی با «تاریخچه چت» فرق داره. اینجا خودت بیرون از مدل (مثلاً توی دیتابیس) اطلاعاتی مثل <strong>پروفایل کاربر</strong> یا <strong>ترجیحات ثابت</strong> رو نگه می‌داری و هر بار فقط بخش‌های لازم رو دوباره وارد کانتکست می‌کنی.</p>
-<h3>۶. نتایج ابزارها (Tool-use Results) 🔧</h3>
-<p>وقتی مدل یه ابزار رو فراخوانی می‌کنه (مثلاً یه API آب‌وهوا یا ماشین‌حساب)، جوابی که ابزار برمی‌گردونه هم وارد کانتکست می‌شه. مثلاً مدل از ابزار آب‌وهوا می‌پرسه «دمای تهران چنده؟»، جواب <code>{&quot;temp&quot;: 25}</code> میاد و مدل با همین اطلاعات جدید جواب نهایی رو می‌سازه. پس نتایج ابزارها هم بخش مهمی از کانتکست هستن!</p>
+<h3 id="s-6">۵. حافظه بیرونی (External Memory) 🧠</h3><p>این یکی با «تاریخچه چت» فرق داره. اینجا خودت بیرون از مدل (مثلاً توی دیتابیس) اطلاعاتی مثل <strong>پروفایل کاربر</strong> یا <strong>ترجیحات ثابت</strong> رو نگه می‌داری و هر بار فقط بخش‌های لازم رو دوباره وارد کانتکست می‌کنی.</p>
+<h3 id="s-7">۶. نتایج ابزارها (Tool-use Results) 🔧</h3><p>وقتی مدل یه ابزار رو فراخوانی می‌کنه (مثلاً یه API آب‌وهوا یا ماشین‌حساب)، جوابی که ابزار برمی‌گردونه هم وارد کانتکست می‌شه. مثلاً مدل از ابزار آب‌وهوا می‌پرسه «دمای تهران چنده؟»، جواب <code>{&quot;temp&quot;: 25}</code> میاد و مدل با همین اطلاعات جدید جواب نهایی رو می‌سازه. پس نتایج ابزارها هم بخش مهمی از کانتکست هستن!</p>
 <p><strong>تصویرسازی پنجره کانتکست 📐:</strong></p>
 <p>این دیاگرام نشون می‌ده پنجره کانتکست از چه بخش‌هایی پر می‌شه:</p>
-<p><img src="images/vis-26-context-window-anatomy.png" alt="پنجره کانتکست محدود با بلوک‌های سیستم پرامپت، تاریخچه، RAG، ابزار، سوال و فضای خروجی"></p>
+<p><img src="/source/llm-for-humans/images/vis-26-context-window-anatomy.png" alt="پنجره کانتکست محدود با بلوک‌های سیستم پرامپت، تاریخچه، RAG، ابزار، سوال و فضای خروجی"></p>
 <blockquote>
 <p>🖼️ همه ورودی‌ها و خود خروجی از یک بودجه محدود استفاده می‌کنن؛ اطلاعات بیشتر همیشه به معنی جواب بهتر نیست.</p>
 </blockquote>
 <blockquote>
 <p>💡 <strong>نکته:</strong> همه این بخش‌ها از پنجره کانتکست سهم می‌برن. هرچی کانتکست بیشتری بذاری، فضای کمتری برای خروجی مدل می‌مونه. این تعادل رو باید خودت مدیریت کنی!</p>
 </blockquote>
-<h3>یه مثال خیلی واضح (Prompt vs Context) 👀</h3>
-<pre><code class="language-text"># دستورالعمل (Instruction / System)
+<h3 id="s-8">یه مثال خیلی واضح (Prompt vs Context) 👀</h3><pre><code class="language-text"># دستورالعمل (Instruction / System)
 تو یک دستیار دقیق هستی. اگر مطمئن نیستی، بگو «مطمئن نیستم».
 
 # کانتکست (Context / Data)
@@ -57,8 +47,7 @@
 
 <div align="center">
 
-<h2>استراتژی‌های مدیریت کانتکست 🧠</h2>
-<p>چون پنجره کانتکست مدل (Context Window) محدوده، نمی‌تونیم تا ابد بهش اطلاعات بدیم. باید زرنگ باشیم و کانتکست رو مدیریت کنیم.</p>
+<h2 id="s-9">استراتژی‌های مدیریت کانتکست 🧠</h2><p>چون پنجره کانتکست مدل (Context Window) محدوده، نمی‌تونیم تا ابد بهش اطلاعات بدیم. باید زرنگ باشیم و کانتکست رو مدیریت کنیم.</p>
 <p>ولی اول ببینیم پنجره کانتکست مدل‌های معروف چقدره:</p>
 <p><strong>اندازه پنجره کانتکست مدل‌های محبوب 📐:</strong></p>
 <table>
@@ -102,8 +91,7 @@
 </tbody></table>
 <p><strong>یادداشت کانتکست:</strong> عددهای این ستون سقف اعلام‌شده‌ان؛ عدد 10M فقط به نسخه Scout از Llama 4 مربوطه.</p>
 <p><strong>نکته مهم:</strong> پنجره بزرگ‌تر یعنی می‌تونی اطلاعات بیشتری بدی؛ ولی لزوماً به این معنی نیست که مدل همه‌ش رو خوب پردازش می‌کنه! به این پدیده <strong>Context Rot</strong> می‌گن؛ یعنی کیفیت مدل تو کانتکست‌های خیلی طولانی افت می‌کنه و ممکنه به بعضی تکه‌ها کمتر توجه کنه. پس عددِ روی بروشور مدل رو با «طول مفید» یکی نگیر. (ادامه رو بخون 👇)</p>
-<h3>۱. تکه‌تکه کردن (Chunking) 🍰</h3>
-<p>اگه متنت خیلی طولانیه، نمی‌تونی یهو همشو بریزی تو حلق مدل! باید تیکه‌تیکه‌ش کنی.</p>
+<h3 id="s-10">۱. تکه‌تکه کردن (Chunking) 🍰</h3><p>اگه متنت خیلی طولانیه، نمی‌تونی یهو همشو بریزی تو حلق مدل! باید تیکه‌تیکه‌ش کنی.</p>
 <ul>
 <li><strong>حجمی:</strong> مثلاً هر ۱۰۰۰ کلمه یه تیکه.</li>
 <li><strong>معنایی:</strong> هر پاراگراف یا فصل یه تیکه بشه (که خیلی بهتره).</li>
@@ -112,27 +100,22 @@
 <blockquote>
 <p>💡 <strong>تفاوت با Chunking در RAG:</strong> اینجا هدفمون مدیریت متن طولانی برای پردازش مستقیمه؛ ولی توی بخش RAG (پایین‌تر)، تکه‌تکه کردن برای <strong>ذخیره‌سازی و بازیابی</strong> از دیتابیس برداریه و قواعد خودش رو داره (مثل سایز بهینه تکه‌ها و انتخاب روش مناسب).</p>
 </blockquote>
-<h3>۲. متادیتا (Metadata) 🏷️</h3>
-<p>برای هر تیکه اطلاعات، یه برچسب بذار. مثلاً بگو &quot;این مال سال ۲۰۲۳ هست&quot; یا &quot;منبعش ویکیپدیاست&quot;. اینطوری مدل وقتی دنبال جواب می‌گرده، کمتر قاطی می‌کنه.</p>
-<h3>۳. خلاصه‌سازی (Summarization) 📝</h3>
-<p>اگه چت خیلی طولانی شد، از خود مدل بخواه: &quot;تا اینجا رو خلاصه کن&quot;. بعد خلاصه رو نگه دار و بقیه رو پاک کن. اینطوری جای خالی برای حرفای جدید باز می‌شه.</p>
-<h3>۴. اولویت‌بندی و ترتیب اطلاعات (Context Ordering) 📊</h3>
-<p>این همون پدیده <strong>«گم شدن در میانه» (Lost in the Middle)</strong> هست که تو <a href="#%DB%B1%DB%B0-%DA%AF%D9%85-%D8%B4%D8%AF%D9%86-%D8%AF%D8%B1-%D9%85%DB%8C%D8%A7%D9%86%D9%87-%D9%85%D8%AA%D9%86-lost-in-the-middle-">مشکلات معروف LLMها</a> مفصل دیدیم: مدل به اول و آخر کانتکست خیلی بیشتر از وسطش توجه می‌کنه. اینجا فقط نتیجه عملیش برامون مهمه:</p>
+<h3 id="s-11">۲. متادیتا (Metadata) 🏷️</h3><p>برای هر تیکه اطلاعات، یه برچسب بذار. مثلاً بگو &quot;این مال سال ۲۰۲۳ هست&quot; یا &quot;منبعش ویکیپدیاست&quot;. اینطوری مدل وقتی دنبال جواب می‌گرده، کمتر قاطی می‌کنه.</p>
+<h3 id="s-12">۳. خلاصه‌سازی (Summarization) 📝</h3><p>اگه چت خیلی طولانی شد، از خود مدل بخواه: &quot;تا اینجا رو خلاصه کن&quot;. بعد خلاصه رو نگه دار و بقیه رو پاک کن. اینطوری جای خالی برای حرفای جدید باز می‌شه.</p>
+<h3 id="s-13">۴. اولویت‌بندی و ترتیب اطلاعات (Context Ordering) 📊</h3><p>این همون پدیده <strong>«گم شدن در میانه» (Lost in the Middle)</strong> هست که تو <a href="#%DB%B1%DB%B0-%DA%AF%D9%85-%D8%B4%D8%AF%D9%86-%D8%AF%D8%B1-%D9%85%DB%8C%D8%A7%D9%86%D9%87-%D9%85%D8%AA%D9%86-lost-in-the-middle-">مشکلات معروف LLMها</a> مفصل دیدیم: مدل به اول و آخر کانتکست خیلی بیشتر از وسطش توجه می‌کنه. اینجا فقط نتیجه عملیش برامون مهمه:</p>
 <p><strong>نکته عملی:</strong> 💡</p>
 <ul>
 <li><strong>مهم‌ترین اطلاعات</strong> رو اول یا آخر کانتکست بذار.</li>
 <li>اطلاعات کم‌اهمیت‌تر رو وسط بذار.</li>
 <li>اگه داری چند تا سند بازیابی‌شده (RAG) می‌دی به مدل، <strong>مرتبط‌ترین‌ها رو اول</strong> بذار.</li>
 </ul>
-<h3>۵. کش کردن کانتکست (Context Caching) 💾</h3>
-<p>یه قابلیت خفن که ارائه‌دهنده‌ها دارن: <strong>کش کردن کانتکست</strong>. یعنی اگه یه سیستم پرامپت یا کانتکست ثابتی داری که هر بار می‌فرستی (مثلاً مستندات شرکت)، ارائه‌دهنده اون بخش رو کش می‌کنه و دفعات بعدی <strong>خیلی ارزون‌تر</strong> حساب می‌شه.</p>
+<h3 id="s-14">۵. کش کردن کانتکست (Context Caching) 💾</h3><p>یه قابلیت خفن که ارائه‌دهنده‌ها دارن: <strong>کش کردن کانتکست</strong>. یعنی اگه یه سیستم پرامپت یا کانتکست ثابتی داری که هر بار می‌فرستی (مثلاً مستندات شرکت)، ارائه‌دهنده اون بخش رو کش می‌کنه و دفعات بعدی <strong>خیلی ارزون‌تر</strong> حساب می‌شه.</p>
 <ul>
 <li>هر سه غول بزرگ (OpenAI، Anthropic و گوگل) نسخه خودشون رو دارن.</li>
 <li>برای کانتکست‌های بزرگ می‌تونه تا <strong>۹۰ درصد</strong> هزینه ورودی رو کم کنه!</li>
 <li>فقط کافیه بخش ثابت رو اول پرامپت بذاری و بخش متغیر رو آخرش.</li>
 </ul>
-<h3>۶. کانتکست چندوجهی (Multimodal Context) 🖼️</h3>
-<p>کانتکست فقط متن نیست! مدل‌های جدید می‌تونن انواع دیگه اطلاعات رو هم به عنوان کانتکست بگیرن:</p>
+<h3 id="s-15">۶. کانتکست چندوجهی (Multimodal Context) 🖼️</h3><p>کانتکست فقط متن نیست! مدل‌های جدید می‌تونن انواع دیگه اطلاعات رو هم به عنوان کانتکست بگیرن:</p>
 <ul>
 <li><strong>تصاویر:</strong> مثلاً عکس یه نمودار، اسکرین‌شات، یا تصویر محصول</li>
 <li><strong>فایل‌های PDF:</strong> مستقیماً یه سند رو بده و ازش سوال بپرس</li>
@@ -144,8 +127,7 @@
 
 <div align="center">
 
-<h2>نبایدها (Anti-patterns): این کارها رو نکن! ⛔</h2>
-<ul>
+<h2 id="s-16">نبایدها (Anti-patterns): این کارها رو نکن! ⛔</h2><ul>
 <li><strong>کانتکست شلوغ:</strong> هر چی دم دستت بود رو نریز تو پرامپت! اطلاعات اضافی فقط مدل رو گیج می‌کنه (بهش می‌گن Noise).</li>
 <li><strong>تکرار بی‌مورد:</strong> لازم نیست یه دستور رو ده بار بگی. یه بار واضح بگو، کافیه.</li>
 <li><strong>توضیح مبهم منبع:</strong> اگه داری بهش متن می‌دی، مشخص کن کجاش شروعه و کجاش پایان (با ``` یا ###). نذار قاطی پاتی بشه.</li>
@@ -154,4 +136,4 @@
 <br>
 <br>
 
-<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">کانتکست چیه و چرا از پرامپت جداست؟ 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">انواع کانتکست 📚</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">۱. دستورالعمل‌ها (Instructions) 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۲. مثال‌ها (Few-shot) 💡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۳. دانش بازیابی‌شده (RAG) 🔍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۴. تاریخچه گفت‌وگو (Conversation History) 💬</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۵. حافظه بیرونی (External Memory) 🧠</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۶. نتایج ابزارها (Tool-use Results) 🔧</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">یه مثال خیلی واضح (Prompt vs Context) 👀</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">استراتژی‌های مدیریت کانتکست 🧠</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">۱. تکه‌تکه کردن (Chunking) 🍰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">۲. متادیتا (Metadata) 🏷️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">۳. خلاصه‌سازی (Summarization) 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">۴. اولویت‌بندی و ترتیب اطلاعات (Context Ordering) 📊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">۵. کش کردن کانتکست (Context Caching) 💾</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">۶. کانتکست چندوجهی (Multimodal Context) 🖼️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">نبایدها (Anti-patterns): این کارها رو نکن! ⛔</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
+<div align="center"></div></div></div></article></main><footer class="mt-32 border-t border-graphite"><div class="site-shell flex flex-col gap-4 py-10 text-sm text-smoke md:flex-row md:items-center md:justify-between"><span>LLM به زبان آدمیزاد</span><a class="text-smoke hover:text-chalk" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی در GitHub</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-8 max-w-3xl border border-graphite bg-carbon p-4 sm:mt-16 sm:p-6"><div class="flex gap-2"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-sm text-chalk outline-none"><button @click="hide()" class="shrink-0 border border-iron px-4 text-smoke" aria-label="بستن">بستن</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

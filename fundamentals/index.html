@@ -1,5 +1,4 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه"><link rel="canonical" href="https://example.com/fundamentals/"><meta property="og:type" content="article"><meta property="og:title" content="مبانی LLM"><meta property="og:description" content="پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مبانی LLM | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / مبانی LLM</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">FUNDAMENTALS</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">مبانی LLM</h1><p class="mt-5 text-lg text-smoke">پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه</p></header><div class="prose-llm max-w-none"><h1>مدل‌های زبانی بزرگ (LLM) چی هستن اصلاً؟ 🤖</h1>
-<p>خب، بریم سراغ اصل مطلب: این <strong>LLMها</strong> (مخفف <strong>Large Language Model</strong>) که این‌قدر اسمشون رو می‌شنویم، چی هستن؟</p>
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه"><link rel="canonical" href="https://example.com/fundamentals/"><meta property="og:type" content="article"><meta property="og:title" content="مبانی LLM"><meta property="og:description" content="پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مبانی LLM | LLM به زبان آدمیزاد</title></head><body><header class="border-b border-graphite"><nav class="site-shell relative flex min-h-[76px] items-center justify-between gap-4 py-4"><a href="/" class="shrink-0 text-lg text-chalk no-underline md:text-xl">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke transition hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke transition hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke transition hover:text-chalk">درباره پروژه</a></div><div class="flex items-center gap-2"><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-4 py-2 text-xs text-chalk transition hover:border-signal-white">جستجو /</button><button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="باز کردن منو" class="rounded-card border border-iron px-3 py-2 text-chalk md:hidden"><span class="block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span></button></div><div id="mobile-navigation" x-data="{ mobileOpen: false }" x-show="mobileOpen" x-transition.origin.top @click.outside="mobileOpen = false" class="absolute inset-x-0 top-full z-40 border-b border-graphite bg-carbon p-4 md:hidden"><div class="grid gap-1"><a @click="mobileOpen = false" href="/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">خانه</a><a @click="mobileOpen = false" href="/developer-prompts/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a @click="mobileOpen = false" href="/about/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">درباره پروژه</a></div></div></nav></header><main><article class="site-shell py-16 sm:py-20"><div class="text-xs text-smoke">خانه / مبانی LLM</div><header class="mt-10 border-b border-graphite pb-10 sm:mt-12"><span class="font-mono text-xs text-smoke">FUNDAMENTALS</span><h1 class="mt-5 max-w-5xl text-[34px] font-normal leading-[1.3] sm:text-[44px]">مبانی LLM</h1><p class="mt-5 max-w-3xl text-base text-smoke sm:text-lg">پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه</p></header><section class="toc mt-8 p-4 sm:p-5" aria-labelledby="toc-title"><div class="mb-3 flex items-center justify-between gap-4"><h2 id="toc-title" class="text-lg font-normal text-chalk">فهرست مطالب</h2><span class="font-mono text-xs text-smoke">4 بخش</span></div><nav class="grid gap-0"><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-0">۱. توکن (Token): آجرهای سازنده 🧱</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-1">۲. امبدینگ (Embedding): تبدیل کلمات به اعداد معنی‌دار 🗺️</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-2">۳. پیش‌بینی توکن بعدی (Next Token Prediction): پیش‌گویی آینده 🔮</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-3">۴. معماری‌های پشت صحنه: سه اسم که زیاد می‌شنوی 🏗️</a></nav></section><div class="article-layout mt-12"><div class="article-content"><div class="prose-llm"><p>خب، بریم سراغ اصل مطلب: این <strong>LLMها</strong> (مخفف <strong>Large Language Model</strong>) که این‌قدر اسمشون رو می‌شنویم، چی هستن؟</p>
 <p>خیلی ساده بخوایم بگیم، LLM یک <strong>مدل یادگیری عمیق</strong>ه که روی <strong>حجم خیلی زیادی</strong> از متن و کد آموزش دیده؛ صدها میلیارد توکن از کتاب‌ها، وب‌سایت‌ها و مقاله‌ها. معمولاً هم از خانواده Transformer ساخته شده؛ همون معماری‌ای که گوگل سال ۲۰۱۷ معرفی کرد. این مدل‌ها <strong>میلیاردها پارامتر</strong> دارن (از چند میلیارد تا بیش از یک تریلیون) و کار اصلیشون اینه که با توجه به چیزایی که تا اینجا دیدن، <strong>احتمال توکن بعدی</strong> رو حدس بزنن؛ و از همین راه متن و کد تولید کنن.</p>
 <p>یه نکته مهم: وقتی می‌گیم «می‌فهمه»، منظور «فهم انسانی» نیست؛ بیشتر یعنی الگوهای زبانی رو خیلی خوب یاد گرفته. ضمن اینکه بعضی مدل‌ها فقط <strong>متنی</strong> هستن، بعضی‌ها هم <strong>چندوجهی</strong>‌ان (متن + تصویر/صوت و...).</p>
 <p><strong>چند تا از معروف‌ترین مدل‌ها:</strong></p>
@@ -30,15 +29,13 @@
 
 <div align="center">
 
-<h1>مدل‌های زبانی بزرگ (LLM) چطوری کار می‌کنن؟ (زیر کاپوت چه خبره؟) 🏎️</h1>
-<p>شاید برات سوال شده باشه که این مدل‌ها واقعاً چطوری این همه چیز رو می‌دونن و جواب می‌دن؟ جادو می‌کنن؟ 🧙‍♂️ نه! همه‌چیز ریاضی و احتمالاته.</p>
+<h1 id="s-0">مدل‌های زبانی بزرگ (LLM) چطوری کار می‌کنن؟ (زیر کاپوت چه خبره؟) 🏎️</h1><p>شاید برات سوال شده باشه که این مدل‌ها واقعاً چطوری این همه چیز رو می‌دونن و جواب می‌دن؟ جادو می‌کنن؟ 🧙‍♂️ نه! همه‌چیز ریاضی و احتمالاته.</p>
 <p>بیا خیلی ساده و خودمونی <strong>موتور</strong> این ماشین رو باز کنیم و ببینیم توش چه خبره. کلاً ۳ تا مفهوم اصلی داریم که اگه بفهمیم، تقریباً کل داستان دستمون میاد:</p>
 <br>
 
 <div align="center">
 
-<h2>۱. توکن (Token): آجرهای سازنده 🧱</h2>
-<p>ما آدما جمله‌ها رو کلمه‌به‌کلمه می‌خونیم. ولی LLMها متن رو به تیکه‌های کوچیک‌تری به اسم <strong>توکن (Token)</strong> می‌شکنن.</p>
+<h2 id="s-1">۱. توکن (Token): آجرهای سازنده 🧱</h2><p>ما آدما جمله‌ها رو کلمه‌به‌کلمه می‌خونیم. ولی LLMها متن رو به تیکه‌های کوچیک‌تری به اسم <strong>توکن (Token)</strong> می‌شکنن.</p>
 <ul>
 <li>تو انگلیسی هم خیلی وقت‌ها یک کلمه می‌تونه چند توکن بشه (به‌خصوص کلمات طولانی یا کم‌مصرف).</li>
 <li>تو فارسی هم همینطوره و ممکنه یک کلمه به چند تکه شکسته بشه.</li>
@@ -54,7 +51,7 @@
 </ul>
 <p><strong>تصویرسازی فرایند توکنایز کردن 🔍</strong></p>
 <p>بذار ببینیم یه جمله فارسی چطوری به توکن و بعد به عدد تبدیل می‌شه:</p>
-<p><img src="images/vis-01-tokenization-pipeline.png" alt="فلوچارتی که تبدیل جمله فارسی به توکن‌ها، شناسه‌های عددی و ورودی مدل رو نشون می‌ده"></p>
+<p><img src="/source/llm-for-humans/images/vis-01-tokenization-pipeline.png" alt="فلوچارتی که تبدیل جمله فارسی به توکن‌ها، شناسه‌های عددی و ورودی مدل رو نشون می‌ده"></p>
 <blockquote>
 <p>🖼️ مدل تو قدم اول جمله رو به توکن‌ها و شناسه‌های عددی تبدیل می‌کنه؛ چیزی که وارد مدل می‌شه خود کلمه‌ها نیست، دنباله‌ای از عدده.</p>
 </blockquote>
@@ -64,8 +61,7 @@
 <hr>
 <div align="center">
 
-<h2>۲. امبدینگ (Embedding): تبدیل کلمات به اعداد معنی‌دار 🗺️</h2>
-<p>کامپیوتر که معنی «عشق» یا «درخت» رو نمی‌فهمه! اون فقط عدد می‌فهمه.
+<h2 id="s-2">۲. امبدینگ (Embedding): تبدیل کلمات به اعداد معنی‌دار 🗺️</h2><p>کامپیوتر که معنی «عشق» یا «درخت» رو نمی‌فهمه! اون فقط عدد می‌فهمه.
 اینجا <strong>امبدینگ</strong> وارد می‌شه. امبدینگ یعنی تبدیل هر توکن به یه <strong>لیست از اعداد</strong> (بردار). نکته مهم: این بردارها رو کسی دستی ننوشته؛ مدل حین آموزش <strong>خودش یاد می‌گیره</strong> چه اعدادی برای هر کلمه از همه مناسب‌ترن.</p>
 <p>ولی نکته جالبش اینه: کلماتی که معنیشون به هم نزدیکه، اعدادشون هم به هم نزدیکه! 😍</p>
 <p><strong>یه مثال ساده:</strong>
@@ -75,7 +71,7 @@
 <li>کلمه <strong>سیب</strong> نزدیک به <strong>پرتقال</strong> قرار می‌گیره (چون هر دو میوه‌ن).</li>
 <li>ولی <strong>سیب</strong> از <strong>ماشین</strong> خیلی دوره.</li>
 </ul>
-<p><img src="images/vis-02-embedding-semantic-map.png" alt="نقشه‌ای مفهومی با دو خوشه حیوانات و خوراکی‌ها که نزدیکی معنایی امبدینگ‌ها رو نمایش می‌ده"></p>
+<p><img src="/source/llm-for-humans/images/vis-02-embedding-semantic-map.png" alt="نقشه‌ای مفهومی با دو خوشه حیوانات و خوراکی‌ها که نزدیکی معنایی امبدینگ‌ها رو نمایش می‌ده"></p>
 <blockquote>
 <p>🖼️ امبدینگ‌ها متن رو به بردار تبدیل می‌کنن؛ هرچه معنی دو متن شبیه‌تر باشه، بردارهاشون معمولاً به هم نزدیک‌تره.</p>
 </blockquote>
@@ -124,8 +120,7 @@ print(f&quot;شباهت متن ۱ و ۳ (متفاوت): {cosine_similarity(emb1,
 <hr>
 <div align="center">
 
-<h2>۳. پیش‌بینی توکن بعدی (Next Token Prediction): پیش‌گویی آینده 🔮</h2>
-<p>کل کاری که یه LLM انجام می‌ده (با اون همه ابهتش!) در واقع اینه:
+<h2 id="s-3">۳. پیش‌بینی توکن بعدی (Next Token Prediction): پیش‌گویی آینده 🔮</h2><p>کل کاری که یه LLM انجام می‌ده (با اون همه ابهتش!) در واقع اینه:
 <strong>با توجه به چیزایی که تا الان گفتیم، توکن بعدی چی می‌تونه باشه؟</strong></p>
 <p>مدل بر اساس تمام چیزایی که یاد گرفته، برای توکن‌های بعدی <strong>احتمال (Probability)</strong> تعیین می‌کنه. به این فرایند می‌گن <strong>تولید خودبازگشتی (Autoregressive Generation)</strong>؛ یعنی مدل متن رو یک توکن پس از توکن دیگه می‌سازه. هر توکن تازه رو به ورودی اضافه می‌کنه و دوباره توکن بعدی رو پیش‌بینی می‌کنه؛ مثل اینکه جمله رو تکه‌تکه بنویسی و هر بار نگاه کنی تا اینجا چی نوشته شده.</p>
 <p><strong>مثال:</strong>
@@ -138,7 +133,7 @@ print(f&quot;شباهت متن ۱ و ۳ (متفاوت): {cosine_similarity(emb1,
 <li>و بقیه احتمال بین هزاران توکن دیگه پخش شده...</li>
 </ul>
 <p>و بعد بر اساس تنظیماتی که داره (مثل همون Temperature که بعداً می‌گیم)، یکی رو انتخاب می‌کنه و می‌چسبونه ته جمله. بعد دوباره برای توکن بعدی همین کار رو تکرار می‌کنه.</p>
-<p><img src="images/vis-03-next-token-probability.png" alt="نموداری که تولید متن رو به‌صورت انتخاب تکرارشونده یک توکن از میان چند گزینه احتمالی نشون می‌ده"></p>
+<p><img src="/source/llm-for-humans/images/vis-03-next-token-probability.png" alt="نموداری که تولید متن رو به‌صورت انتخاب تکرارشونده یک توکن از میان چند گزینه احتمالی نشون می‌ده"></p>
 <blockquote>
 <p>🖼️ مدل در هر قدم احتمال چند توکن ممکن رو می‌سنجه، یکی رو انتخاب می‌کنه و دوباره همین چرخه رو ادامه می‌ده.</p>
 </blockquote>
@@ -154,8 +149,7 @@ print(f&quot;شباهت متن ۱ و ۳ (متفاوت): {cosine_similarity(emb1,
 
 <div align="center">
 
-<h2>۴. معماری‌های پشت صحنه: سه اسم که زیاد می‌شنوی 🏗️</h2>
-<p>برای استفاده از LLMها لازم نیست معماری داخلی‌شون رو بلد باشی؛ ولی این سه تا اسم این‌قدر تو اخبار و برگه مشخصات مدل‌ها تکرار می‌شن که ارزش داره بدونی چی هستن:</p>
+<h2 id="s-4">۴. معماری‌های پشت صحنه: سه اسم که زیاد می‌شنوی 🏗️</h2><p>برای استفاده از LLMها لازم نیست معماری داخلی‌شون رو بلد باشی؛ ولی این سه تا اسم این‌قدر تو اخبار و برگه مشخصات مدل‌ها تکرار می‌شن که ارزش داره بدونی چی هستن:</p>
 <p><strong>۱. مدل چندمتخصصه با یک مسیریاب (Mixture of Experts یا MoE) 🧩</strong></p>
 <p>تو مدل معمولی (که بهش <strong>Dense</strong> می‌گن)، برای تولید هر توکن کل پارامترهای مدل درگیر می‌شن. تو معماری MoE، مدل از کلی «متخصص» کوچیک‌تر ساخته شده و یه <strong>مسیریاب (Router)</strong> برای هر توکن فقط چند تا متخصص مرتبط رو فعال می‌کنه؛ مثل بیمارستانی که برای هر مریض فقط پزشک‌های مربوط رو صدا می‌زنه، نه کل کادر رو!</p>
 <p>نتیجه‌ش رو تو مشخصات مدل‌های متن‌باز می‌بینی: معمولاً دو تا عدد می‌دن؛ <strong>پارامتر کل</strong> (مثلاً ۶۰۰+ میلیارد) و <strong>پارامتر فعال</strong> (مثلاً ۳۰ تا ۴۰ میلیارد). یعنی دانشِ یه مدل غول‌پیکر، با سرعت و هزینه یه مدل خیلی کوچیک‌تر. اکثر مدل‌های متن‌باز بزرگ امروزی (DeepSeek، Qwen، Llama 4، Kimi و...) همین معماری رو دارن.</p>
@@ -163,7 +157,7 @@ print(f&quot;شباهت متن ۱ و ۳ (متفاوت): {cosine_similarity(emb1,
 <p>هزینه «توجه» تو ترنسفورمر با طول متن تقریباً به توان دو رشد می‌کنه (متن ۲ برابر، محاسبات حدود ۴ برابر). معماری‌های جایگزین مثل <strong>Mamba</strong> این رشد رو خطی نگه می‌دارن و برای متن‌های خیلی بلند به‌صرفه‌ترن. فعلاً بیشتر تو مدل‌های <strong>هیبریدی</strong> (ترکیب ترنسفورمر و SSM) ظاهر می‌شن؛ همین که بدونی بحث چیه کافیه.</p>
 <p><strong>۳. مدل‌های زبانی دیفیوژنی (Diffusion LLM) 🌫️</strong></p>
 <p>یادته گفتیم مدل توکن‌به‌توکن و پشت‌سرهم تولید می‌کنه؟ مدل‌های دیفیوژنی (همون خانواده‌ای که تصویر تولید می‌کنه) راه متفاوتی می‌رن: <strong>کل متن رو هم‌زمان و موازی</strong> تولید می‌کنن؛ از یه حالت خام شروع می‌کنن و قدم‌به‌قدم پالایشش می‌دن. نتیجه‌ش سرعت تولید خیلی بالاست (حدود هزار توکن در ثانیه تو نمونه‌هایی مثل Mercury و Gemini Diffusion). هنوز اول راهن و کیفیت‌شون به پای مدل‌های اصلی نمی‌رسه، ولی احتمالاً تو سال‌های آینده بیشتر ازشون می‌شنوی.</p>
-<p><img src="images/vis-04-llm-architecture-families.png" alt="سه پنل مقایسه‌ای برای MoE با مسیریاب، SSM با جریان بلند و Diffusion LLM با پالایش موازی متن"></p>
+<p><img src="/source/llm-for-humans/images/vis-04-llm-architecture-families.png" alt="سه پنل مقایسه‌ای برای MoE با مسیریاب، SSM با جریان بلند و Diffusion LLM با پالایش موازی متن"></p>
 <blockquote>
 <p>🖼️ مدل MoE فقط چند متخصص رو فعال می‌کنه، معماری SSM برای جریان‌های بلند طراحی شده و مدل دیفیوژنی متن رو به‌صورت موازی پالایش می‌کنه.</p>
 </blockquote>
@@ -175,4 +169,4 @@ print(f&quot;شباهت متن ۱ و ۳ (متفاوت): {cosine_similarity(emb1,
 <hr>
 <br>
 
-<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. توکن (Token): آجرهای سازنده 🧱</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">۲. امبدینگ (Embedding): تبدیل کلمات به اعداد معنی‌دار 🗺️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">۳. پیش‌بینی توکن بعدی (Next Token Prediction): پیش‌گویی آینده 🔮</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۴. معماری‌های پشت صحنه: سه اسم که زیاد می‌شنوی 🏗️</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
+<div align="center"></div></div></div></article></main><footer class="mt-32 border-t border-graphite"><div class="site-shell flex flex-col gap-4 py-10 text-sm text-smoke md:flex-row md:items-center md:justify-between"><span>LLM به زبان آدمیزاد</span><a class="text-smoke hover:text-chalk" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی در GitHub</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-8 max-w-3xl border border-graphite bg-carbon p-4 sm:mt-16 sm:p-6"><div class="flex gap-2"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-sm text-chalk outline-none"><button @click="hide()" class="shrink-0 border border-iron px-4 text-smoke" aria-label="بستن">بستن</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

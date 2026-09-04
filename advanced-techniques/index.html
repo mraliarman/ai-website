@@ -1,5 +1,4 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><link rel="canonical" href="https://example.com/advanced-techniques/"><meta property="og:type" content="article"><meta property="og:title" content="تکنیک‌های پیشرفته پرامپت‌نویسی"><meta property="og:description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>تکنیک‌های پیشرفته پرامپت‌نویسی | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / تکنیک‌های پیشرفته پرامپت‌نویسی</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">ADVANCED-TECHNIQUES</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">تکنیک‌های پیشرفته پرامپت‌نویسی</h1><p class="mt-5 text-lg text-smoke">جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار</p></header><div class="prose-llm max-w-none"><h1>چطور پرامپت‌های بهتری بنویسیم؟ (تکنیک‌های پیشرفته‌تر) 🚀</h1>
-<p>خب، حالا که اصول اولیه پرامپت‌نویسی رو گفتیم، وقتشه یه کم حرفه‌ای‌تر بشیم! 😎
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><link rel="canonical" href="https://example.com/advanced-techniques/"><meta property="og:type" content="article"><meta property="og:title" content="تکنیک‌های پیشرفته پرامپت‌نویسی"><meta property="og:description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>تکنیک‌های پیشرفته پرامپت‌نویسی | LLM به زبان آدمیزاد</title></head><body><header class="border-b border-graphite"><nav class="site-shell relative flex min-h-[76px] items-center justify-between gap-4 py-4"><a href="/" class="shrink-0 text-lg text-chalk no-underline md:text-xl">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke transition hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke transition hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke transition hover:text-chalk">درباره پروژه</a></div><div class="flex items-center gap-2"><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-4 py-2 text-xs text-chalk transition hover:border-signal-white">جستجو /</button><button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="باز کردن منو" class="rounded-card border border-iron px-3 py-2 text-chalk md:hidden"><span class="block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span></button></div><div id="mobile-navigation" x-data="{ mobileOpen: false }" x-show="mobileOpen" x-transition.origin.top @click.outside="mobileOpen = false" class="absolute inset-x-0 top-full z-40 border-b border-graphite bg-carbon p-4 md:hidden"><div class="grid gap-1"><a @click="mobileOpen = false" href="/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">خانه</a><a @click="mobileOpen = false" href="/developer-prompts/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a @click="mobileOpen = false" href="/about/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">درباره پروژه</a></div></div></nav></header><main><article class="site-shell py-16 sm:py-20"><div class="text-xs text-smoke">خانه / تکنیک‌های پیشرفته پرامپت‌نویسی</div><header class="mt-10 border-b border-graphite pb-10 sm:mt-12"><span class="font-mono text-xs text-smoke">ADVANCED-TECHNIQUES</span><h1 class="mt-5 max-w-5xl text-[34px] font-normal leading-[1.3] sm:text-[44px]">تکنیک‌های پیشرفته پرامپت‌نویسی</h1><p class="mt-5 max-w-3xl text-base text-smoke sm:text-lg">جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار</p></header><section class="toc mt-8 p-4 sm:p-5" aria-labelledby="toc-title"><div class="mb-3 flex items-center justify-between gap-4"><h2 id="toc-title" class="text-lg font-normal text-chalk">فهرست مطالب</h2><span class="font-mono text-xs text-smoke">8 بخش</span></div><nav class="grid gap-0"><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-0">۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-1">۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-2">۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-3">۴. شرط بذار، بعد دستور بده! ✅</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-4">۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-5">۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-6">۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-7">جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</a></nav></section><div class="article-layout mt-12"><div class="article-content"><div class="prose-llm"><p>خب، حالا که اصول اولیه پرامپت‌نویسی رو گفتیم، وقتشه یه کم حرفه‌ای‌تر بشیم! 😎
 یادته گفتیم هرچی پرامپت دقیق‌تر باشه، جواب بهتری می‌گیریم؟ این چند تا تکنیک بهت کمک می‌کنه پرامپت‌هات رو <strong>واضح‌تر، دقیق‌تر و قوی‌تر</strong> کنی تا LLM دقیقاً همون کاری که می‌خوای رو برات انجام بده.</p>
 <blockquote>
 <p>🗺️ <strong>جای این فصل تو نقشه:</strong> اینجا با هفت عادت پایه آشنا می‌شی که تو ۹۰٪ پرامپت‌هات به کار میان. چند تا از این تکنیک‌ها (مثل Few-Shot و زنجیره تفکر) بعداً تو فصل «تکنیک‌های پرامپت‌نویسی» با جزئیات و مثال‌های حرفه‌ای‌تر دوباره باز می‌شن. اگه وسط اون فصل حس آشنایی بهت دست داد تعجب نکن؛ اونجا «مرجع کامل»ه و اینجا «شروع سریع».</p>
@@ -9,8 +8,7 @@
 
 <div align="center">
 
-<h2>۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</h2>
-<p>بعضی وقتا لازمه هم یه <strong>دستور</strong> به مدل بدی (مثلاً «این متن رو خلاصه کن») و هم یه <strong>تکه داده</strong> (همون متنی که باید خلاصه بشه). اگه این دوتا رو همین‌جوری پشت سر هم بنویسی، مدل ممکنه قاطی کنه که کدوم دستوره و کدوم داده!</p>
+<h2 id="s-0">۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</h2><p>بعضی وقتا لازمه هم یه <strong>دستور</strong> به مدل بدی (مثلاً «این متن رو خلاصه کن») و هم یه <strong>تکه داده</strong> (همون متنی که باید خلاصه بشه). اگه این دوتا رو همین‌جوری پشت سر هم بنویسی، مدل ممکنه قاطی کنه که کدوم دستوره و کدوم داده!</p>
 <p>بهترین کار اینه که با یه <strong>جداکننده واضح</strong>، این دو بخش رو از هم سوا کنی. رایج‌ترین و ساده‌ترین راه، استفاده از سه تا بک‌تیک (```) هست:</p>
 <p><strong>مثال:</strong> فرض کن می‌خوای یه پاراگراف رو خلاصه کنی.</p>
 <pre><code class="language-markdown">لطفاً پاراگراف زیر رو در یک جمله خلاصه کن:
@@ -28,8 +26,7 @@
 
 <div align="center">
 
-<h2>۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</h2>
-<p>گاهی وقتا نمی‌خوای جواب مدل همین‌جوری یه متن ساده باشه. مثلاً اگه برنامه‌نویس باشی، شاید لازم داشته باشی جواب رو تو فرمت <strong>JSON</strong> بگیری تا راحت تو کدت ازش استفاده کنی. یا شاید بخوای جواب به صورت یه <strong>لیست شماره‌دار</strong> یا یه <strong>جدول</strong> باشه.</p>
+<h2 id="s-1">۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</h2><p>گاهی وقتا نمی‌خوای جواب مدل همین‌جوری یه متن ساده باشه. مثلاً اگه برنامه‌نویس باشی، شاید لازم داشته باشی جواب رو تو فرمت <strong>JSON</strong> بگیری تا راحت تو کدت ازش استفاده کنی. یا شاید بخوای جواب به صورت یه <strong>لیست شماره‌دار</strong> یا یه <strong>جدول</strong> باشه.</p>
 <p><strong>خیلی راحت می‌تونی تو پرامپت از مدل بخوای خروجی رو تو فرمت خاصی بهت بده.</strong></p>
 <p><strong>مثال: گرفتن خروجی JSON</strong></p>
 <pre><code class="language-markdown">اطلاعات کتاب زیر رو به صورت یک آبجکت JSON با کلیدهای `title` و `author` و `year` بهم بده:
@@ -117,8 +114,7 @@ print(result)
 
 <div align="center">
 
-<h2>۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</h2>
-<p>یکی از قابلیت‌های باحال LLMها اینه که می‌تونن با <strong>لحن‌ها و شخصیت‌های مختلف</strong> برات متن تولید کنن! فقط کافیه تو پرامپت بهش بگی چه لحنی مدنظرته.</p>
+<h2 id="s-2">۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</h2><p>یکی از قابلیت‌های باحال LLMها اینه که می‌تونن با <strong>لحن‌ها و شخصیت‌های مختلف</strong> برات متن تولید کنن! فقط کافیه تو پرامپت بهش بگی چه لحنی مدنظرته.</p>
 <p><strong>مثال: لحن دوستانه</strong></p>
 <pre><code class="language-markdown">با یه لحن ساده و خودمونی توضیح بده چطوری می‌تونم یه چای خوب دم کنم. انگار داری برای دوستت توضیح می‌دی.
 </code></pre>
@@ -149,8 +145,7 @@ print(result)
 
 <div align="center">
 
-<h2>۴. شرط بذار، بعد دستور بده! ✅</h2>
-<p>می‌تونی از LLM بخوای <strong>اول یه سری شرط رو چک کنه</strong> و بعد بر اساس نتیجه‌ش تصمیم بگیره چه جوابی بده یا چه کاری انجام بده.</p>
+<h2 id="s-3">۴. شرط بذار، بعد دستور بده! ✅</h2><p>می‌تونی از LLM بخوای <strong>اول یه سری شرط رو چک کنه</strong> و بعد بر اساس نتیجه‌ش تصمیم بگیره چه جوابی بده یا چه کاری انجام بده.</p>
 <p><strong>مثال:</strong> فرض کن یه ربات پشتیبانی برای یه فروشگاه اینترنتی داری.</p>
 <pre><code class="language-markdown">لطفاً بر اساس قانون مرجوعی جواب بده:
 اگر کمتر از ۷ روز از تاریخ خرید گذشته باشه، مراحل مرجوع کردن کالا رو توضیح بده؛ در غیر این صورت، مودبانه بگو که مهلت مرجوعی تموم شده.
@@ -187,8 +182,7 @@ print(result)
 
 <div align="center">
 
-<h2>۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</h2>
-<p>این یکی از تکنیک‌های خیلی قدرتمنده! به جای اینکه فقط دستور بدی، <strong>چند تا مثال از کار موردنظرت به مدل نشون می‌دی.</strong> مدل از روی مثال‌هات الگو رو یاد می‌گیره و کار رو برای ورودی جدیدت انجام می‌ده. به این روش می‌گن <strong>Few-Shot Prompting</strong> (یعنی یادگیری با چند مثال).</p>
+<h2 id="s-4">۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</h2><p>این یکی از تکنیک‌های خیلی قدرتمنده! به جای اینکه فقط دستور بدی، <strong>چند تا مثال از کار موردنظرت به مدل نشون می‌دی.</strong> مدل از روی مثال‌هات الگو رو یاد می‌گیره و کار رو برای ورودی جدیدت انجام می‌ده. به این روش می‌گن <strong>Few-Shot Prompting</strong> (یعنی یادگیری با چند مثال).</p>
 <p><strong>سه حالت مختلف وجود داره:</strong></p>
 <ul>
 <li><strong>صفر مثال (Zero-Shot):</strong> هیچ مثالی نمی‌دی، فقط دستور می‌دی. مثلاً: <code>حس این متن رو بگو: &quot;فیلم عالی بود&quot;</code>. برای کارهای ساده و رایج کافیه.</li>
@@ -244,8 +238,7 @@ print(result)
 
 <div align="center">
 
-<h2>۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</h2>
-<p>گاهی اوقات، مخصوصاً برای مسائل پیچیده‌تر (مثل مسائل ریاضی یا استدلالی)، اگه از مدل بخوای <strong>قبل از دادن جواب نهایی، مراحل فکر کردنش رو هم بنویسه</strong>، نتیجه بهتری می‌گیری. انگار داری بهش می‌گی «بلند بلند فکر کن!». اسم استاندارد این تکنیک <strong>Chain-of-Thought (زنجیره تفکر)</strong> یا به اختصار <strong>CoT</strong> هست و یکی از مهم‌ترین تکنیک‌های پرامپت‌نویسیه.</p>
+<h2 id="s-5">۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</h2><p>گاهی اوقات، مخصوصاً برای مسائل پیچیده‌تر (مثل مسائل ریاضی یا استدلالی)، اگه از مدل بخوای <strong>قبل از دادن جواب نهایی، مراحل فکر کردنش رو هم بنویسه</strong>، نتیجه بهتری می‌گیری. انگار داری بهش می‌گی «بلند بلند فکر کن!». اسم استاندارد این تکنیک <strong>Chain-of-Thought (زنجیره تفکر)</strong> یا به اختصار <strong>CoT</strong> هست و یکی از مهم‌ترین تکنیک‌های پرامپت‌نویسیه.</p>
 <p><strong>مثال: حل مسئله ریاضی</strong></p>
 <pre><code class="language-markdown">لطفاً مسئله زیر رو مرحله به مرحله حل کن و در نهایت جواب آخر رو بنویس:
 
@@ -294,8 +287,7 @@ result = average([])
 
 <div align="center">
 
-<h2>۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</h2>
-<p>خیلی مهمه که بدونی: <strong>نوشتن پرامپت یه مهارته و مثل هر مهارت دیگه‌ای با تمرین بهتر می‌شه!</strong> خیلی کم پیش میاد که با همون اولین پرامپتی که می‌نویسی، دقیقاً به بهترین جواب ممکن برسی.</p>
+<h2 id="s-6">۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</h2><p>خیلی مهمه که بدونی: <strong>نوشتن پرامپت یه مهارته و مثل هر مهارت دیگه‌ای با تمرین بهتر می‌شه!</strong> خیلی کم پیش میاد که با همون اولین پرامپتی که می‌نویسی، دقیقاً به بهترین جواب ممکن برسی.</p>
 <p>پس <strong>اصلاً ناامید نشو!</strong> فرایند کار معمولاً اینطوریه:</p>
 <ol>
 <li><strong>یه پرامپت اولیه بنویس</strong> و نتیجه رو ببین.</li>
@@ -318,7 +310,7 @@ result = average([])
 خروجی: &quot;صبح بدون قهوه مثل گوشی بدون شارژه! ...&quot; (دقیقاً همون چیزی که می‌خواستیم)
 </code></pre>
 <p>ببین چطور با هر بار اصلاح، خروجی بهتر شد؟ <strong>نکته حرفه‌ای:</strong> یه دفترچه (حتی یه فایل ساده) داشته باش و پرامپت‌هایی که خوب جواب دادن رو توش ذخیره کن؛ دفعه بعد لازم نیست از صفر شروع کنی! 📓</p>
-<p><img src="images/vis-06-prompt-iteration-loop.png" alt="چرخه‌ای شامل نسخه اولیه، اجرا، بررسی خروجی، یک تغییر، نسخه بهتر و تکرار"></p>
+<p><img src="/source/llm-for-humans/images/vis-06-prompt-iteration-loop.png" alt="چرخه‌ای شامل نسخه اولیه، اجرا، بررسی خروجی، یک تغییر، نسخه بهتر و تکرار"></p>
 <blockquote>
 <p>🖼️ خروجی رو ببین، یک ایراد مشخص پیدا کن، یک تغییر بده و دوباره با همون معیار امتحان کن.</p>
 </blockquote>
@@ -327,8 +319,7 @@ result = average([])
 
 <div align="center">
 
-<h3>جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</h3>
-<p>پس دیدیم که با چند تا تکنیک ساده اما کاربردی می‌تونیم کنترل خیلی بیشتری روی جواب‌های LLM داشته باشیم:</p>
+<h3 id="s-7">جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</h3><p>پس دیدیم که با چند تا تکنیک ساده اما کاربردی می‌تونیم کنترل خیلی بیشتری روی جواب‌های LLM داشته باشیم:</p>
 <ul>
 <li><strong>جدا کردن دستور و داده:</strong> با جداکننده‌ها (مثل سه تا بک‌تیک، <code>###</code> و...).</li>
 <li><strong>درخواست فرمت خاص خروجی:</strong> مثل JSON، لیست، جدول.</li>
@@ -345,4 +336,4 @@ result = average([])
 <hr>
 <br>
 
-<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۴. شرط بذار، بعد دستور بده! ✅</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
+<div align="center"></div></div></div></article></main><footer class="mt-32 border-t border-graphite"><div class="site-shell flex flex-col gap-4 py-10 text-sm text-smoke md:flex-row md:items-center md:justify-between"><span>LLM به زبان آدمیزاد</span><a class="text-smoke hover:text-chalk" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی در GitHub</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-8 max-w-3xl border border-graphite bg-carbon p-4 sm:mt-16 sm:p-6"><div class="flex gap-2"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-sm text-chalk outline-none"><button @click="hide()" class="shrink-0 border border-iron px-4 text-smoke" aria-label="بستن">بستن</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

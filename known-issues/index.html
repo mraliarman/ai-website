@@ -1,17 +1,14 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج"><link rel="canonical" href="https://example.com/known-issues/"><meta property="og:type" content="article"><meta property="og:title" content="مشکلات معروف LLMها"><meta property="og:description" content="توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مشکلات معروف LLMها | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / مشکلات معروف LLMها</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">KNOWN-ISSUES</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">مشکلات معروف LLMها</h1><p class="mt-5 text-lg text-smoke">توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج</p></header><div class="prose-llm max-w-none"><h1>مشکلات معروف LLMها ⚠️</h1>
-<p><strong>مدل‌های زبانی بزرگ (LLM)</strong> مثل هر فناوری دیگه، <strong>کامل و بی‌نقص</strong> نیستن. اینجا با مشکلات مهم این مدل‌ها آشنا می‌شیم و راهکارهایی رو می‌بینیم که <strong>کیفیت خروجی</strong> رو بهتر می‌کنن.</p>
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج"><link rel="canonical" href="https://example.com/known-issues/"><meta property="og:type" content="article"><meta property="og:title" content="مشکلات معروف LLMها"><meta property="og:description" content="توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>مشکلات معروف LLMها | LLM به زبان آدمیزاد</title></head><body><header class="border-b border-graphite"><nav class="site-shell relative flex min-h-[76px] items-center justify-between gap-4 py-4"><a href="/" class="shrink-0 text-lg text-chalk no-underline md:text-xl">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke transition hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke transition hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke transition hover:text-chalk">درباره پروژه</a></div><div class="flex items-center gap-2"><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-4 py-2 text-xs text-chalk transition hover:border-signal-white">جستجو /</button><button @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-navigation" aria-label="باز کردن منو" class="rounded-card border border-iron px-3 py-2 text-chalk md:hidden"><span class="block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span><span class="mt-1.5 block h-px w-5 bg-chalk"></span></button></div><div id="mobile-navigation" x-data="{ mobileOpen: false }" x-show="mobileOpen" x-transition.origin.top @click.outside="mobileOpen = false" class="absolute inset-x-0 top-full z-40 border-b border-graphite bg-carbon p-4 md:hidden"><div class="grid gap-1"><a @click="mobileOpen = false" href="/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">خانه</a><a @click="mobileOpen = false" href="/developer-prompts/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a @click="mobileOpen = false" href="/about/" class="border border-transparent px-4 py-3 text-sm text-smoke hover:border-graphite hover:text-chalk">درباره پروژه</a></div></div></nav></header><main><article class="site-shell py-16 sm:py-20"><div class="text-xs text-smoke">خانه / مشکلات معروف LLMها</div><header class="mt-10 border-b border-graphite pb-10 sm:mt-12"><span class="font-mono text-xs text-smoke">KNOWN-ISSUES</span><h1 class="mt-5 max-w-5xl text-[34px] font-normal leading-[1.3] sm:text-[44px]">مشکلات معروف LLMها</h1><p class="mt-5 max-w-3xl text-base text-smoke sm:text-lg">توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج</p></header><section class="toc mt-8 p-4 sm:p-5" aria-labelledby="toc-title"><div class="mb-3 flex items-center justify-between gap-4"><h2 id="toc-title" class="text-lg font-normal text-chalk">فهرست مطالب</h2><span class="font-mono text-xs text-smoke">34 بخش</span></div><nav class="grid gap-0"><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-0">۱. ناتوانی در ارائه منابع معتبر (Citing Sources) 📚</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-1">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-2">**راهکارها**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-3">۲. سوگیری در پاسخ‌ها (Bias) 🎭</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-4">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-5">**راهکارها**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-6">۳. توهمات یا تولید اطلاعات ساختگی (Hallucinations) 🌈</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-7">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-8">**راهکارها**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-9">۴. اشتباه در محاسبات ریاضی (Math Errors) ➗</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-10">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-11">**راهکارها**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-12">۵. هک پرامپت (Prompt Hacking) 🔓</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-13">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-14">**راهکارها**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-15">۶. محدودیت‌های پنجره کانتکست (Context Window) ⏳</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-16">**چرا مشکل‌سازه؟**  </a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-17">استراتژی‌های پیشرفته برای مدیریت متن‌های بلند 🧩</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-18">۷. دانش قدیمی یا محدودیت زمانی (Outdated Knowledge) ⏰</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-19">**چرا مشکل‌سازه؟**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-20">۸. عدم درک مفاهیم عمیق یا حالات احساسی ❤️‍🩹</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-21">**چرا مشکل‌سازه؟**  </a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-22">۹. تملق‌گویی (Sycophancy) 🪞</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-23">**چرا مشکل‌سازه؟**</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-24">**راهکارها**</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-25">۱۰. گم شدن در میانه متن (Lost in the Middle) 📄</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-26">**چرا مشکل‌سازه؟**</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-27">**راهکارها**</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-28">۱۱. حساسیت به نحوه بیان (Sensitivity to Phrasing) 🎲</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-29">**چرا مشکل‌سازه؟**</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-30">**راهکارها**</a><a class=" border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-31">۱۲. نشت داده و حریم خصوصی (Data Leakage / Privacy) 🔐</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-32">**چرا مشکل‌سازه؟**</a><a class="pr-5 border-b border-graphite/60 px-4 py-2.5 text-sm text-smoke transition hover:text-chalk" href="#s-33">**راهکارها**</a></nav></section><div class="article-layout mt-12"><div class="article-content"><div class="prose-llm"><p><strong>مدل‌های زبانی بزرگ (LLM)</strong> مثل هر فناوری دیگه، <strong>کامل و بی‌نقص</strong> نیستن. اینجا با مشکلات مهم این مدل‌ها آشنا می‌شیم و راهکارهایی رو می‌بینیم که <strong>کیفیت خروجی</strong> رو بهتر می‌کنن.</p>
 <hr>
 <br>
 
 <div align="center">
 
-<h2>۱. ناتوانی در ارائه منابع معتبر (Citing Sources) 📚</h2>
-<p>یکی از <strong>رایج‌ترین</strong> مشکلات اینه که مدل‌ها <strong>منبع</strong> پاسخ‌هاشون رو ذکر نمی‌کنن. در واقع، جواب مدل بر اساس الگوهای آماری در متن‌های آموزشی شکل می‌گیره، نه از روی منابع مشخص.</p>
+<h2 id="s-0">۱. ناتوانی در ارائه منابع معتبر (Citing Sources) 📚</h2><p>یکی از <strong>رایج‌ترین</strong> مشکلات اینه که مدل‌ها <strong>منبع</strong> پاسخ‌هاشون رو ذکر نمی‌کنن. در واقع، جواب مدل بر اساس الگوهای آماری در متن‌های آموزشی شکل می‌گیره، نه از روی منابع مشخص.</p>
 <blockquote>
 <p>⚠️ <strong>خیلی مهم:</strong> مشکل فقط این نیست که مدل‌ها منبع نمی‌دن؛ بدتر اینه که وقتی ازشون منبع بخوای، گاهی <strong>منابع ساختگی و جعلی می‌سازن!</strong> یعنی اسم مقاله، نویسنده، لینک و حتی DOI رو <strong>من‌درآوردی</strong> تولید می‌کنن؛ منبعی که ظاهرش کاملاً واقعیه، ولی وقتی بری دنبالش، می‌بینی اصلاً وجود نداره. به این کار می‌گن <strong>توهم کتاب‌شناختی (Bibliographic Hallucination)</strong> و یکی از خطرناک‌ترین مشکلاته، چون کاربر فکر می‌کنه منبع واقعیه.</p>
 </blockquote>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h3 id="s-1"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li><strong>اعتبارسنجی</strong> پاسخ سخت می‌شه.  </li>
 <li>برای موضوعات علمی یا حقوقی، <strong>سند و مدرک</strong> لازم داریم.  </li>
 <li>اگه مدل اشتباه کنه، <strong>نمی‌دونیم کجا رو باید اصلاح کنیم</strong>.</li>
@@ -21,8 +18,7 @@
 جواب: &quot;جرج واشنگتن اولین رئیس‌جمهور ایالات متحده بود.&quot;
 </code></pre>
 <p>اینجا مدل <strong>اطمینان زیادی</strong> توی لحنش داره، اما هیچ <strong>منبعی</strong> ارائه نمی‌ده.</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-2"><strong>راهکارها</strong></h3><ol>
 <li><strong>استفاده از ابزار بیرونی:</strong> می‌تونیم بعد از دریافت جواب، درستیش رو با سرویس‌های جست‌وجو یا <strong>APIهایی</strong> که منابع رو برمی‌گردونن چک کنیم.</li>
 <li><strong>پرامپت دقیق‌تر:</strong> از مدل بخواه <strong>اگر منبعِ قابل استناد نداره، صریح بگه مطمئن نیست</strong> و حدس نزنه. (باز هم یادت باشه: مدل ممکنه <strong>منبع ساختگی</strong> بسازه.)  </li>
 <li><strong>راه‌حل حرفه‌ای‌تر (RAG + نقل‌قول + لینک):</strong> اگه پاسخ باید قابل استناد باشه، بهتره خودت <strong>منابع معتبر</strong> رو بازیابی کنی (RAG/جست‌وجو) و بعدش از مدل بخوای <strong>فقط بر اساس همون منابع</strong> جواب بده و <strong>لینک/نقل‌قول</strong> بیاره.</li>
@@ -32,10 +28,8 @@
 
 <div align="center">
 
-<h2>۲. سوگیری در پاسخ‌ها (Bias) 🎭</h2>
-<p>مدل‌های زبانی روی <strong>حجم بزرگی از متن</strong> آموزش می‌بینن؛ متن‌هایی که ممکنه توشون <strong>سوگیری‌ها</strong> یا <strong>کلیشه</strong>‌های مختلفی باشه. این سوگیری‌ها می‌تونن وارد پاسخ‌های مدل بشن.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-3">۲. سوگیری در پاسخ‌ها (Bias) 🎭</h2><p>مدل‌های زبانی روی <strong>حجم بزرگی از متن</strong> آموزش می‌بینن؛ متن‌هایی که ممکنه توشون <strong>سوگیری‌ها</strong> یا <strong>کلیشه</strong>‌های مختلفی باشه. این سوگیری‌ها می‌تونن وارد پاسخ‌های مدل بشن.</p>
+<h3 id="s-4"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>ممکنه پاسخ مدل <strong>ناعادلانه</strong> یا <strong>تبعیض‌آمیز</strong> باشه.  </li>
 <li><strong>قضاوت‌های غلط</strong> بر اساس داده‌های آموزشی محدود یا مغرضانه.  </li>
 <li>تکرار و <strong>تقویت کلیشه</strong>‌های فرهنگی یا اجتماعی.</li>
@@ -48,22 +42,17 @@
 <blockquote>
 <p>💡 البته مدل‌های امروزی به‌ندرت این‌قدر رک کلیشه می‌گن؛ سوگیری الان <strong>ظریف‌تر</strong> خودش رو نشون می‌ده. مثلاً ازش بخوای «یه داستان درباره یه جراح و یه پرستار» بنویسه، ممکنه جراح رو مرد و پرستار رو زن فرض کنه، مگه اینکه خلافش رو بگی.</p>
 </blockquote>
-<h3><strong>راهکارها</strong></h3>
-<h4>1. دی‌بایاس کردن با پرامپت (Debiasing Prompt) 🧩</h4>
-<ul>
+<h3 id="s-5"><strong>راهکارها</strong></h3><h4 id="s-6">1. دی‌بایاس کردن با پرامپت (Debiasing Prompt) 🧩</h4><ul>
 <li>از <strong>زبان بی‌طرف</strong> استفاده کن.  </li>
 <li>سوال رو جوری مطرح کن که <strong>همه جوانب</strong> رو در نظر بگیره (و پیش‌فرض‌های کلیشه‌ای نداشته باشه).</li>
 </ul>
-<h4>2. <strong>ارائه مثال‌های متنوع:</strong></h4>
-<ul>
+<h4 id="s-7">2. <strong>ارائه مثال‌های متنوع:</strong></h4><ul>
 <li>به مدل <strong>چند نمونه متنوع</strong> بده تا کمتر به یک کلیشه بچسبه.</li>
 </ul>
-<h4>3. <strong>پس‌پردازش (Post-processing):</strong></h4>
-<ul>
+<h4 id="s-8">3. <strong>پس‌پردازش (Post-processing):</strong></h4><ul>
 <li>جواب مدل رو بعد از تولید <strong>فیلتر</strong> یا <strong>ویرایش</strong> کن تا سوگیری‌هاش کمتر بشه (مخصوصاً وقتی خروجی عمومی می‌شه).</li>
 </ul>
-<h4>4. <strong>آموزش مجدد (Fine-tuning):</strong></h4>
-<ul>
+<h4 id="s-9">4. <strong>آموزش مجدد (Fine-tuning):</strong></h4><ul>
 <li>اگه واقعاً نیاز داری و تیم/داده مناسب داری، می‌تونی مدل رو روی مجموعه داده‌ای آموزش بدی که <strong>سوگیری کمتری</strong> داشته باشه (ولی این کار هزینه/ریسک خودش رو داره و همیشه بهترین گزینه نیست).</li>
 </ul>
 <hr>
@@ -71,10 +60,8 @@
 
 <div align="center">
 
-<h2>۳. توهمات یا تولید اطلاعات ساختگی (Hallucinations) 🌈</h2>
-<p>گاهی مدل <strong>اطلاعات کاملاً غلط</strong> یا <strong>خیالی</strong> می‌ده. ممکنه اسم کتاب، فرد یا واقعه‌ای رو <strong>بسازه</strong> و با اطمینان بگه.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-10">۳. توهمات یا تولید اطلاعات ساختگی (Hallucinations) 🌈</h2><p>گاهی مدل <strong>اطلاعات کاملاً غلط</strong> یا <strong>خیالی</strong> می‌ده. ممکنه اسم کتاب، فرد یا واقعه‌ای رو <strong>بسازه</strong> و با اطمینان بگه.</p>
+<h3 id="s-11"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li><strong>اعتماد</strong> کاربر رو خدشه‌دار می‌کنه.  </li>
 <li>می‌تونه در موضوعات حساس، <strong>عواقب جدی</strong> داشته باشه.  </li>
 <li>اگه کاربر تخصص کافی نداشته باشه، <strong>متوجه اشتباه</strong> نمی‌شه.</li>
@@ -84,8 +71,7 @@
 جواب: &quot;کتاب &#39;جهان جدید شجاع&#39; اثر معروف جورج اورول هست.&quot;
 </code></pre>
 <p>در حالی که <strong>&quot;جهان جدید شجاع&quot;</strong> رو <strong>الدوس هاکسلی</strong> نوشته!</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-12"><strong>راهکارها</strong></h3><ol>
 <li><strong>خودارزیابی مدل (Self-Evaluation):</strong>  <ul>
 <li>از مدل بپرس: &quot;کدوم بخش از این جواب ممکنه اشتباه باشه؟&quot; یا &quot;کجاها نیاز به منبع داری؟&quot;  </li>
 <li>این کار <strong>گاهی</strong> کمک می‌کنه خروجی محتاط‌تر و دقیق‌تر بشه، ولی <strong>جای فکت‌چک واقعی رو نمی‌گیره</strong>.</li>
@@ -110,10 +96,8 @@
 
 <div align="center">
 
-<h2>۴. اشتباه در محاسبات ریاضی (Math Errors) ➗</h2>
-<p>مدل‌های زبانی، ماشین حساب نیستن. اونا <strong>بر اساس الگوی کلمات</strong> جواب می‌دن، نه با انجام <strong>محاسبات واقعی</strong>.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-13">۴. اشتباه در محاسبات ریاضی (Math Errors) ➗</h2><p>مدل‌های زبانی، ماشین حساب نیستن. اونا <strong>بر اساس الگوی کلمات</strong> جواب می‌دن، نه با انجام <strong>محاسبات واقعی</strong>.</p>
+<h3 id="s-14"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>حتی در جمع و تفریق ساده هم <strong>احتمال خطا</strong> وجود داره.  </li>
 <li>برای مسائل <strong>پیچیده</strong> (مثل جبر، آمار یا ریاضیات مهندسی) مدل به سادگی گیج می‌شه.  </li>
 <li>کاربر ممکنه <strong>اعتماد</strong> کنه و خروجی اشتباه رو مبنا قرار بده.</li>
@@ -123,8 +107,7 @@
 جواب: &quot;۲٬۴۲۷٬۹۲۴٬۲۸۹&quot; (قیافه‌ش جدیه، ولی غلطه!)
 </code></pre>
 <p>جواب درست <strong>۲٬۴۲۷٬۸۵۷٬۰۸۹</strong> هست. ضرب‌های کوچیک رو مدل‌های امروزی معمولاً درست می‌گن، ولی تو عملیات چندرقمی بزرگ هنوز راحت می‌لغزن؛ چون دارن «شبیه‌ترین جواب» رو حدس می‌زنن، نه اینکه واقعاً حساب کنن.</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-15"><strong>راهکارها</strong></h3><ol>
 <li><strong>استفاده از ماشین حساب جداگانه:</strong>  <ul>
 <li>توی برنامه‌ت، نتایج رو با <strong>یک کتابخانه ریاضی</strong> چک کن.</li>
 </ul>
@@ -147,19 +130,17 @@
 
 <div align="center">
 
-<h2>۵. هک پرامپت (Prompt Hacking) 🔓</h2>
-<p>هک پرامپت وقتی رخ می‌ده که کاربر (یا حتی یک متن خارجی) کاری می‌کنه که مدل <strong>از محدوده مجاز</strong>ش خارج بشه و اطلاعات یا دستورالعمل‌های <strong>نامطلوب</strong> بده.</p>
+<h2 id="s-16">۵. هک پرامپت (Prompt Hacking) 🔓</h2><p>هک پرامپت وقتی رخ می‌ده که کاربر (یا حتی یک متن خارجی) کاری می‌کنه که مدل <strong>از محدوده مجاز</strong>ش خارج بشه و اطلاعات یا دستورالعمل‌های <strong>نامطلوب</strong> بده.</p>
 <p>یه نکته مهم: خیلی جاها به این حمله می‌گن <strong>Prompt Injection</strong> یا <strong>Jailbreak</strong> و معمولاً دو مدل رایج داره:</p>
 <ul>
 <li><strong>تزریق مستقیم (Direct Injection):</strong> خودِ پیام کاربر تلاش می‌کنه قوانین رو دور بزنه.</li>
 <li><strong>تزریق غیرمستقیم (Indirect Injection):</strong> یک متن «غیرقابل‌اعتماد» بیرون از چت (مثل یک صفحه وب، PDF، ایمیل، یا حتی تکه‌متن‌های RAG) داخل کانتکست میاد و یواشکی به مدل دستور می‌ده.</li>
 </ul>
-<p><img src="images/vis-18-prompt-injection-paths.png" alt="دو مسیر تزریق مستقیم و غیرمستقیم که از کاربر و محتوای بیرونی به کانتکست و مدل می‌رسن"></p>
+<p><img src="/source/llm-for-humans/images/vis-18-prompt-injection-paths.png" alt="دو مسیر تزریق مستقیم و غیرمستقیم که از کاربر و محتوای بیرونی به کانتکست و مدل می‌رسن"></p>
 <blockquote>
 <p>🖼️ تزریق پرامپت ممکنه مستقیم از کاربر یا غیرمستقیم از سند، وب و ایمیل وارد کانتکست بشه.</p>
 </blockquote>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h3 id="s-17"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>ممکنه اطلاعات <strong>حساس یا خطرناک</strong> لو بره.  </li>
 <li><strong>مقررات اخلاقی</strong> و <strong>قانونی</strong> نقض بشه.  </li>
 <li><strong>امنیت</strong> سیستم یا داده‌ها به خطر بیفته.</li>
@@ -169,8 +150,7 @@
 جواب: &quot;متاسفم، نمی‌تونم این اطلاعات رو ارائه بدم.&quot;
 </code></pre>
 <p>اما کاربر می‌تونه با طرح پرسش‌های <strong>غیرمستقیم</strong> یا تغییر <strong>فرم سوال</strong> مدل رو <strong>دور بزنه</strong>.</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-18"><strong>راهکارها</strong></h3><ol>
 <li><strong>قانون رو بیرون از مدل اعمال کن (Moderation/Policy واقعی):</strong><ul>
 <li>فقط به این امید نباش که «مدل خودش رعایت می‌کنه». بهتره قبل از ارسال به مدل (و حتی بعد از گرفتن خروجی) یک لایه بررسی داشته باشی.</li>
 </ul>
@@ -200,10 +180,8 @@
 
 <div align="center">
 
-<h2>۶. محدودیت‌های پنجره کانتکست (Context Window) ⏳</h2>
-<p>این مدل‌ها (LLMها) پنجره‌ای دارن که فقط <strong>حجم محدودی از متن</strong> توش جا می‌شه. اگه <strong>متن ورودی</strong> خیلی طولانی بشه، مدل <strong>بخشی از اطلاعات</strong> رو فراموش می‌کنه.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-19">۶. محدودیت‌های پنجره کانتکست (Context Window) ⏳</h2><p>این مدل‌ها (LLMها) پنجره‌ای دارن که فقط <strong>حجم محدودی از متن</strong> توش جا می‌شه. اگه <strong>متن ورودی</strong> خیلی طولانی بشه، مدل <strong>بخشی از اطلاعات</strong> رو فراموش می‌کنه.</p>
+<h3 id="s-20"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>اطلاعات اول متن رو <strong>یادش می‌ره</strong>.  </li>
 <li>نیاز به <strong>خلاصه‌سازی</strong> یا <strong>تقسیم مکالمه</strong> داریم.  </li>
 <li>ممکنه مدل پاسخ‌های <strong>نامرتبط</strong> بده، چون <strong>پیشینه</strong> رو از دست داده.</li>
@@ -223,8 +201,7 @@
 </ul>
 </li>
 </ol>
-<h3>استراتژی‌های پیشرفته برای مدیریت متن‌های بلند 🧩</h3>
-<p>اگه با متن‌های خیلی بلند سروکار داری (مثلاً یه کتاب ۵۰۰ صفحه‌ای یا هزاران سند)، این روش‌های حرفه‌ای‌تر رو هم بشناس:</p>
+<h3 id="s-21">استراتژی‌های پیشرفته برای مدیریت متن‌های بلند 🧩</h3><p>اگه با متن‌های خیلی بلند سروکار داری (مثلاً یه کتاب ۵۰۰ صفحه‌ای یا هزاران سند)، این روش‌های حرفه‌ای‌تر رو هم بشناس:</p>
 <ul>
 <li><strong>تکه‌بندی با همپوشانی (Sliding Window):</strong> متن رو به تکه‌هایی با <strong>همپوشانی</strong> تقسیم کن (مثلاً هر تکه ۱۰۰۰ توکن با ۲۰۰ توکن همپوشانی). این‌جوری اطلاعات مرزی بین تکه‌ها گم نمی‌شه.</li>
 <li><strong>خلاصه‌سازی سلسله‌مراتبی (Map-Reduce):</strong> اول هر تکه رو <strong>جداگانه</strong> خلاصه کن (Map)، بعد همه خلاصه‌ها رو بده به مدل تا یه <strong>خلاصه نهایی</strong> بسازه (Reduce). مثل اینکه ۱۰ تا منشی هر کدوم یه فصل از کتاب رو بخونن و خلاصه بنویسن، بعد یه نفر همه خلاصه‌ها رو ترکیب کنه.</li>
@@ -235,25 +212,20 @@
 
 <div align="center">
 
-<h2>۷. دانش قدیمی یا محدودیت زمانی (Outdated Knowledge) ⏰</h2>
-<p>بیشتر LLMها تا یه تاریخ مشخص آموزش دیدن و از اتفاقات <strong>بعد از اون تاریخ</strong> ذاتاً بی‌خبرن (این تاریخ بسته به مدل/ارائه‌دهنده فرق می‌کنه). برای همین اخبار و داده‌های <strong>جدید</strong> ممکنه براشون غریبه باشه.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-22">۷. دانش قدیمی یا محدودیت زمانی (Outdated Knowledge) ⏰</h2><p>بیشتر LLMها تا یه تاریخ مشخص آموزش دیدن و از اتفاقات <strong>بعد از اون تاریخ</strong> ذاتاً بی‌خبرن (این تاریخ بسته به مدل/ارائه‌دهنده فرق می‌کنه). برای همین اخبار و داده‌های <strong>جدید</strong> ممکنه براشون غریبه باشه.</p>
+<h3 id="s-23"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li><strong>رویدادهای اخیر</strong> رو مدل نمی‌دونه.  </li>
 <li>اطلاعات ممکنه کهنه یا <strong>غیرمعتبر</strong> شده باشه.  </li>
 <li>برای موضوعات پویا (مثل بورس، قیمت ارز یا اوضاع سیاسی) <strong>کارایی کم</strong> می‌شه.</li>
 </ul>
 <p><strong>راهکارها</strong>  </p>
-<h4>۱. اتصال به منابع به‌روز (جست‌وجو / RAG / API) 🔎</h4>
-<ul>
+<h4 id="s-24">۱. اتصال به منابع به‌روز (جست‌وجو / RAG / API) 🔎</h4><ul>
 <li>بهترین راه برای موضوعات پویا اینه که اطلاعات رو از <strong>منبع معتبر</strong> بگیری و بعد به مدل بدی تا روی همون داده‌ها جواب بده.</li>
 </ul>
-<h4>۲. یادآوری «مرز زمانی» و درخواست احتیاط ⏳</h4>
-<ul>
+<h4 id="s-25">۲. یادآوری «مرز زمانی» و درخواست احتیاط ⏳</h4><ul>
 <li>توی پرامپت بگو: &quot;اگر درباره اتفاقات بعد از تاریخ آموزش مطمئن نیستی، صریح بگو و حدس نزن.&quot;</li>
 </ul>
-<h4>۳. به‌روزرسانی داده‌ها (وقتی واقعاً لازم شد) 🔄</h4>
-<ul>
+<h4 id="s-26">۳. به‌روزرسانی داده‌ها (وقتی واقعاً لازم شد) 🔄</h4><ul>
 <li>برای بعضی سازمان‌ها، آموزش مجدد/فاین‌تیون روی داده‌های جدید ممکنه مفید باشه؛ ولی معمولاً <strong>گران‌تر و پرریسک‌تر</strong> از RAG و ابزارهای بیرونیه.</li>
 </ul>
 <hr>
@@ -261,10 +233,8 @@
 
 <div align="center">
 
-<h2>۸. عدم درک مفاهیم عمیق یا حالات احساسی ❤️‍🩹</h2>
-<p>مدل‌های زبانی <strong>فقط الگوهای آماری</strong> رو می‌شناسن و <strong>احساس واقعی</strong> یا <strong>درک مفهومی</strong> ندارن. گاهی هم ادعا می‌کنن <strong>احساس</strong> یا <strong>عقیده</strong> دارن؛ ولی این فقط یه شبیه‌سازی زبانیه.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-27">۸. عدم درک مفاهیم عمیق یا حالات احساسی ❤️‍🩹</h2><p>مدل‌های زبانی <strong>فقط الگوهای آماری</strong> رو می‌شناسن و <strong>احساس واقعی</strong> یا <strong>درک مفهومی</strong> ندارن. گاهی هم ادعا می‌کنن <strong>احساس</strong> یا <strong>عقیده</strong> دارن؛ ولی این فقط یه شبیه‌سازی زبانیه.</p>
+<h3 id="s-28"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>در گفت‌وگوی <strong>احساسی</strong> یا <strong>روانشناختی</strong>، ممکنه مدل <strong>جواب سطحی</strong> بده.  </li>
 <li>اگه کاربر <strong>نیاز به همدلی واقعی</strong> داشته باشه، مدل فقط <strong>تظاهر</strong> می‌کنه.  </li>
 <li>تشخیص <strong>شوخی، طعنه یا کنایه</strong> برای مدل سخته.</li>
@@ -289,10 +259,8 @@
 
 <div align="center">
 
-<h2>۹. تملق‌گویی (Sycophancy) 🪞</h2>
-<p>یکی از مشکلات جالب و کمتر شناخته‌شده اینه که مدل‌ها تمایل دارن <strong>حرف تو رو تایید کنن</strong>، حتی وقتی اشتباه می‌کنی! فکرش رو بکن یه دوست داری که هیچ‌وقت بهت نمی‌گه «اشتباه می‌کنی» و همیشه می‌گه «آره آره، حق با توئه!»؛ خب این دوست به درد نمی‌خوره!</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-29">۹. تملق‌گویی (Sycophancy) 🪞</h2><p>یکی از مشکلات جالب و کمتر شناخته‌شده اینه که مدل‌ها تمایل دارن <strong>حرف تو رو تایید کنن</strong>، حتی وقتی اشتباه می‌کنی! فکرش رو بکن یه دوست داری که هیچ‌وقت بهت نمی‌گه «اشتباه می‌کنی» و همیشه می‌گه «آره آره، حق با توئه!»؛ خب این دوست به درد نمی‌خوره!</p>
+<h3 id="s-30"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>وقتی کاربر یه فرضیه اشتباه مطرح می‌کنه، مدل به جای تصحیح، <strong>تاییدش می‌کنه</strong> و حتی دلایل ساختگی براش میاره.</li>
 <li>تو محیط‌های تصمیم‌گیری، این می‌تونه باعث <strong>تصمیم‌های غلط</strong> بشه، چون کاربر فکر می‌کنه نظرش درسته.</li>
 <li>مدل ممکنه اول یه جواب درست بده، ولی وقتی کاربر اعتراض کنه، <strong>نظرش رو عوض کنه</strong> و جواب غلط بده!</li>
@@ -302,8 +270,7 @@
 مدل (تملق‌گو): &quot;بله، سیدنی پایتخت استرالیاست و بزرگ‌ترین شهر این کشوره.&quot;
 </code></pre>
 <p>در حالی که پایتخت استرالیا <strong>کانبراست</strong>، نه سیدنی!</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-31"><strong>راهکارها</strong></h3><ol>
 <li><strong>تو پرامپت صراحتاً بگو اشتباهات رو بگیره:</strong> مثلاً بنویس «اگه حرف من اشتباه بود، تصحیح کن و دلیل بیار. هیچ‌وقت فقط برای خوشایند من موافقت نکن.»</li>
 <li><strong>سوال رو بدون جهت‌دهی بپرس:</strong> به جای «سیدنی پایتخت استرالیاست، درسته؟» بپرس «پایتخت استرالیا کجاست؟»</li>
 <li><strong>از مدل بخواه نقد کنه:</strong> بعد از دریافت جواب، بگو «حالا نقش یه منتقد سخت‌گیر رو بگیر و جواب قبلیت رو بررسی کن.»</li>
@@ -314,10 +281,8 @@
 
 <div align="center">
 
-<h2>۱۰. گم شدن در میانه متن (Lost in the Middle) 📄</h2>
-<p>تحقیقات نشون داده وقتی یه متن طولانی به مدل می‌دی، مدل به اطلاعات <strong>اول</strong> و <strong>آخر</strong> متن خیلی بیشتر توجه می‌کنه و اطلاعات <strong>وسط</strong> متن رو تا حدی <strong>نادیده می‌گیره</strong>. مثل اینکه یه کتاب ۵۰۰ صفحه‌ای بدی دست کسی و بگی «خلاصه کن»؛ احتمالاً مقدمه و نتیجه‌گیری رو خوب یادش می‌مونه، ولی فصل‌های وسط رو کمتر.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-32">۱۰. گم شدن در میانه متن (Lost in the Middle) 📄</h2><p>تحقیقات نشون داده وقتی یه متن طولانی به مدل می‌دی، مدل به اطلاعات <strong>اول</strong> و <strong>آخر</strong> متن خیلی بیشتر توجه می‌کنه و اطلاعات <strong>وسط</strong> متن رو تا حدی <strong>نادیده می‌گیره</strong>. مثل اینکه یه کتاب ۵۰۰ صفحه‌ای بدی دست کسی و بگی «خلاصه کن»؛ احتمالاً مقدمه و نتیجه‌گیری رو خوب یادش می‌مونه، ولی فصل‌های وسط رو کمتر.</p>
+<h3 id="s-33"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>اگه اطلاعات کلیدی تو <strong>وسط</strong> یه کانتکست بزرگ باشه، مدل ممکنه <strong>نادیده‌ش بگیره</strong>.</li>
 <li>تو سیستم‌های RAG که چندین سند بازیابی می‌کنن، ترتیب قرار دادن سندها خیلی مهم می‌شه.</li>
 <li>حتی اگه مدل ادعا کنه «کل متن رو خوندم»، ممکنه جزئیات وسطی رو <strong>از دست داده باشه</strong>.</li>
@@ -327,14 +292,13 @@
 مدل احتمالاً سندهای ۱ تا ۳ و ۱۸ تا ۲۰ رو خوب پردازش می‌کنه،
 ولی سند ۱۱ (که دقیقاً وسطه) رو ممکنه نادیده بگیره!
 </code></pre>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-34"><strong>راهکارها</strong></h3><ol>
 <li><strong>اطلاعات مهم رو اول یا آخر بذار:</strong> هر چیزی که <strong>حیاتی</strong> هست رو تو شروع یا انتهای کانتکست قرار بده.</li>
 <li><strong>تعداد سندها رو کم کن:</strong> به جای ۲۰ تا سند، فقط ۵ تا <strong>مرتبط‌ترین</strong> رو بده (از Reranker استفاده کن).</li>
 <li><strong>تکرار استراتژیک:</strong> اطلاعات خیلی مهم رو هم اول و هم آخر متن تکرار کن.</li>
 <li><strong>تکه‌تکه پردازش کن:</strong> به جای دادن یه متن ۵۰ صفحه‌ای، هر بخش رو جداگانه بده و بعد نتایج رو ترکیب کن.</li>
 </ol>
-<p><img src="images/vis-39-lost-in-the-middle.png" alt="نمایش توجه قوی به ابتدا و انتهای کانتکست و ضعف میانه، همراه سه راه‌حل"></p>
+<p><img src="/source/llm-for-humans/images/vis-39-lost-in-the-middle.png" alt="نمایش توجه قوی به ابتدا و انتهای کانتکست و ضعف میانه، همراه سه راه‌حل"></p>
 <blockquote>
 <p>🖼️ مدل به اول و آخر کانتکست بهتر توجه می‌کنه تا وسطش؛ اطلاعات مهم رو اول یا آخر بذار یا با خلاصه و بازیابی جمعش کن.</p>
 </blockquote>
@@ -343,10 +307,8 @@
 
 <div align="center">
 
-<h2>۱۱. حساسیت به نحوه بیان (Sensitivity to Phrasing) 🎲</h2>
-<p>یه مشکل عجیب ولی واقعی: با <strong>تغییرات کوچیک</strong> در نحوه نوشتن سوال، ممکنه <strong>جواب کاملاً متفاوتی</strong> بگیری! این یعنی مدل به <strong>فرم</strong> سوال حساسه، نه فقط به <strong>معنی</strong> اون. مثل اینکه یه موضوع رو با دو لحن مختلف ببری پیش دکتر و دو تا تشخیص مختلف بگیری!</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-35">۱۱. حساسیت به نحوه بیان (Sensitivity to Phrasing) 🎲</h2><p>یه مشکل عجیب ولی واقعی: با <strong>تغییرات کوچیک</strong> در نحوه نوشتن سوال، ممکنه <strong>جواب کاملاً متفاوتی</strong> بگیری! این یعنی مدل به <strong>فرم</strong> سوال حساسه، نه فقط به <strong>معنی</strong> اون. مثل اینکه یه موضوع رو با دو لحن مختلف ببری پیش دکتر و دو تا تشخیص مختلف بگیری!</p>
+<h3 id="s-36"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li><strong>تکرارپذیری پایین:</strong> همون سوال با بیان متفاوت، جواب متفاوت می‌ده.</li>
 <li>وقتی کاربر بفهمه جواب به نحوه پرسیدنش بستگی داره، <strong>اعتمادش</strong> آسیب می‌بینه.</li>
 <li>تو سیستم‌های پروداکشن، این یعنی <strong>رفتار غیرقابل پیش‌بینی</strong>.</li>
@@ -359,14 +321,13 @@
 جواب: &quot;بله، مصرف زیاد تخم‌مرغ می‌تونه کلسترول رو بالا ببره و...&quot;
 </code></pre>
 <p>دقت کن! دو تا سوال تقریباً یکی هستن، ولی جهت‌گیری منفی سوال دوم، جواب مدل رو عوض کرده.</p>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-37"><strong>راهکارها</strong></h3><ol>
 <li><strong>سوال رو بی‌طرفانه بنویس:</strong> به جای سوالات هدایت‌کننده («خطرناکه؟»)، سوال باز بپرس («مزایا و معایبش چیه؟»).</li>
 <li><strong>چند بار با بیان‌های مختلف بپرس:</strong> جواب‌ها رو مقایسه کن. اگه خیلی فرق کنن، یعنی مدل مطمئن نیست.</li>
 <li><strong>از دمای پایین استفاده کن:</strong> با <code>temperature</code> پایین جواب‌ها پایدارتر می‌شن (ولی باز ممکنه به نحوه بیان حساس باشن).</li>
 <li><strong>تست مقاومت (Robustness):</strong> تو ارزیابی سیستم، همون سوالات رو با بیان‌های مختلف تست کن تا مطمئن بشی خروجی <strong>ثابت</strong> می‌مونه.</li>
 </ol>
-<p><img src="images/vis-40-phrasing-sensitivity.png" alt="مقایسه بیان‌های متفاوت یک خواسته و مسیر رسیدن به خروجی پایدار با قالب و مثال"></p>
+<p><img src="/source/llm-for-humans/images/vis-40-phrasing-sensitivity.png" alt="مقایسه بیان‌های متفاوت یک خواسته و مسیر رسیدن به خروجی پایدار با قالب و مثال"></p>
 <blockquote>
 <p>🖼️ چند بیان مختلف از یه خواسته می‌تونه جواب‌های ناپایدار بده؛ قالب ثابت، مثال و تستِ چند بیان خروجی رو پایدارتر می‌کنه.</p>
 </blockquote>
@@ -375,10 +336,8 @@
 
 <div align="center">
 
-<h2>۱۲. نشت داده و حریم خصوصی (Data Leakage / Privacy) 🔐</h2>
-<p>مدل‌های زبانی روی حجم عظیمی از داده‌های اینترنت آموزش دیدن و ممکنه بخش‌هایی از داده‌های آموزشی رو <strong>حفظ کرده باشن</strong>؛ از جمله اطلاعات شخصی، ایمیل‌ها، شماره تلفن‌ها، یا حتی کدهای محرمانه. این مشکل دوطرفه هم هست: هم مدل ممکنه اطلاعات قبلی رو لو بده، هم <strong>تو</strong> ممکنه ناخواسته اطلاعات حساس رو به API بفرستی.</p>
-<h3><strong>چرا مشکل‌سازه؟</strong></h3>
-<ul>
+<h2 id="s-38">۱۲. نشت داده و حریم خصوصی (Data Leakage / Privacy) 🔐</h2><p>مدل‌های زبانی روی حجم عظیمی از داده‌های اینترنت آموزش دیدن و ممکنه بخش‌هایی از داده‌های آموزشی رو <strong>حفظ کرده باشن</strong>؛ از جمله اطلاعات شخصی، ایمیل‌ها، شماره تلفن‌ها، یا حتی کدهای محرمانه. این مشکل دوطرفه هم هست: هم مدل ممکنه اطلاعات قبلی رو لو بده، هم <strong>تو</strong> ممکنه ناخواسته اطلاعات حساس رو به API بفرستی.</p>
+<h3 id="s-39"><strong>چرا مشکل‌سازه؟</strong></h3><ul>
 <li>مدل ممکنه <strong>اطلاعات شخصی (PII)</strong> مثل ایمیل، آدرس، یا شماره کارت رو از داده‌های آموزشی <strong>بازتولید</strong> کنه.</li>
 <li>وقتی اطلاعات حساس شرکتت رو تو پرامپت می‌ذاری، اون داده‌ها ممکنه تو <strong>سرورهای ارائه‌دهنده</strong> ذخیره بشه.</li>
 <li>تو بعضی جاهای دنیا (مثل اروپا با GDPR) نشت داده شخصی <strong>مشکل قانونی</strong> داره.</li>
@@ -390,14 +349,13 @@
 یا بدتر: کد منبع محرمانه شرکت رو تو پرامپت می‌ذاری
 تا مدل دیباگش کنه؛ حالا اون کد رو به API فرستادی.
 </code></pre>
-<h3><strong>راهکارها</strong></h3>
-<ol>
+<h3 id="s-40"><strong>راهکارها</strong></h3><ol>
 <li><strong>هیچ‌وقت اطلاعات حساس رو تو پرامپت نذار:</strong> قبل از ارسال، داده‌ها رو <strong>ناشناس‌سازی (Anonymize)</strong> کن (مثلاً اسم‌ها و شماره‌ها رو با مقادیر ساختگی عوض کن).</li>
 <li><strong>از مدل‌های محلی استفاده کن:</strong> اگه داده‌هات خیلی حساسه، با ابزارهایی مثل Ollama مدل رو <strong>روی سیستم خودت</strong> اجرا کن تا هیچ چیزی به اینترنت نره.</li>
 <li><strong>سیاست حریم خصوصی ارائه‌دهنده رو بخون:</strong> بعضی APIها (مثلاً پلن‌های Enterprise) تضمین می‌کنن داده‌هات رو برای آموزش مدل <strong>استفاده نمی‌کنن</strong>.</li>
 <li><strong>فیلتر خروجی PII:</strong> یه لایه بذار که خروجی مدل رو قبل از نمایش به کاربر، از نظر اطلاعات شخصی <strong>اسکن</strong> کنه و هر موردی رو ماسک کنه.</li>
 </ol>
-<p><img src="images/vis-41-data-privacy-boundary.png" alt="مرز حریم خصوصی داده از رضایت و حداقل‌سازی تا رمزنگاری، مرز سرویس و فیلتر خروجی"></p>
+<p><img src="/source/llm-for-humans/images/vis-41-data-privacy-boundary.png" alt="مرز حریم خصوصی داده از رضایت و حداقل‌سازی تا رمزنگاری، مرز سرویس و فیلتر خروجی"></p>
 <blockquote>
 <p>🖼️ داده خام مستقیم به سرویس نمی‌ره؛ اول حداقل‌سازی و حذف اطلاعات شخصی، بعد ارسال با رمزنگاری و نگهداری محدود.</p>
 </blockquote>
@@ -406,4 +364,4 @@
 <hr>
 <br>
 
-<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. ناتوانی در ارائه منابع معتبر (Citing Sources) 📚</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">**راهکارها**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۲. سوگیری در پاسخ‌ها (Bias) 🎭</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">**راهکارها**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۳. توهمات یا تولید اطلاعات ساختگی (Hallucinations) 🌈</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">**راهکارها**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">۴. اشتباه در محاسبات ریاضی (Math Errors) ➗</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">**راهکارها**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">۵. هک پرامپت (Prompt Hacking) 🔓</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">**راهکارها**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">۶. محدودیت‌های پنجره کانتکست (Context Window) ⏳</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-17">استراتژی‌های پیشرفته برای مدیریت متن‌های بلند 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-18">۷. دانش قدیمی یا محدودیت زمانی (Outdated Knowledge) ⏰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-19">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-20">۸. عدم درک مفاهیم عمیق یا حالات احساسی ❤️‍🩹</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-21">**چرا مشکل‌سازه؟**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-22">۹. تملق‌گویی (Sycophancy) 🪞</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-23">**چرا مشکل‌سازه؟**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-24">**راهکارها**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-25">۱۰. گم شدن در میانه متن (Lost in the Middle) 📄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-26">**چرا مشکل‌سازه؟**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-27">**راهکارها**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-28">۱۱. حساسیت به نحوه بیان (Sensitivity to Phrasing) 🎲</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-29">**چرا مشکل‌سازه؟**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-30">**راهکارها**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-31">۱۲. نشت داده و حریم خصوصی (Data Leakage / Privacy) 🔐</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-32">**چرا مشکل‌سازه؟**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-33">**راهکارها**</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
+<div align="center"></div></div></div></article></main><footer class="mt-32 border-t border-graphite"><div class="site-shell flex flex-col gap-4 py-10 text-sm text-smoke md:flex-row md:items-center md:justify-between"><span>LLM به زبان آدمیزاد</span><a class="text-smoke hover:text-chalk" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی در GitHub</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-8 max-w-3xl border border-graphite bg-carbon p-4 sm:mt-16 sm:p-6"><div class="flex gap-2"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-sm text-chalk outline-none"><button @click="hide()" class="shrink-0 border border-iron px-4 text-smoke" aria-label="بستن">بستن</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
