@@ -1,0 +1,19 @@
+[
+  {"slug":"fundamentals","title":"مبانی LLM"},
+  {"slug":"prompting-basics","title":"پرامپت‌نویسی پایه"},
+  {"slug":"advanced-techniques","title":"تکنیک‌های پیشرفته پرامپت‌نویسی"},
+  {"slug":"parameters","title":"پارامترهای مدل"},
+  {"slug":"system-prompt","title":"سیستم پرامپت"},
+  {"slug":"pro-techniques","title":"تکنیک‌های حرفه‌ای پرامپت‌نویسی"},
+  {"slug":"known-issues","title":"مشکلات معروف LLMها"},
+  {"slug":"accuracy-security","title":"افزایش دقت و امنیت LLM"},
+  {"slug":"evaluation","title":"ارزیابی پرامپت و خروجی"},
+  {"slug":"finetuning-vs-rag","title":"معماری و شخصی‌سازی"},
+  {"slug":"context-engineering","title":"مهندسی کانتکست"},
+  {"slug":"rag-in-practice","title":"RAG در عمل"},
+  {"slug":"tool-use-mcp","title":"ابزارها، MCP و ایجنت‌ها"},
+  {"slug":"prompt-builders","title":"ابزارهای ساخت پرامپت"},
+  {"slug":"model-selection","title":"انتخاب مدل و Provider"},
+  {"slug":"free-access","title":"دسترسی رایگان و اجرای محلی"},
+  {"slug":"developer-prompts","title":"پرامپت‌های حرفه‌ای برنامه‌نویس"}
+]
