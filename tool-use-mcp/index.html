@@ -1,0 +1,832 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Function Calling، MCP، Structured Output، Agents و Multimodal"><link rel="canonical" href="https://example.com/tool-use-mcp/"><meta property="og:type" content="article"><meta property="og:title" content="ابزارها، MCP و ایجنت‌ها"><meta property="og:description" content="Function Calling، MCP، Structured Output، Agents و Multimodal"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>ابزارها، MCP و ایجنت‌ها | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / ابزارها، MCP و ایجنت‌ها</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">TOOL-USE-MCP</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">ابزارها، MCP و ایجنت‌ها</h1><p class="mt-5 text-lg text-smoke">Function Calling، MCP، Structured Output، Agents و Multimodal</p></header><div class="prose-llm max-w-none"><h1>ابزارها و خروجی ساختاریافته (Function Calling) 🛠️</h1>
+<p>تا اینجا بیشتر با مدل چت کردیم (ورودی متن -&gt; خروجی متن). ولی قدرت واقعی LLMها وقتی خودش رو نشون می‌ده که بتونن <strong>کار واقعی</strong> انجام بدن.</p>
+<p>بیا یه مثال بزنیم: مدل زبانی مثل یه <strong>مغزه</strong> که توی یه اتاق تاریک زندانی شده.</p>
+<ol>
+<li>خیلی باهوشه و <strong>خیلی چیزها</strong> بلده.</li>
+<li><strong>اما</strong> نه دست داره (نمی‌تونه دکمه‌ای رو بزنه)، نه چشم (نمی‌تونه اینترنت رو ببینه)، و نه ساعت (نمی‌دونه ساعت چنده).</li>
+</ol>
+<p>برای اینکه این مغز بتونه با دنیای بیرون تعامل کنه، ما بهش <strong>ابزار (Tool)</strong> می‌دیم.</p>
+<hr>
+<div align="center">
+
+<h2>۱. انواع ابزارها (Tools): دست‌های رباتیک 🦾</h2>
+<p>به طور کلی دو نوع ابزار داریم که خیلی مهمه تفاوتشون رو بدونی:</p>
+<h3>الف) ابزارهای سمت کلاینت (Client-side Tools / Function Calling) 📞</h3>
+<p>اینجا مدل <strong>فقط تصمیم می‌گیره</strong> و تو (برنامه‌نویس) دستور رو اجرا می‌کنی.</p>
+<ul>
+<li><strong>مثال:</strong> مدل می‌خواد لامپ اتاق رو روشن کنه.</li>
+<li><strong>روند:</strong><ol>
+<li>مدل بهت می‌گه: &quot;لطفاً تابع <code>turn_on_light(room=&#39;bedroom&#39;)</code> رو اجرا کن.&quot; (خروجی JSON).</li>
+<li>برنامه‌ت (کد سمت کاربر) این دستور رو می‌گیره و به لامپ هوشمند فرمان می‌ده.</li>
+<li>برنامه‌ت به مدل می‌گه: &quot;لامپ روشن شد.&quot;</li>
+<li>مدل به کاربر می‌گه: &quot;لامپ اتاق خواب رو برات روشن کردم.&quot;</li>
+</ol>
+</li>
+</ul>
+<p><img src="images/vis-12-function-calling-sequence.png" alt="نمودار توالی میان کاربر، مدل و برنامه برای فراخوانی ابزار، اجرای تابع و تولید جواب نهایی"></p>
+<blockquote>
+<p>🖼️ مدل ابزار مناسب رو انتخاب می‌کنه؛ اجرای واقعی با برنامه‌ست و نتیجه دوباره به مدل برمی‌گرده.</p>
+</blockquote>
+<h3>ب) ابزارهای سمت سرور (Server-side Tools / Code Execution) 🖥️</h3>
+<p>اینجا مدل خودش کد می‌نویسه و همون‌جا (توی یک محیط امن یا Sandbox) اجراش می‌کنه.</p>
+<ul>
+<li><strong>کاربرد:</strong> محاسبات سنگین ریاضی، رسم نمودار، تحلیل اکسل.</li>
+<li><strong>مثال:</strong> &quot;ریشه‌های این معادله درجه ۳ رو پیدا کن.&quot;</li>
+<li><strong>روند:</strong><ol>
+<li>مدل کد پایتون می‌نویسه: <code>import numpy; print(numpy.roots([1, 0, -5]))</code></li>
+<li>این کد در محیط ایزوله سمت سرور اجرا می‌شه.</li>
+<li>خروجی (اعداد) مستقیماً برمی‌گرده به مدل.</li>
+<li>مدل جواب نهایی رو می‌ده.</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p><strong>نکته:</strong> قابلیت Code Interpreter در ChatGPT تقریباً همین ایده رو پیاده می‌کنه: یک محیط امن برای اجرای کد و برگردوندن نتیجه به مدل. تو محصول Claude هم ابزار <strong>Analysis</strong> همین کار رو می‌کنه (با این تفاوت که جاوااسکریپت اجرا می‌کنه)؛ API آنتروپیک هم یه ابزار <strong>Code Execution</strong> جدا داره که پایتون رو تو محیط ایزوله اجرا می‌کنه. Google Gemini هم قابلیت <strong>Code Execution</strong> داره.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h2>۲. پروتکل MCP (Model Context Protocol) 🔌</h2>
+<p>تا قبل از این، هر کی می‌خواست «ابزار» رو به مدل وصل کنه، معمولاً باید برای هر اپ/IDE یه سیم‌کشی جدا می‌کرد (کد اختصاصی + قرارداد اختصاصی).</p>
+<p>پروتکل <strong>MCP</strong> رو Anthropic معرفی کرده: یک <strong>پروتکل باز (Open Protocol)</strong> که به اپلیکیشن‌های مبتنی بر LLM اجازه می‌ده به شکل استاندارد به <strong>منابع داده</strong> و <strong>ابزارها</strong> وصل بشن. استعاره‌ش شبیه <strong>پورت USB-C</strong>ـه: به‌جای ده مدل کابل عجیب، یک استاندارد مشترک داریم.</p>
+<p><strong>ایده چیه؟</strong>
+به جای اینکه بارها و بارها کد اتصال به دیتابیس، Google Drive، Slack و… رو برای هر پروژه/کلاینت دوباره بنویسیم، یک بار یک <strong>MCP Server</strong> می‌سازیم. بعد هر اپلیکیشنی که <strong>MCP رو پیاده‌سازی کرده</strong>، می‌تونه از همون سرور استفاده کنه.</p>
+<p><strong>سه تا بازیگر اصلی توی MCP هست.</strong> بیا با یه مثال ساده جلو بریم؛ فرض کن یه اپ چت داری که می‌خواد به تقویم گوگلت وصل بشه:</p>
+<ul>
+<li><strong>میزبان (Host):</strong> خود اپ چت؛ همون برنامه‌ای که باهاش حرف می‌زنی و کل هماهنگی دستشه.</li>
+<li><strong>کلاینت (Client):</strong> یه واسط کوچیک داخل میزبان که برای هر سرور، یه سیم رابط اختصاصی باز می‌کنه.</li>
+<li><strong>سرور (Server):</strong> برنامه‌ای که سمت تقویم گوگل نشسته و ابزارها و داده‌ها رو در دسترس می‌ذاره (مثل «یه رویداد بساز» یا «قرارهای امروزم رو بده»).</li>
+</ul>
+<p>خلاصه‌ش این می‌شه: میزبان مغز متفکره، سرور دست‌ها رو در اختیار می‌ذاره، و کلاینت سیم رابط بین این دوئه.</p>
+<p><strong>راه ارتباطی (Transport) هم استاندارده</strong> و دو مدل اصلی داره:</p>
+<ul>
+<li><strong>روش Stdio:</strong> برای وقتی سرور روی همون سیستم خودته (ارتباط محلی و سریع).</li>
+<li><strong>روش Streamable HTTP:</strong> برای وقتی سرور یه جای دیگه‌ست و باید از راه دور (روی HTTP) بهش وصل شی.</li>
+</ul>
+<p>این یعنی تو یه بار «سرور اتصال به دیتابیس شرکت» رو می‌سازی و بعد هر Host سازگاری می‌تونه ازش استفاده کنه؛ البته به شرطی که هم Host و هم Server با استاندارد MCP جلو برن.</p>
+<blockquote>
+<p>🏛️ <strong>چقدر جدیه؟</strong> MCP که اول پروژه Anthropic بود، آخر سال ۲۰۲۵ به بنیاد Linux Foundation واگذار شد تا به‌عنوان یه استاندارد باز و مستقل از یک شرکت خاص ادامه پیدا کنه؛ OpenAI و Google هم خیلی قبل‌تر از این واگذاری پشتیبانیش رو شروع کرده بودن. یعنی یاد گرفتنش سرمایه‌گذاری امنیه.</p>
+</blockquote>
+<blockquote>
+<p>🤝 <strong>یه پروتکل مکمل: A2A.</strong> اگه MCP «ابزار رو به مدل» وصل می‌کنه، پروتکل <strong>A2A (Agent-to-Agent)</strong> برای اینه که ایجنت‌ها با هم حرف بزنن، کار به هم بسپرن و همدیگه رو پیدا کنن؛ مخصوصاً وقتی متعلق به تیم‌ها یا شرکت‌های مختلفن. Google این پروتکل رو معرفی کرد و سال ۲۰۲۵ به Linux Foundation سپرد. برای بیشتر پروژه‌های یک‌نفره فعلاً لازمت نمی‌شه؛ ولی خوبه بدونی MCP و A2A رقیب نیستن: ایجنت با MCP به ابزارهاش وصل می‌شه و با A2A با ایجنت‌های دیگه همکاری می‌کنه.</p>
+</blockquote>
+<p><img src="images/vis-13-mcp-architecture.png" alt="یک Host با دو Client که از راه Stdio و HTTP به سرورهای MCP متصل شده و A2A جدا نمایش داده شده"></p>
+<blockquote>
+<p>🖼️ میزبان (Host) هماهنگ‌کننده‌ست؛ کلاینت (Client) اتصال اختصاصی رو نگه می‌داره و سرور (Server) ابزار یا داده رو در اختیار می‌ذاره.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h2>۳. طراحی Schema 📝</h2>
+<p>برای اینکه مدل (مغز) بفهمه چه ابزارهایی (دست‌هایی) داره، باید براش کاتالوگ یا <strong>Schema</strong> تعریف کنیم.
+استاندارد جهانی برای این کار <strong>JSON Schema</strong> هست.</p>
+<p>اگه با پایتون کار می‌کنی، کتابخونه <strong>Pydantic</strong> این کار رو مثل آب خوردن می‌کنه:</p>
+<pre><code class="language-python">from enum import Enum
+
+from pydantic import BaseModel, Field
+
+
+class Priority(str, Enum):
+    high = &quot;high&quot;
+    medium = &quot;medium&quot;
+    low = &quot;low&quot;
+
+
+class AddTodoItem(BaseModel):
+    title: str = Field(description=&quot;عنوان تسک&quot;)
+    priority: Priority = Field(description=&quot;اولویت تسک&quot;)
+</code></pre>
+<p>مدل این رو می‌خونه و دقیقاً می‌فهمه که اگر بخواد تسک بسازه، باید <code>title</code> و <code>priority</code> رو پر کنه.</p>
+<ul>
+<li><strong>نکته مهم:</strong> وقتی مقدارهای مجاز رو محدود می‌کنی (مثلاً با Enum یا Literal)، مدل دیگه نمی‌تونه از خودش خلاقیت به خرج بده و مثلاً بگه <code>priority: &quot;super_high&quot;</code>. این یعنی کنترل خیلی بیشتر روی خروجی!</li>
+</ul>
+<hr>
+<div align="center">
+
+<h2>۴. خروجی ساختاریافته (Structured Output) 🏗️</h2>
+<p>همیشه لازم نیست مدل تابعی اجرا کنه؛ خیلی وقت‌ها فقط می‌خوای خروجیش <strong>تمیز و ماشین‌خوان</strong> باشه. مثلاً از یه متن خبری، اسم اشخاص و مکان‌ها رو دربیاری و مستقیم بریزی تو دیتابیس.</p>
+<p>اینجاست که <strong>خروجی ساختاریافته</strong> به دادت می‌رسه: به‌جای یه متن آزاد که باید با کلی <code>try/except</code> تیکه‌تیکه‌ش کنی، مدل رو وادار می‌کنی خروجی رو <strong>دقیقاً طبق ساختاری (Schema) برگردونه که خودت تعریف کردی</strong>؛ مثل همون کلاس Pydantic بالا. یعنی به‌جای حدس زدن، یه قرارداد روشن باهاش می‌بندی.</p>
+<p>بعضی APIها (مثل قابلیت Structured Outputs در OpenAI) یه قدم جلوترن و گزینه‌ای شبیه <code>strict: true</code> دارن که <strong>تضمین</strong> می‌کنه خروجی عیناً طبق JSON Schema بیاد. با این حال تو سیستم‌های واقعی بازم یه لایه اعتبارسنجی (Validation) روی خروجی بذار؛ هم کم‌هزینه‌ست، هم خیالت راحت‌تره.</p>
+<h3>مثال عملی: استخراج ساختاریافته با LangChain 🐍</h3>
+<p>اینجا یه کد واقعی می‌بینیم که نشون می‌ده چطور با LangChain و Pydantic متن کاربر رو به یک آبجکت تمیز پایتون تبدیل کنیم (بدون درد و خونریزی!).</p>
+<p>برای اینکه این مثال رو اجرا کنی:</p>
+<ol>
+<li>اول پکیج‌ها رو نصب کن.</li>
+</ol>
+<pre><code class="language-bash">pip install langchain-openai pydantic
+</code></pre>
+<ol start="2">
+<li>بعد کلید OpenAI رو توی متغیر محیطی <code>OPENAI_API_KEY</code> قرار بده.</li>
+</ol>
+<pre><code class="language-python">from typing import Optional
+from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field
+
+# ۱. تعریف ساختار خروجی (Schema)
+class UserInfo(BaseModel):
+    &quot;&quot;&quot;اطلاعات استخراج شده از معرفی کاربر&quot;&quot;&quot;
+    name: str = Field(description=&quot;نام کاربر&quot;)
+    age: Optional[int] = Field(default=None, description=&quot;سن کاربر (اگر ذکر شده باشد)&quot;)
+    skills: list[str] = Field(description=&quot;لیست مهارت‌های فنی&quot;)
+
+# ۲. ساخت مدل (با قابلیت Structured Output)
+llm = ChatOpenAI(model=&quot;gpt-5.5&quot;)
+structured_llm = llm.with_structured_output(UserInfo)
+
+# ۳. اجرا
+response = structured_llm.invoke(&quot;سلام، من علی هستم. ۳۰ سالمه و پایتون و جاوا اسکریپت کار می‌کنم.&quot;)
+
+# ۴. استفاده از خروجی (این یک آبجکت واقعی Pydantic است!)
+print(f&quot;نام: {response.name}&quot;)    # خروجی: علی
+print(f&quot;مهارت‌ها: {response.skills}&quot;) # خروجی: مثلاً [&#39;پایتون&#39;, &#39;جاوا اسکریپت&#39;]
+</code></pre>
+<p>می‌بینی؟ دیگه لازم نیست با <code>json.loads()</code> و <code>try-except</code> کشتی بگیری. خروجی مستقیم می‌ره تو کدت! 😎</p>
+<hr>
+<div align="center">
+
+<h2>۵. هندل کردن خطاها (وقتی مدل خراب‌کاری می‌کنه!) 💥</h2>
+<p>مدل‌های زبانی گاهی:</p>
+<ol>
+<li><strong>توهم می‌زنن:</strong> آرگومانی می‌فرستن که اصلاً وجود نداره.</li>
+<li><strong>فرمت غلط:</strong> یادشون می‌ره آکولاد JSON رو ببندن.</li>
+</ol>
+<p><strong>راهکار حرفه‌ای (Validation Loop):</strong>
+چون داریم برنامه واقعی می‌نویسیم، برنامه‌مون نباید با هر خطای مدل کرش کنه.</p>
+<ol>
+<li>خروجی مدل رو با <code>try/except</code> اجرا می‌کنیم.</li>
+<li>اگه خطا داد (مثلاً <code>ValidationError</code>)، متن خطا رو <strong>عیناً به مدل برمی‌گردونیم</strong>.</li>
+<li>بهش می‌گیم: «خراب کردی! این ارور بود، دوباره تلاش کن.»</li>
+<li>مدل (که خیلی باهوشه) می‌گه: «آخ ببخشید» و نسخه اصلاح‌شده رو می‌فرسته.</li>
+</ol>
+<p><img src="images/vis-14-structured-output-validation.png" alt="فلوچارتی از Schema و مدل تا اعتبارسنجی، مسیر معتبر، مسیر نامعتبر و تلاش دوباره"></p>
+<blockquote>
+<p>🖼️ طرح Schema شکل خروجی رو تعریف می‌کنه؛ اعتبارسنجی خروجی خراب رو قبل از رسیدن به کد متوقف می‌کنه.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h2>۶. مثال کامل Function Calling (از صفر تا صد) 🔧</h2>
+<p>بیا یه مثال <strong>واقعی و کامل</strong> ببینیم که تو عمل چطور کار می‌کنه. فرض کن یه اپلیکیشن داری که کاربر ازش می‌پرسه «هوای تهران چطوره؟» و مدل باید ابزار آب‌وهوا رو صدا بزنه، جواب بگیره و به زبان آدمیزاد توضیح بده:</p>
+<pre><code class="language-python">from langchain_openai import ChatOpenAI
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage, ToolMessage
+
+# ۱. تعریف ابزار (Tool) - اینجا یه تابع ساده آب‌وهوا می‌سازیم
+@tool
+def get_weather(city: str) -&gt; str:
+    &quot;&quot;&quot;وضعیت آب‌وهوای فعلی یک شهر رو برمی‌گردونه.
+
+    Args:
+        city: نام شهر (مثلاً &quot;تهران&quot;، &quot;اصفهان&quot;)
+    &quot;&quot;&quot;
+    # تو دنیای واقعی اینجا API واقعی صدا زده می‌شه
+    weather_data = {
+        &quot;تهران&quot;: &quot;آفتابی، ۲۸ درجه&quot;,
+        &quot;اصفهان&quot;: &quot;ابری، ۲۲ درجه&quot;,
+        &quot;شیراز&quot;: &quot;بارانی، ۱۸ درجه&quot;,
+    }
+    return weather_data.get(city, f&quot;اطلاعات آب‌وهوا برای {city} موجود نیست&quot;)
+
+# ۲. ساخت مدل و بایند کردن ابزار
+llm = ChatOpenAI(model=&quot;gpt-5.5&quot;)
+llm_with_tools = llm.bind_tools([get_weather])
+
+# ۳. ارسال سوال کاربر - مدل خودش تصمیم می‌گیره ابزار لازمه یا نه
+messages = [HumanMessage(content=&quot;الان هوای تهران چطوره؟&quot;)]
+ai_response = llm_with_tools.invoke(messages)
+
+# ۴. چک کردن: آیا مدل ابزاری رو صدا زد؟
+if ai_response.tool_calls:
+    # مدل گفته &quot;باید get_weather رو با city=&#39;تهران&#39; صدا بزنم&quot;
+    messages.append(ai_response)
+    for tool_call in ai_response.tool_calls:
+        print(f&quot;ابزار انتخابی: {tool_call[&#39;name&#39;]}&quot;)
+        print(f&quot;آرگومان‌ها: {tool_call[&#39;args&#39;]}&quot;)
+
+        # ۵. اجرای واقعی ابزار (ما اجرا می‌کنیم، نه مدل!)
+        result = get_weather.invoke(tool_call[&quot;args&quot;])
+        print(f&quot;نتیجه ابزار: {result}&quot;)
+
+        # ۶. برگردوندن نتیجه به مدل
+        messages.append(
+            ToolMessage(content=result, tool_call_id=tool_call[&quot;id&quot;])
+        )
+
+    # ۷. مدل حالا با نتیجه ابزار، جواب نهایی رو می‌سازه
+    final_response = llm_with_tools.invoke(messages)
+    print(f&quot;جواب نهایی: {final_response.content}&quot;)
+    # خروجی مثلاً: &quot;هوای تهران الان آفتابی و ۲۸ درجه‌ست. هوای خوبیه!&quot;
+</code></pre>
+<p>می‌بینی؟ مدل مثل یه <strong>مغز</strong> فقط تصمیم گرفت کدوم ابزار رو صدا بزنه. ما (برنامه) ابزار رو اجرا کردیم و نتیجه رو بهش برگردوندیم. بعد مدل با اون نتیجه، جواب قشنگ و طبیعی ساخت. 🎯</p>
+<hr>
+<div align="center">
+
+<h2>۷. نکات حرفه‌ای Function Calling 💡</h2>
+<h3>الف) انتخاب ابزار (Tool Choice) 🎯</h3>
+<p>وقتی چند تا ابزار به مدل می‌دی، معمولاً مدل <strong>خودش</strong> تصمیم می‌گیره از کدوم استفاده کنه (یا اصلاً از هیچ‌کدوم استفاده نکنه). ولی بعضی وقتا می‌خوای کنترل بیشتری داشته باشی:</p>
+<ul>
+<li><strong>حالت auto (پیش‌فرض):</strong> مدل خودش تصمیم می‌گیره ابزار لازمه یا نه.</li>
+<li><strong>حالت required:</strong> مدل <strong>حتماً</strong> باید حداقل یه ابزار رو صدا بزنه (مثلاً وقتی می‌دونی جواب بدون ابزار ممکن نیست).</li>
+<li><strong>مشخص کردن ابزار خاص:</strong> مدل رو مجبور می‌کنی <strong>فقط</strong> یه ابزار مشخص رو استفاده کنه.</li>
+</ul>
+<pre><code class="language-python"># auto - مدل خودش تصمیم می‌گیره
+llm_with_tools = llm.bind_tools([get_weather, search_web], tool_choice=&quot;auto&quot;)
+
+# required - حتماً باید ابزاری رو صدا بزنه
+llm_with_tools = llm.bind_tools([get_weather, search_web], tool_choice=&quot;required&quot;)
+
+# get_weather - فقط همین ابزار رو صدا بزنه
+llm_with_tools = llm.bind_tools([get_weather, search_web], tool_choice=&quot;get_weather&quot;)
+</code></pre>
+<h3>ب) نوشتن توضیحات خوب برای ابزار (Tool Description) 📝</h3>
+<p>یه چیز خیلی مهم که خیلی‌ها نادیده می‌گیرن: <strong>کیفیت توضیحات ابزار مستقیماً روی دقت مدل تاثیر داره!</strong> مدل بر اساس توضیحات تصمیم می‌گیره کدوم ابزار رو صدا بزنه. پس:</p>
+<ul>
+<li><strong>توضیح واضح و مشخص بنویس:</strong> بگو ابزار دقیقاً چه کاری می‌کنه، چه ورودی‌ای می‌خواد و چه خروجی‌ای می‌ده.</li>
+<li><strong>بگو کِی ازش استفاده کنه:</strong> جمله‌ای مثل «برای X از این ابزار استفاده کن» دقت انتخاب ابزار رو حسابی بالا می‌بره.</li>
+<li><strong>مثال بذار:</strong> تو docstring مثال از مقادیر ورودی بذار؛ مدل با مثال بهتر یاد می‌گیره.</li>
+<li><strong>محدودیت‌ها رو بگو:</strong> اگه ابزار فقط برای بعضی شهرها کار می‌کنه، بگو.</li>
+</ul>
+<pre><code class="language-python"># ❌ search - مدل نمی‌فهمه کی صداش بزنه
+@tool
+def search(q: str) -&gt; str:
+    &quot;&quot;&quot;جست‌وجو&quot;&quot;&quot;
+    ...
+
+# ✅ search_products - مدل دقیقاً می‌فهمه
+@tool
+def search_products(query: str, category: str = &quot;all&quot;) -&gt; str:
+    &quot;&quot;&quot;جست‌وجو در کاتالوگ محصولات فروشگاه. برای پیدا کردن محصول بر اساس نام، برند، یا ویژگی استفاده کن.
+
+    Args:
+        query: عبارت جست‌وجو (مثلاً &quot;کفش ورزشی نایکی&quot;)
+        category: دسته‌بندی محصول - مثلاً &quot;لباس&quot;، &quot;الکترونیک&quot;، &quot;all&quot; (پیش‌فرض: &quot;all&quot;)
+    &quot;&quot;&quot;
+    ...
+</code></pre>
+<h3>ج) فراخوانی موازی ابزارها (Parallel Tool Calling) ⚡</h3>
+<p>مدل‌های امروزی می‌تونن <strong>چند ابزار رو هم‌زمان</strong> صدا بزنن! مثلاً اگه کاربر بگه «هوای تهران و اصفهان چطوره؟»، مدل به جای دو بار جدا صدا زدن، <strong>یکجا</strong> هر دو رو درخواست می‌کنه. این یعنی سرعت بیشتر و تجربه بهتر برای کاربر. 🚀</p>
+<p>فقط حواست باشه تو کدت حلقه‌ای بنویسی که <strong>همه</strong> tool_callها رو هندل کنه، نه فقط اولی.</p>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h1>ایجنت‌های هوش مصنوعی (AI Agents) 🤖</h1>
+<p>تا اینجا یاد گرفتیم چطوری با مدل حرف بزنیم و ازش خروجی بگیریم. ولی یه سوال مهم هست: <strong>اگه بخوایم مدل خودش یه کار پیچیده رو از اول تا آخر انجام بده چی؟</strong> 🤔</p>
+<p>اینجاست که <strong>ایجنت‌های هوش مصنوعی (AI Agents)</strong> وارد بازی می‌شن!</p>
+<p>یه ایجنت هوش مصنوعی رو این‌طوری تصور کن: سیستمی که یه LLM رو با ابزار و یه حلقه اجرا کنار هم می‌ذاره تا فقط جواب نده؛ <strong>تصمیم بگیره</strong>، <strong>از ابزار استفاده کنه</strong>، نتیجه رو ببینه و تا رسیدن به جواب نهایی ادامه بده.</p>
+<h3>تفاوت ساده بین پرامپت معمولی و Agent 🎯</h3>
+<pre><code class="language-text">❌ بدون Agent (پرامپت ساده):
+   تو: &quot;آب‌وهوای تهران چطوره؟&quot;
+   مدل: &quot;متأسفانه من به اینترنت دسترسی ندارم...&quot; 😕
+
+✅ با Agent:
+   تو: &quot;آب‌وهوای تهران چطوره؟&quot;
+   مدل: (فکر) باید از ابزار آب‌وهوا استفاده کنم 🤔
+   مدل: (عمل) ابزار get_weather(&quot;تهران&quot;) رو صدا می‌زنم 🔧
+   مدل: (مشاهده) دمای ۲۵ درجه، آفتابیه ☀️
+   مدل: &quot;الان تهران ۲۵ درجه و هوا آفتابیه!&quot; ✅
+</code></pre>
+<h3>حلقه Agent: مثل یه کارآگاه 🕵️</h3>
+<p>بهترین تشبیه برای Agent یه <strong>کارآگاه</strong> هست که داره یه پرونده رو حل می‌کنه:</p>
+<ol>
+<li><strong>فکر (Thought)</strong> 🤔 - صورت‌مسئله رو بررسی می‌کنه: «چه اطلاعاتی لازم دارم؟»</li>
+<li><strong>عمل (Action)</strong> 🔧 - یه کار انجام می‌ده: سرنخی رو بررسی می‌کنه، از شاهدی سوال می‌پرسه</li>
+<li><strong>مشاهده (Observation)</strong> 👀 - نتیجه کارش رو می‌بینه</li>
+<li><strong>تکرار</strong> 🔄 - آیا پرونده حل شد؟ نه: برگرد به مرحله ۱. آره: گزارش نهایی رو بده</li>
+</ol>
+<p><img src="images/vis-15-agent-loop.png" alt="چرخه سوال، فکر، عمل، مشاهده و تصمیم برای ادامه یا تولید پاسخ نهایی"></p>
+<blockquote>
+<p>🖼️ ایجنت (Agent) نتیجه ابزار رو می‌بینه و تا وقتی اطلاعات کافی نشده، چرخه فکر، عمل و مشاهده رو ادامه می‌ده.</p>
+</blockquote>
+<h3>معماری‌های مختلف Agent 🏗️</h3>
+<div align="center">
+
+<h3>۱. حلقه ساده ابزار (Simple Tool Loop) 🔄</h3>
+<p>ساده‌ترین نوع: مدل ابزاری رو صدا می‌زنه، نتیجه رو می‌بینه و جواب می‌ده.</p>
+<pre><code class="language-text">کاربر: «نرخ دلار الان چنده؟»
+→ مدل: ابزار get_exchange_rate(&quot;USD&quot;) رو صدا می‌زنه
+→ نتیجه: ۶۸٬۵۰۰ تومان
+→ مدل: «الان هر دلار حدود ۶۸٬۵۰۰ تومانه.»
+</code></pre>
+<div align="center">
+
+<h3>۲. الگوی ReAct (استدلال + عمل) ⚡</h3>
+<p>مدل <strong>قبل از هر عمل استدلال می‌کنه</strong> و دلیل تصمیمش رو توضیح می‌ده. (اگه بخش ReAct رو خوندی، اینجا همون ایده رو در عمل می‌بینی!)</p>
+<pre><code class="language-text">کاربر: «مقایسه آب‌وهوای تهران و اصفهان»
+فکر: باید آب‌وهوای هر دو شهر رو بگیرم. اول تهران.
+عمل: get_weather(&quot;تهران&quot;) → ☀️ ۲۵°C
+فکر: حالا اصفهان.
+عمل: get_weather(&quot;اصفهان&quot;) → ⛅ ۲۲°C
+فکر: هر دو رو دارم. حالا مقایسه می‌کنم.
+پاسخ: «تهران ۲۵ درجه و آفتابیه، اصفهان ۲۲ درجه و نیمه‌ابری...»
+</code></pre>
+<div align="center">
+
+<h3>۳. برنامه‌ریزی و اجرا (Plan-and-Execute) 📋</h3>
+<p>اول یه <strong>نقشه کامل</strong> می‌کشه، بعد مرحله‌به‌مرحله اجرا می‌کنه. برای کارهای پیچیده عالیه:</p>
+<pre><code class="language-text">کاربر: «یه گزارش از وضعیت بازار بورس تهران تهیه کن»
+نقشه:
+  ۱. شاخص کل بورس رو بگیر
+  ۲. ۵ سهم پربازده امروز رو پیدا کن
+  ۳. اخبار مهم اقتصادی رو جستجو کن
+  ۴. همه رو ترکیب کن و گزارش بنویس
+اجرا: مرحله ۱... ✅ مرحله ۲... ✅ مرحله ۳... ✅ مرحله ۴... ✅
+</code></pre>
+<p><img src="images/vis-16-agent-architectures.png" alt="سه پنل مقایسه‌ای برای حلقه ساده ابزار، ReAct و برنامه‌ریزی و اجرا"></p>
+<blockquote>
+<p>🖼️ حلقه ساده مسیر کوتاهی داره؛ ReAct با مشاهده تکرار می‌شه و Plan-and-Execute قبل از اجرا نقشه می‌سازه.</p>
+</blockquote>
+<h3>یه مثال عملی Agent با LangChain 🐍</h3>
+<p>بیا یه Agent ساده بسازیم که با ابزارهاش هم مسئله ریاضی حل می‌کنه، هم نرخ ارز رو درمیاره:</p>
+<pre><code class="language-python">from langchain.agents import create_agent
+from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
+
+# ۱. تعریف ابزارها (Tools)
+@tool
+def calculator(expression: str) -&gt; str:
+    &quot;&quot;&quot;یه عبارت ریاضی رو محاسبه می‌کنه. مثلاً: &#39;2 + 2&#39; یا &#39;15 * 3.14&#39;&quot;&quot;&quot;
+    try:
+        # ⚠️ هشدار: eval فقط برای دموی آموزشیه!
+        result = eval(expression)
+        return f&quot;نتیجه: {result}&quot;
+    except Exception as e:
+        return f&quot;خطا: {e}&quot;
+
+@tool
+def get_exchange_rate(currency: str) -&gt; str:
+    &quot;&quot;&quot;نرخ ارز رو برمی‌گردونه (نمونه آموزشی)&quot;&quot;&quot;
+    rates = {&quot;USD&quot;: &quot;۶۸٬۵۰۰ تومان&quot;, &quot;EUR&quot;: &quot;۷۴٬۲۰۰ تومان&quot;, &quot;GBP&quot;: &quot;۸۶٬۸۰۰ تومان&quot;}
+    return rates.get(currency.upper(), &quot;ارز پیدا نشد&quot;)
+
+# ۲. ساخت Agent (مدل + ابزارها)
+agent = create_agent(ChatOpenAI(model=&quot;gpt-5.5&quot;), tools=[calculator, get_exchange_rate])
+
+# ۳. اجرا!
+result = agent.invoke(
+    {&quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;اگه ۱۵۰ دلار داشته باشم، معادل چند تومانه؟&quot;}]}
+)
+
+# ایجنت خودش:
+# ۱. نرخ دلار رو می‌گیره (get_exchange_rate)
+# ۲. ضرب رو انجام می‌ده (calculator)
+# ۳. جواب نهایی رو می‌ده
+print(result[&quot;messages&quot;][-1].content)
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>نکته امنیتی:</strong> تو کد واقعی هیچ‌وقت ورودی کاربر (یا خروجی مدل!) رو مستقیم به <code>eval</code> نده؛ این یعنی اجرای کد دلخواه روی سیستم تو. برای محاسبه از کتابخونه‌های امن مثل <code>numexpr</code> یا یه پارسر ریاضی استفاده کن. (تو فصل امنیت هم بهش می‌رسیم: خروجی مدل رو بدون بررسی اجرا نکن!)</p>
+</blockquote>
+<h3>فریم‌ورک‌های ساخت Agent 🧰</h3>
+<table>
+<thead>
+<tr>
+<th>فریم‌ورک</th>
+<th>ویژگی اصلی</th>
+<th>مناسب برای</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><a href="https://langchain-ai.github.io/langgraph/">LangGraph</a></strong> 🔗</td>
+<td>گراف حالت، کنترل دقیق جریان</td>
+<td>ایجنت‌های پیچیده و سفارشی</td>
+</tr>
+<tr>
+<td><strong><a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a></strong> 🟢</td>
+<td>رسمی OpenAI؛ ساده، با پاس دادن کار بین ایجنت‌ها (Handoff)</td>
+<td>شروع سریع تو اکوسیستم OpenAI</td>
+</tr>
+<tr>
+<td><strong><a href="https://google.github.io/adk-docs/">Google ADK</a></strong> 🔷</td>
+<td>رسمی Google؛ چندزبانه</td>
+<td>ایجنت روی Gemini و Vertex AI</td>
+</tr>
+<tr>
+<td><strong><a href="https://ai.pydantic.dev/">PydanticAI</a></strong> 🛡️</td>
+<td>Type-safe، از تیم سازنده Pydantic</td>
+<td>وقتی ساختار و تست‌پذیری برات مهمه</td>
+</tr>
+<tr>
+<td><strong><a href="https://crewai.com">CrewAI</a></strong> 👥</td>
+<td>تیمی از ایجنت‌ها با نقش‌های مختلف</td>
+<td>پروژه‌هایی با چند ایجنت</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/microsoft/agent-framework">Microsoft Agent Framework</a></strong> 🏢</td>
+<td>جانشین AutoGen و Semantic Kernel</td>
+<td>محیط‌های سازمانی و ‎.NET</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/agno-agi/agno">Agno</a></strong> ⚡</td>
+<td>سبک و سریع</td>
+<td>پروتوتایپ سریع</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 درگیر «جنگ فریم‌ورک‌ها» نشو: اصول همه‌شون یکیه (حلقه + ابزار + حافظه). با یکی شروع کن؛ اگه بعداً لازم شد عوضش کنی، مفاهیمی که یاد گرفتی همراهت میان.</p>
+</blockquote>
+<h3>سیستم‌هایی با چند ایجنت (Multi-Agent) 👥</h3>
+<p>گاهی یه Agent کافی نیست! می‌تونی <strong>چند Agent</strong> بسازی که مثل متخصص‌های یه شرکت با هم کار کنن:</p>
+<p><img src="images/vis-17-multi-agent-team.png" alt="مدیر پروژه‌ای که کار رو میان محقق، نویسنده و ویرایشگر تقسیم می‌کنه و بازخورد به خروجی نهایی می‌رسه"></p>
+<blockquote>
+<p>🖼️ سیستمِ دارای چند ایجنت وقتی معنی پیدا می‌کنه که هر ایجنت مسئولیت و خروجی مشخصی داشته باشه.</p>
+</blockquote>
+<p>هر Agent ابزارهای مخصوص خودش رو داره و نتیجه کارش رو به Agent بعدی می‌ده.</p>
+<h3>حافظه ایجنت: چیزی که جلسه بعد هم یادش می‌مونه 🧠</h3>
+<p>حلقه‌ای که بالا دیدیم یه نقطه‌ضعف بزرگ داره: <strong>با تموم شدن مکالمه، همه‌چیز فراموش می‌شه.</strong> جلسه بعد، ایجنت دوباره از صفر شروع می‌کنه؛ نه اسمت یادشه، نه ترجیحاتت، نه کارهایی که قبلاً براش تعریف کردی.</p>
+<p>راه‌حل اینه که یه <strong>لایه حافظه بلندمدت</strong> به ایجنت اضافه کنی؛ لایه‌ای که سه تا کار انجام می‌ده:</p>
+<ol>
+<li><strong>استخراج:</strong> از دل مکالمه، نکته‌های ماندنی رو جدا می‌کنه («کاربر گیاه‌خواره»، «پروژه‌ش با Django هست»)</li>
+<li><strong>ذخیره:</strong> اون‌ها رو بیرون از پنجره کانتکست نگه می‌داره (دیتابیس، فایل یا گراف دانش)</li>
+<li><strong>فراخوانی:</strong> اول مکالمه بعدی، نکته‌های مرتبط رو برمی‌گردونه تو کانتکست</li>
+</ol>
+<p>کتابخونه‌های شناخته‌شده این حوزه: <strong><a href="https://github.com/mem0ai/mem0">Mem0</a></strong>، <strong><a href="https://www.getzep.com">Zep</a></strong> (حافظه به شکل گراف دانش زمان‌دار) و <strong><a href="https://www.letta.com">Letta</a></strong> (همون MemGPT سابق).</p>
+<blockquote>
+<p>💡 <strong>اول ساده شروع کن:</strong> برای خیلی از پروژه‌ها، یه فایل یا جدول ساده از «حقایق کاربر» که خودت مدیریتش می‌کنی کارت رو راه می‌ندازه؛ کتابخونه تخصصی رو وقتی بیار که مقیاس یا پیچیدگی واقعاً لازمش کنه. (مدیریت خود پنجره کانتکست هم داستان جداگانه‌ای داره که تو فصل «مهندسی کانتکست» می‌خونیش.)</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>حافظه هم می‌تونه راه ورود حمله باشه (Memory Poisoning):</strong> حافظه بلندمدت فقط یه قابلیت نیست، یه در ورودی هم هست. یه دستور مخرب می‌تونه یه بار (مثلاً از دل سند یا ایمیلی که ذخیره می‌شه) وارد حافظه بشه و جلسه‌های بعد، موقع فراخوانی برای یه کار کاملاً بی‌ربط، فعال بشه. پس هر چیزی که ذخیره می‌کنی رو همراه منبعش و قابل‌حذف نگه دار و حافظه هر کاربر رو جدا و ایزوله کن. (این هم از خانواده همون «سه‌گانه مرگبار»ه که تو فصل امنیت می‌بینی.)</p>
+</blockquote>
+<p><img src="images/vis-31-agent-long-term-memory.png" alt="چرخه استخراج، ذخیره و فراخوانی حافظه بلندمدت ایجنت با حافظه جدا برای هر کاربر"></p>
+<blockquote>
+<p>🖼️ لایه حافظه نکته‌های ماندنی رو از مکالمه جدا می‌کنه، بیرون نگه می‌داره و جلسه بعد فقط موارد مرتبط رو برمی‌گردونه.</p>
+</blockquote>
+<h3>ایجنت پشت کامپیوتر: Computer Use 🖱️</h3>
+<p>تا الان ابزارهای ایجنت «تابع» بودن: یه ورودی می‌گرفتن، یه خروجی می‌دادن. ولی نسل جدیدی از ایجنت‌ها یه قدم جلوتر رفتن: <strong>اسکرین‌شات صفحه رو می‌بینن و مثل آدم با موس و کیبورد کار می‌کنن!</strong> فرم پر می‌کنن، تو سایت‌ها می‌گردن، بین برنامه‌ها سوییچ می‌کنن.</p>
+<p>بازیگرهای اصلی این حوزه (تا تاریخ به‌روزرسانی این راهنما):</p>
+<ul>
+<li><strong>قابلیت Computer Use در Claude:</strong> یه ابزار «اسکرین‌شات + موس + کیبورد» که روی هر سیستم و ماشین مجازی کار می‌کنه.</li>
+<li><strong>ابزار Computer Use در OpenAI:</strong> تو Responses API در دسترسه و تمرکزش روی وب‌گردی و کارهای دسکتاپه. (محصول قدیمی‌ترش به اسم Operator تو خود ChatGPT ادغام شد.)</li>
+<li><strong>قابلیت Computer Use در Gemini گوگل:</strong> تمرکز روی مرورگر؛ چون ساختار صفحه (DOM) رو هم می‌فهمه، تو کارهای وبی دقیق‌تره.</li>
+</ul>
+<p><strong>کجا به درد می‌خوره؟</strong> کارهایی که API ندارن! مثلاً سیستم اداری قدیمی شرکت که فقط رابط گرافیکی داره، یا پر کردن فرم تو سایتی که هیچ راه برنامه‌نویسی‌ای نمی‌ده.</p>
+<blockquote>
+<p>⚠️ <strong>سه هشدار جدی:</strong>
+۱. این ایجنت‌ها کندتر و گرون‌تر از ابزارهای معمولی‌ان؛ هر قدمشون یه اسکرین‌شات و یه رفت‌وبرگشت به مدله.
+۲. ایجنتی که می‌تونه «کلیک کنه»، می‌تونه اشتباه هم کلیک کنه! برای کارهای حساس (پرداخت، حذف، ارسال) حتماً تایید انسانی بذار؛ این دقیقاً همون بحثیه که تو فصل امنیت بهش می‌رسیم.
+۳. <strong>حتی خود صفحه می‌تونه بهش دستور بده (تزریق پرامپت از راه تصویر یا Visual Prompt Injection):</strong> یه دستور مخرب ممکنه توی صفحه یا عکس پنهان شده باشه و ایجنت موقع دیدنش خیال کنه دستور توئه. قاعده همونه: محتوای صفحه «داده»ست، نه «دستور».</p>
+</blockquote>
+<p><img src="images/vis-32-computer-use-loop.png" alt="حلقه اسکرین‌شات، تصمیم مدل، اقدام با ماوس و کیبورد و تایید انسانی در Computer Use"></p>
+<blockquote>
+<p>🖼️ ایجنت صفحه رو می‌بینه، تصمیم می‌گیره و با ماوس و کیبورد عمل می‌کنه؛ کارهای حساس فقط با تایید انسانی جلو می‌رن.</p>
+</blockquote>
+<h3>رابطی که مدل همان لحظه می‌سازد (Generative UI) 🎨</h3>
+<p>تا حالا فرض کردیم جواب مدل «متن»ه. ولی یه ایده تازه داره جا می‌افته: چرا مدل به جای متن، <strong>رابط کاربری تعاملی</strong> برنگردونه؟ به جای یه پاراگراف درباره یه پرواز، یه <strong>کارت پرواز</strong> با دکمه «رزرو»؛ به جای توضیح یه فرم، خود فرم. مدل می‌گه چه اجزایی لازم داریم و برنامه تو اون‌ها رو نمایش می‌ده.</p>
+<p><strong>نکته امنیتی کلیدی:</strong> مدل نباید HTML و JavaScript دلخواه بنویسه و مستقیم تو مرورگر اجراش کنه؛ این کار یه حفره امنیتی جدی می‌سازه. دو رویکرد تازه سعی می‌کنن ساخت این رابط رو امن‌تر کنن: <strong>A2UI (Agent-to-User Interface)</strong> به ایجنت اجازه می‌ده فقط یه توصیف ساختاریافته از اجزای مجاز بفرسته و کلاینت اون‌ها رو با ظاهر خودش بسازه؛ <strong>MCP Apps</strong> هم یه اپ وب آماده رو داخل یه <code>iframe</code> ایزوله اجرا می‌کنه. حتی می‌شه A2UI رو از طریق MCP فرستاد، پس این دو لزوماً رقیب هم نیستن.</p>
+<p><strong>چرا مهمه؟</strong> رابطی که مدل همان لحظه می‌سازه فقط برای زیبایی نیست؛ می‌تونه سیستم رو <strong>شفاف‌تر و قابل‌کنترل‌تر</strong> کنه. مثلاً قبل از یه کار حساس، منبع اطلاعات و جزئیات عملیات رو نشون بده و همون‌جا از آدم تأیید بگیره. فعلاً این حوزه نوپاست و روش‌هاش هنوز دارن جا می‌افتن.</p>
+<p><img src="images/vis-36-safe-generative-ui.png" alt="مسیر امن Generative UI از درخواست کاربر تا رندر اجزای مجاز در محیط ایزوله و تایید کاربر"></p>
+<blockquote>
+<p>🖼️ تو Generative UI مدل به‌جای کد دلخواه، تعریف ساختاریافته رابط رو می‌ده و اپ فقط اجزای مجاز رو رندر می‌کنه.</p>
+</blockquote>
+<h3>کِی از Agent استفاده کنم و کِی نکنم؟ 🤷</h3>
+<table>
+<thead>
+<tr>
+<th>وضعیت</th>
+<th>رویکرد پیشنهادی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>سوال ساده، جواب سریع</td>
+<td>❌ پرامپت معمولی کافیه</td>
+</tr>
+<tr>
+<td>خلاصه‌سازی یه متن</td>
+<td>❌ پرامپت معمولی</td>
+</tr>
+<tr>
+<td>تحقیق در چند منبع مختلف</td>
+<td>✅ حتماً Agent</td>
+</tr>
+<tr>
+<td>کاری که به چند ابزار نیاز داره</td>
+<td>✅ حتماً Agent</td>
+</tr>
+<tr>
+<td>کاری که مراحل متوالی داره</td>
+<td>✅ حتماً Agent</td>
+</tr>
+<tr>
+<td>تصمیم‌گیری بر اساس داده‌های لحظه‌ای</td>
+<td>✅ حتماً Agent</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>قانون سرانگشتی:</strong> اگه خودت برای انجام اون کار باید چند تا تب مرورگر باز کنی، احتمالاً به Agent نیاز داری!</p>
+</blockquote>
+<h3>واقعیت تلخ: ایجنت‌ها کجا خراب می‌کنن؟ 💥</h3>
+<p>دموهای ایجنت همیشه تمیز و جذابن؛ دنیای واقعی نه. قبل از اینکه یه کار مهم رو کامل بسپری دستشون، این‌ها رو بدون:</p>
+<ul>
+<li><strong>خطاها تو کارهای طولانی جمع می‌شن.</strong> یه حساب سرانگشتی: اگه ایجنت هر قدم رو با دقت ۹۵٪ درست بره، احتمال اینکه یه مسیر ۲۰ قدمی کامل بی‌خطا باشه می‌شه حدود ۳۶٪! واسه همین ایجنت‌های موفق یا کارها رو کوتاه نگه می‌دارن، یا وسط راه نقطه بازبینی انسانی می‌ذارن.</li>
+<li><strong>هدف مبهم یعنی اقدام مطمئنِ اشتباه.</strong> ایجنت به جای گفتن «نمی‌دونم منظورت چیه»، با اعتمادبه‌نفس کامل یه تفسیر غلط از خواسته‌ت رو اجرا می‌کنه.</li>
+<li><strong>خرابکاری‌ها واقعی‌ان، نه تئوری.</strong> نمونه معروفش تابستون ۲۰۲۵ بود: ایجنت کدنویسی Replit با وجود دستور صریحِ «تغییری نده»، دیتابیس پروداکشن یه شرکت رو پاک کرد.</li>
+</ul>
+<p>چطور جلوش رو بگیریم؟ همون الگوهایی که حرفه‌ای‌ها استفاده می‌کنن:</p>
+<ul>
+<li><strong>مرحله تأیید کاربر (Approval Gate):</strong> هر کار برگشت‌ناپذیر (حذف، پرداخت، ارسال) فقط بعد از تأیید صریح کاربر انجام بشه.</li>
+<li><strong>حداقل دسترسی:</strong> ایجنت فقط به ابزارها و داده‌هایی دسترسی داشته باشه که برای همون کار لازمه؛ شروع با ابزارهای فقط-خواندنی.</li>
+<li><strong>محیط ایزوله:</strong> کارهای پرریسک تو Sandbox یا روی نسخه کپی انجام بشن، نه روی داده اصلی.</li>
+</ul>
+<blockquote>
+<p>این‌ها رو رعایت کنی، ایجنت می‌شه یه همکار قابل‌اعتماد؛ رعایت نکنی، می‌شه یه کارمند پرانرژی که کلید سرور رو هم داره! (بحث کامل امنیتش تو فصل «دقت و امنیت» اومده.)</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h1>مدل‌های چندوجهی (Multimodal) 👁️</h1>
+<p>تا اینجا بیشتر با <strong>متن</strong> کار کردیم: متن فرستادیم، متن گرفتیم. ولی مدل‌های جدید فقط متن نمی‌فهمن! اون‌ها می‌تونن <strong>عکس</strong> ببینن 📷، <strong>صدا</strong> بشنون 🎤 و حتی <strong>ویدیو</strong> تحلیل کنن 🎬.</p>
+<p>مدل‌های چندوجهی مثل آدمی هستن که هم چشم داره، هم گوش، هم می‌تونه بخونه و بنویسه. این رو بذار کنار مدل‌های قدیمی که فقط «نامه‌خوان» بودن! 📮</p>
+<p><img src="images/vis-33-multimodal-pipeline.png" alt="ورودی‌های متن، تصویر، صوت، ویدیو و PDF که وارد یک مدل چندوجهی می‌شن و انواع خروجی"></p>
+<blockquote>
+<p>🖼️ مدل چندوجهی متن، تصویر، صوت و سند رو با هم می‌گیره و بسته به قابلیتش، جواب متنی، صوتی یا ساختاریافته می‌ده.</p>
+</blockquote>
+<h3>چه مدل‌هایی چه قابلیت‌هایی دارن؟ 📊</h3>
+<table>
+<thead>
+<tr>
+<th>قابلیت</th>
+<th>مدل GPT-5.5 🟢</th>
+<th>مدل Claude 4.x 🟣</th>
+<th>مدل Gemini 3.x 🔵</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>درک تصویر 🖼️</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>تولید تصویر 🎨</td>
+<td>✅*</td>
+<td>❌</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>درک صوت 🎤</td>
+<td>✅*</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>تولید صوت 🔊</td>
+<td>✅*</td>
+<td>❌</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>درک ویدیو 🎬</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>خواندن PDF 📄</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>📝 <strong>توجه:</strong> ستاره (*) یعنی این قابلیت رو یه مدل جانبی تو همون API انجام می‌ده، نه خودِ مدل اصلی. مثلاً تو OpenAI تولید تصویر با خانواده GPT Image و کارهای صوتی با خانواده GPT Realtime انجام می‌شه؛ تو Gemini هم تولید تصویر و صوت هرکدوم مدل جداگانه خودشون رو دارن. این جدول هم بر اساس وضعیت خرداد ۱۴۰۵ (ژوئن ۲۰۲۶) هست و ممکنه تغییر کنه.</p>
+</blockquote>
+<h3>تولید تصویر، ویدیو و موسیقی 🎨</h3>
+<p>تولید رسانه دنیای خودش رو داره و پرامپت‌نویسیش هم قواعد متفاوتی داره (توصیف صحنه، سبک، نور، ترکیب‌بندی). این راهنما روی مدل‌های زبانی تمرکز کرده، ولی بد نیست یه نقشه کلی از این حوزه دستت باشه:</p>
+<ul>
+<li><strong>تصویر 🖼️:</strong> خانواده GPT Image (تو ChatGPT و API)، خانواده Imagen و Gemini Image تو گوگل؛ Midjourney و Flux هم گزینه‌های مستقل محبوبن.</li>
+<li><strong>ویدیو 🎬:</strong> Sora 2 از OpenAI، Veo از Google و Kling؛ تولید ویدیو هنوز گرون‌تر و محدودتر از تصویره.</li>
+<li><strong>موسیقی و گفتار 🎵:</strong> Suno برای ساخت آهنگ از روی متن؛ ElevenLabs برای تبدیل متن به گفتار طبیعی.</li>
+</ul>
+<blockquote>
+<p>💡 این بازار تقریباً هر فصل عوض می‌شه؛ این اسم‌ها رو نقطه شروع جستجو بدون، نه فهرست نهایی.</p>
+</blockquote>
+<h3>مثال: ارسال تصویر به مدل 📸</h3>
+<p>فرض کن می‌خوای عکس منوی یه رستوران رو بفرستی و از مدل بخوای توضیح بده چی‌ها داره:</p>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+
+response = client.chat.completions.create(
+    model=&quot;gpt-5.5&quot;,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: [
+                {
+                    &quot;type&quot;: &quot;text&quot;,
+                    &quot;text&quot;: &quot;این عکس منوی یه رستوران ایرانیه. لطفاً غذاها و قیمت‌هاشون رو به صورت لیست فارسی بنویس.&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;image_url&quot;,
+                    &quot;image_url&quot;: {
+                        &quot;url&quot;: &quot;https://example.com/menu.jpg&quot;
+                    }
+                }
+            ]
+        }
+    ]
+)
+
+print(response.choices[0].message.content)
+# خروجی: لیست غذاها با قیمت‌ها به فارسی ✅
+</code></pre>
+<h3>کاربردهای رایج Vision 🔍</h3>
+<table>
+<thead>
+<tr>
+<th>کاربرد</th>
+<th>توضیح</th>
+<th>مثال</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>توصیف تصویر 📝</td>
+<td>توضیح محتوای عکس</td>
+<td>«این عکس چی نشون می‌ده؟»</td>
+</tr>
+<tr>
+<td>خواندن متن از عکس (OCR) 📋</td>
+<td>استخراج متن از تصاویر اسناد</td>
+<td>عکس فاکتور به متن ساختاریافته</td>
+</tr>
+<tr>
+<td>تحلیل نمودار 📊</td>
+<td>خواندن و تفسیر نمودارها</td>
+<td>عکس نمودار فروش به تحلیل روند</td>
+</tr>
+<tr>
+<td>پرسش‌وپاسخ درباره تصویر (Visual Question Answering) ❓</td>
+<td>سوال درباره محتوای عکس</td>
+<td>«چند نفر تو عکس هستن؟»</td>
+</tr>
+<tr>
+<td>مقایسه تصاویر 🔄</td>
+<td>بررسی تفاوت‌های دو عکس</td>
+<td>«فرق این دو طرح چیه؟»</td>
+</tr>
+</tbody></table>
+<h3>قابلیت‌های صوتی 🎙️</h3>
+<p>مدل‌های جدید از صوت هم پشتیبانی می‌کنن:</p>
+<ul>
+<li><strong>تبدیل گفتار به متن (Speech-to-Text):</strong> مثلاً Whisper از OpenAI که فارسی رو هم می‌شناسه</li>
+<li><strong>تبدیل متن به گفتار (Text-to-Speech):</strong> خروجی صوتی با صداهای مختلف</li>
+<li><strong>مکالمه صوتی (Realtime API):</strong> مکالمه زنده مثل تماس تلفنی (مثل حالت صوتی ChatGPT)</li>
+</ul>
+<blockquote>
+<p>💡 <strong>نکته فارسی:</strong> کیفیت تشخیص گفتار فارسی هنوز به اندازه انگلیسی نیست، ولی هر روز داره بهتر می‌شه. مدل Whisper از OpenAI عملکرد نسبتاً خوبی روی فارسی داره.</p>
+</blockquote>
+<h3>دستیارهای پژوهش: Deep Research و NotebookLM 🔬</h3>
+<p>دو دسته محصول که برای تحقیق روزمره فوق‌العاده کاربردی‌ان و برای استفاده ازشون هم لازم نیست برنامه‌نویس باشی:</p>
+<ul>
+<li><strong>حالت Deep Research:</strong> تو ChatGPT، Gemini، Claude و Perplexity یه حالت «تحقیق عمیق» هست که به جای جواب فوری، چند دقیقه وقت می‌ذاره، ده‌ها منبع وب رو می‌گرده و یه گزارش مفصل با ارجاع تحویل می‌ده. برای «یه گزارش کامل از بازار X می‌خوام» عالیه؛ فقط ارجاع‌هاش رو حتماً خودت چک کن.</li>
+<li><strong>سرویس NotebookLM (گوگل):</strong> بهش سند، PDF و لینک می‌دی و فقط بر اساس <strong>همون منابع خودت</strong> جواب می‌ده، خلاصه می‌سازه و حتی از جزوه‌هات پادکست صوتی درمیاره! برای درس خوندن و تحلیل اسناد بی‌نظیره؛ در واقع یه RAG آماده‌ست بدون یه خط کد. (RAG چیه؟ چند فصل جلوتر مفصل می‌خونیش!)</li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h2>کدنویسی با کمک هوش مصنوعی 💻</h2>
+<p>یکی از محبوب‌ترین کاربردهای LLMها <strong>کمک به برنامه‌نویسی</strong> هست. این مدل‌ها می‌تونن کد بنویسن، دیباگ کنن، توضیح بدن و ریفکتور کنن. مثل داشتن یه <strong>هم‌تیمی</strong> که ۲۴ ساعته آنلاینه! 🌙</p>
+<h3>کاربردهای اصلی 🛠️</h3>
+<div align="center">
+
+<h3>۱. تولید کد (Code Generation) ✨</h3>
+<pre><code class="language-text">پرامپت: «یه تابع پایتون بنویس که لیستی از اعداد رو بگیره و میانگین، میانه و مد رو برگردونه.
+- از کتابخانه statistics استفاده کن
+- مدیریت خطا برای لیست خالی داشته باشه
+- داکسترینگ فارسی بنویس»
+</code></pre>
+<div align="center">
+
+<h3>۲. دیباگ و رفع خطا (Debugging) 🐛</h3>
+<pre><code class="language-text">پرامپت: «این کد خطای TypeError می‌ده. دلیلش رو پیدا کن و اصلاحش کن:
+
+[کد مشکل‌دار رو اینجا بذار]
+
+خطا:
+TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;
+
+لطفاً ۱) دلیل خطا رو توضیح بده ۲) کد اصلاح‌شده رو بنویس ۳) نکته‌ای بگو که دیگه این اشتباه رو نکنم.»
+</code></pre>
+<div align="center">
+
+<h3>۳. بازبینی کد (Code Review) 🔍</h3>
+<pre><code class="language-text">پرامپت: «این کد رو بازبینی کن از نظر:
+- بهینه بودن عملکرد ⚡
+- خوانایی و تمیزی کد 📖
+- مدیریت خطاها 🛡️
+- نقاط ضعف امنیتی 🔐
+- رعایت اصول SOLID
+
+برای هر مورد، اگه مشکلی هست کد اصلاح‌شده هم پیشنهاد بده.»
+</code></pre>
+<div align="center">
+
+<h3>۴. ریفکتور (Refactoring) 🔧</h3>
+<pre><code class="language-text">پرامپت: «این تابع ۱۵۰ خطی رو ریفکتور کن:
+- به توابع کوچک‌تر بشکن
+- اسم‌گذاری‌ها رو بهتر کن
+- تکرار کد (DRY) رو حذف کن
+- تایپ هینت اضافه کن
+دلیل هر تغییر رو هم بنویس.»
+</code></pre>
+<div align="center">
+
+<h3>۵. توضیح کد (Code Explanation) 📚</h3>
+<pre><code class="language-text">پرامپت: «این کد رو خط‌به‌خط توضیح بده. فرض کن من تازه‌کار هستم و با
+دکوراتورها و جنراتورهای پایتون آشنا نیستم. با مثال‌های ساده توضیح بده.»
+</code></pre>
+<h3>ابزارهای کدنویسی با هوش مصنوعی 🧰</h3>
+<p>این حوزه از «تکمیل خودکار کد» خیلی جلوتر رفته؛ الان <strong>ایجنت‌های کدنویس</strong> داریم که کل پروژه رو می‌فهمن، خودشون فایل عوض می‌کنن و تست می‌زنن:</p>
+<table>
+<thead>
+<tr>
+<th>ابزار</th>
+<th>نوع</th>
+<th>ویژگی کلیدی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><a href="https://code.claude.com/docs">Claude Code</a></strong> 🟣</td>
+<td>ایجنت ترمینال</td>
+<td>کدنویسی ایجنتی تو ترمینال؛ کل پروژه رو می‌فهمه و خودش فایل عوض می‌کنه</td>
+</tr>
+<tr>
+<td><strong><a href="https://developers.openai.com/codex">Codex</a></strong> 🟢</td>
+<td>ایجنت ترمینال</td>
+<td>ایجنت کدنویسی OpenAI؛ اجرای محلی یا ابری</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/google-gemini/gemini-cli">Gemini CLI</a></strong> 🔵</td>
+<td>ایجنت ترمینال</td>
+<td>ایجنت متن‌باز گوگل با پلن رایگان سخاوتمندانه</td>
+</tr>
+<tr>
+<td><strong><a href="https://cursor.com">Cursor</a></strong> ⚡</td>
+<td>ادیتور هوشمند</td>
+<td>ادیتور با حالت ایجنت و چت با کل کدبیس</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/features/copilot">GitHub Copilot</a></strong> 🤖</td>
+<td>افزونه IDE</td>
+<td>تکمیل کد + حالت ایجنت تو VS Code</td>
+</tr>
+<tr>
+<td><strong><a href="https://aider.chat">Aider</a></strong> 🔓</td>
+<td>ایجنت ترمینال (متن‌باز)</td>
+<td>با هر مدلی کار می‌کنه؛ مناسب مدل‌های لوکال</td>
+</tr>
+</tbody></table>
+<h4>فایل AGENTS.md: پرامپت‌نویسی در مقیاس پروژه! 📄</h4>
+<p>جالب‌ترین اتفاق دنیای کدنویسی با AI اینه که «پرامپت» از چت‌باکس اومده بیرون و تبدیل به <strong>فایل توی ریپو</strong> شده. یه فایل Markdown ساده به اسم <code>AGENTS.md</code> (یا <code>CLAUDE.md</code> برای Claude Code و <code>GEMINI.md</code> برای Gemini CLI) می‌ذاری ریشه پروژه و توش به ایجنت می‌گی با پروژه‌ت چطور کار کنه. الان بیش از ۶۰ هزار پروژه متن‌باز از همین استاندارد استفاده می‌کنن.</p>
+<p>یه نمونه AGENTS.md کوچیک:</p>
+<pre><code class="language-markdown"># راهنمای ایجنت برای این پروژه
+
+## دستورها
+- نصب: `pip install -r requirements.txt`
+- تست: `pytest -q` (قبل از هر کامیت همه تست‌ها باید سبز باشن)
+
+## قواعد کد
+- پایتون 3.12، تایپ‌هینت اجباری
+- پیام‌های کامیت فارسی و کوتاه
+- به پوشه `legacy/` دست نزن
+</code></pre>
+<p>دقیقاً همون اصول پرامپت‌نویسی که یاد گرفتی اینجا هم برقراره: <strong>کوتاه، صریح، با مثال.</strong> فایل‌های غول‌آسا جواب نمی‌دن؛ یه فایل ۵۰ خطی متمرکز، از یه فایل ۱۰۰۰ خطی پراکنده خیلی بهتر کار می‌کنه.</p>
+<blockquote>
+<p>💡 <strong>نکته مهم:</strong> هیچ‌وقت کدی که AI نوشته رو بدون بررسی و تست مستقیم تو پروداکشن استفاده نکن! همیشه کد رو بخون، بفهم و تست کن. AI هم‌تیمیه، نه جایگزین! 🤝</p>
+</blockquote>
+<h3>یه گردش‌کار مطمئن برای ایجنت کدنویس 🔄</h3>
+<p>این ابزارها یه‌شبه به اینجا نرسیدن؛ یه نردبون رو اومدن بالا: <strong>تکمیل خودکار</strong> (حدس خط بعدی) ← <strong>چت تو ادیتور</strong> (توضیح یا نوشتن یه تابع) ← <strong>حالت ایجنت</strong> (انجام چند قدم تو یه پوشه) ← <strong>ایجنت سطح ریپو</strong> (بررسی چند فایل و جلو بردن یه تغییر کامل).</p>
+<p>پله آخر هم بیشترین قدرت رو داره هم بیشترین ریسک. برای کار جدی، بهتره ایجنت سطح ریپو تقریباً همون مسیری رو بره که از یه مهندس باتجربه انتظار داری:</p>
+<p>۱. <strong>کاوش ریپو:</strong> اول می‌فهمه چی به چیه، کدوم فایل مسئول چیه و تغییرش کجاها اثر می‌ذاره؛ نه اینکه کورکورانه شروع به نوشتن کنه.
+۲. <strong>برنامه‌ریزی:</strong> برای تغییرهای بزرگ، یه نقشه مرحله‌ای می‌ده تا <strong>قبل از دست‌زدن به کد بازبینیش کنی</strong>.
+۳. <strong>بازتولید باگ:</strong> اگه کار رفع باگه، اول سعی می‌کنه مشکل رو بازتولید کنه و هر جا عملی بود، یه تست بنویسه که قبل از اصلاح رد بشه.
+۴. <strong>پیاده‌سازی، بعد لینت و تست:</strong> کد رو عوض می‌کنه، بعد لینت و تست‌ها رو خودش اجرا می‌کنه و تا سبز شدن ادامه می‌ده.
+۵. <strong>گزارش با شواهد:</strong> آخرش می‌گه چی عوض کرده، چه تستی اجرا شده و چه چیزی هنوز بررسی نشده؛ اگه گردش‌کار تیم PR داره، همین شواهد رو توی PR هم می‌ذاره.</p>
+<p>دو تا الگوی حرفه‌ای هم کارِ همین ایجنت‌ها رو مطمئن‌تر می‌کنه:</p>
+<ul>
+<li><strong>ایجنت بازبین (Reviewer Agent):</strong> یکی کد رو می‌نویسه، یکی دیگه فقط نقدش می‌کنه (باگ، حفره امنیتی، تست جاافتاده). خروجی بازبین رو «سرنخی برای بررسی» بدون، نه حکم نهایی.</li>
+<li><strong>پوشه کاری جدا با <code>Git Worktree</code>:</strong> اگه می‌خوای چند ایجنت هم‌زمان روی چند کار جدا کار کنن، برای هر کدوم یه worktree جدا بساز تا به پای هم نپیچن و مقایسه diffها تمیز بمونه.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>معیار «تمومه» چیه؟</strong> یه ایجنت قابل‌اتکا وقتی نمی‌گه «تموم شد» که فقط قشنگ حرف زده باشه؛ وقتی می‌گه که <strong>شواهد</strong> داشته باشه: تست‌ها سبزن، لینت پاسه و صادقانه گفته چی رو نتونسته چک کنه. «درست شد»ی که خروجی تست همراهش نیست، یعنی هنوز درست نشده.</p>
+</blockquote>
+<p><img src="images/vis-37-safe-coding-agent-workflow.png" alt="گردش‌کار ایجنت کدنویس از کاوش ریپو و برنامه‌ریزی تا پیاده‌سازی، تست و گزارش با شواهد"></p>
+<blockquote>
+<p>🖼️ ایجنت کدنویس قابل‌اعتماد اول می‌فهمه و برنامه می‌ریزه، بعد می‌سازه؛ و ادعاش رو با تست و شواهد ثابت می‌کنه.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. انواع ابزارها (Tools): دست‌های رباتیک 🦾</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">الف) ابزارهای سمت کلاینت (Client-side Tools / Function Calling) 📞</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">ب) ابزارهای سمت سرور (Server-side Tools / Code Execution) 🖥️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۲. پروتکل MCP (Model Context Protocol) 🔌</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۳. طراحی Schema 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۴. خروجی ساختاریافته (Structured Output) 🏗️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">مثال عملی: استخراج ساختاریافته با LangChain 🐍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۵. هندل کردن خطاها (وقتی مدل خراب‌کاری می‌کنه!) 💥</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">۶. مثال کامل Function Calling (از صفر تا صد) 🔧</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">۷. نکات حرفه‌ای Function Calling 💡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">الف) انتخاب ابزار (Tool Choice) 🎯</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">ب) نوشتن توضیحات خوب برای ابزار (Tool Description) 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">ج) فراخوانی موازی ابزارها (Parallel Tool Calling) ⚡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">تفاوت ساده بین پرامپت معمولی و Agent 🎯</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">حلقه Agent: مثل یه کارآگاه 🕵️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">معماری‌های مختلف Agent 🏗️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">۱. حلقه ساده ابزار (Simple Tool Loop) 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-17">۲. الگوی ReAct (استدلال + عمل) ⚡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-18">۳. برنامه‌ریزی و اجرا (Plan-and-Execute) 📋</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-19">یه مثال عملی Agent با LangChain 🐍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-20">فریم‌ورک‌های ساخت Agent 🧰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-21">سیستم‌هایی با چند ایجنت (Multi-Agent) 👥</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-22">حافظه ایجنت: چیزی که جلسه بعد هم یادش می‌مونه 🧠</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-23">ایجنت پشت کامپیوتر: Computer Use 🖱️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-24">رابطی که مدل همان لحظه می‌سازد (Generative UI) 🎨</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-25">کِی از Agent استفاده کنم و کِی نکنم؟ 🤷</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-26">واقعیت تلخ: ایجنت‌ها کجا خراب می‌کنن؟ 💥</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-27">چه مدل‌هایی چه قابلیت‌هایی دارن؟ 📊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-28">تولید تصویر، ویدیو و موسیقی 🎨</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-29">مثال: ارسال تصویر به مدل 📸</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-30">کاربردهای رایج Vision 🔍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-31">قابلیت‌های صوتی 🎙️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-32">دستیارهای پژوهش: Deep Research و NotebookLM 🔬</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-33">کدنویسی با کمک هوش مصنوعی 💻</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-34">کاربردهای اصلی 🛠️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-35">۱. تولید کد (Code Generation) ✨</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-36">۲. دیباگ و رفع خطا (Debugging) 🐛</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-37">۳. بازبینی کد (Code Review) 🔍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-38">۴. ریفکتور (Refactoring) 🔧</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-39">۵. توضیح کد (Code Explanation) 📚</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-40">ابزارهای کدنویسی با هوش مصنوعی 🧰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-41">دستورها</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-42">قواعد کد</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-43">یه گردش‌کار مطمئن برای ایجنت کدنویس 🔄</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

@@ -1,0 +1,19 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="منبع، هدف و راهنمای مشارکت پروژه."><link rel="canonical" href="https://example.com/about/"><meta property="og:type" content="article"><meta property="og:title" content="درباره پروژه"><meta property="og:description" content="منبع، هدف و راهنمای مشارکت پروژه."><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>درباره پروژه | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><section class="mx-auto max-w-[900px] px-4 py-24"><span class="font-mono text-xs text-smoke">ABOUT / SOURCE</span><h1 class="mt-6 text-5xl font-normal">درباره پروژه</h1><div class="prose-llm mt-12"><h1>کمک کردن به این پروژه! 🤝</h1>
+</div>
+
+<div align="right">
+
+<ul>
+<li>این پروژه رو Fork کن و اگه دوست داشتی، به زبان‌های دیگه ترجمه‌ش کن یا گسترشش بده.</li>
+<li>این ریپو رو برای دوستات بفرست تا افراد بیشتری ازش استفاده کنن.</li>
+<li>اگه اشتباه یا ابهامی دیدی، <a href="https://github.com/3lf/llm-for-humans/issues">یک Issue باز کن</a> یا Pull Request بده. (قواعد لحن و نگارش تو <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> اومده.)</li>
+<li>اگه مثال‌های بهتر، کدهای سالم‌تر یا تجربه عملی داری، به پروژه اضافه کن.</li>
+</ul>
+<blockquote>
+<p>⭐ <strong>اگه این راهنما به کارت اومد، توی GitHub به پروژه ستاره بده.</strong> همین کار ساده کمک می‌کنه آدم‌های بیشتری پیداش کنن.</p>
+</blockquote>
+<blockquote>
+<p>📄 <strong>مجوز:</strong> این پروژه تحت مجوز <a href="LICENSE">CC BY-SA 4.0</a> منتشر شده؛ یعنی تا وقتی منبع رو ذکر کنی و همین مجوز رو نگه داری، آزادانه می‌تونی ازش استفاده کنی و حتی بازنشرش کنی.</p>
+</blockquote>
+</div>
+</div></section></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

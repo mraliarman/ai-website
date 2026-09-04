@@ -1,0 +1,239 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="سرویس‌های آنلاین، Ollama، LM Studio و سخت‌افزار اجرای محلی"><link rel="canonical" href="https://example.com/free-access/"><meta property="og:type" content="article"><meta property="og:title" content="دسترسی رایگان و اجرای محلی"><meta property="og:description" content="سرویس‌های آنلاین، Ollama، LM Studio و سخت‌افزار اجرای محلی"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>دسترسی رایگان و اجرای محلی | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / دسترسی رایگان و اجرای محلی</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">FREE-ACCESS</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">دسترسی رایگان و اجرای محلی</h1><p class="mt-5 text-lg text-smoke">سرویس‌های آنلاین، Ollama، LM Studio و سخت‌افزار اجرای محلی</p></header><div class="prose-llm max-w-none"><h1>دسترسی رایگان به API برای استفاده از LLMها 🌐</h1>
+<p>اگه نمی‌خوای از اول هزینه کنی یا به APIهای پولی مثل OpenAI دسترسی نداری، اینجا چند تا راه ساده هست که باهاشون می‌تونی مدل‌های زبانی رو <strong>کم‌هزینه یا با یه اعتبار رایگانِ محدود</strong> تست کنی و به کار بگیری. حواست باشه شرایط «رایگان بودن» (سقف مصرف، کشور، مدل‌های در دسترس) ممکنه تغییر کنه.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۱. استفاده از سرویس‌های آنلاین 🌍</h2>
+<p>چند تا پلتفرم هستن که خیلی راحت می‌تونی با ساختن یه حساب، به مدل‌هاشون دسترسی بگیری و استفاده کنی:</p>
+<h3>سرویس <strong><a href="https://aistudio.google.com">Google AI Studio</a></strong></h3>
+<p>  با این ابزار می‌تونی خیلی راحت مدل‌های گوگل (مثل Gemini) رو امتحان کنی. معمولاً یه <strong>سهمیه محدود رایگان</strong> برای تست بهت می‌ده، ولی سقف مصرف و شرایطش ممکنه تغییر کنه. برای تمرین و تست اولیه گزینه خوبیه.</p>
+<h3>سرویس <strong><a href="https://deepinfra.com">DeepInfra</a></strong></h3>
+<p>  این سایت بهت اجازه می‌ده از مدل‌های متن‌باز استفاده کنی. ثبت‌نامش راحته؛ بعدش یه API Key می‌گیری و می‌تونی به مدل‌های مختلف وصل شی. مدل‌هایی مثل Llama یا Qwen رو هم معمولاً می‌تونی همون‌جا اجرا کنی (بسته به موجود بودن مدل و سیاست‌های اون سرویس).</p>
+<h3>سرویس <strong><a href="https://openrouter.ai">OpenRouter</a></strong></h3>
+<p>  این سرویس یه «درگاه واحد» برای دسترسی به مدل‌های مختلفه؛ معمولاً <strong>خودت مدل رو انتخاب می‌کنی</strong> (و اگه بخوای، حالت روتینگ/Auto هم داره که انتخاب مدل رو به خودش بسپری). ممکنه مقدار محدودی استفاده رایگان داشته باشه، ولی برای مصرف جدی معمولاً باید حساب شارژ کنی. خوبی بزرگش اینه که پرداخت با کریپتو هم داره، که برای خیلی از کاربرا (مخصوصاً ایرانیا) دردسر رو کمتر می‌کنه.</p>
+<h3>سرویس <strong><a href="https://huggingface.co">Hugging Face</a></strong> 🤗</h3>
+<p>  هاگینگ‌فیس مثل <strong>گیت‌هاب دنیای هوش مصنوعی</strong>ه! هم مدل‌ها رو هاست می‌کنه، هم یه API رایگان برای استفاده از مدل‌ها داره:</p>
+<ul>
+<li><strong>هاب مدل‌ها:</strong> هزاران مدل متن‌باز رو می‌تونی مستقیم دانلود کنی یا آنلاین تست کنی 📦</li>
+<li><strong>سرویس Inference API:</strong> یه API رایگان (با محدودیت نرخ) که می‌تونی مدل‌های محبوب رو بدون نصب چیزی صدا بزنی 🚀</li>
+<li><strong>فضای Spaces:</strong> کاربرها دموهای تعاملی می‌سازن که می‌تونی مستقیم توی مرورگر تستشون کنی 🌐</li>
+</ul>
+<p>  برای شروع فقط کافیه یه حساب رایگان بسازی. اگه می‌خوای مدل‌های متن‌باز رو بشناسی و تست کنی، اولین جایی که باید بری <strong>همین‌جاست</strong>!</p>
+<h3>سرویس <strong><a href="https://groq.com">Groq</a></strong> ⚡</h3>
+<p>  گراک (نه Grok توییتر!) مشهوره به <strong>سرعت باورنکردنی</strong>. مدل‌های متن‌باز مثل Llama و Qwen رو با سخت‌افزار مخصوص خودش (LPU) اجرا می‌کنه و سرعت inference خیلی بالایی داره. یه پلن رایگان سخاوتمندانه داره که برای تست و پروژه‌های کوچیک عالیه (فعلاً کارت بانکی هم نمی‌خواد؛ سقف مصرف هم حدوداً ۳۰ درخواست در دقیقه و ۱۰۰۰ درخواست در روزه، و مدل به مدل فرق می‌کنه). API سازگار با فرمت OpenAI هم داره، پس تغییر دادن کد خیلی راحته. 🔄</p>
+<h3>سرویس <strong><a href="https://together.ai">Together AI</a></strong> 🤝</h3>
+<p>  این سرویس مدل‌های متن‌باز رو با قیمت‌های مناسب اجرا می‌کنه و مدل‌های Llama، Qwen، Mistral و خیلی‌های دیگه رو ساپورت می‌کنه. قابلیت فاین‌تیون ابری هم داره! ☁️ (قبلاً اعتبار رایگان اولیه می‌داد، ولی الان برای شروع باید حداقل چند دلار شارژ کنی.)</p>
+<blockquote>
+<p>⚠️ <strong>یک نکته واقع‌بینانه درباره دسترسی:</strong> خیلی از ارائه‌دهنده‌های بزرگ خارجی دست کاربرای داخل ایران رو می‌بندن؛ هم موقع ثبت‌نام (با تشخیص IP) و هم موقع پرداخت. برای همین، مطمئن‌ترین و کم‌دردسرترین راه برای خیلی از خواننده‌های اینجا، اجرای مدل‌های متن‌باز به‌صورت <strong>لوکال</strong> روی سیستم خودته؛ نه ثبت‌نام می‌خواد نه پرداخت.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۲. اجرا کردن مدل روی لپ‌تاپ با Ollama 🖥️</h2>
+<p>اگه می‌خوای مدل رو مستقیم روی سیستم خودت اجرا کنی، Ollama انتخاب خیلی خوبیه. بعد از اینکه مدل رو یک‌بار دانلود کردی، معمولاً بدون اینترنت هم می‌تونی ازش استفاده کنی (ولی برای دانلود اولیه و آپدیت‌ها اینترنت لازم داری). نصبش هم خیلی راحته؛ از <a href="https://ollama.com">ollama.com</a> دانلود کن و نصب کن. 📥</p>
+<p>مثلاً برای اجرا کردن یه مدل، فقط کافیه این دستورها رو بزنی:</p>
+<pre><code class="language-bash"># ollama - دانلود و اجرای یه مدل سبک و سریع (حدود ۳.۵ گیگ)
+ollama pull qwen3.5:4b
+ollama run qwen3.5:4b
+
+# یا اگه سیستمت قوی‌تره، نسخه بزرگ‌تر:
+ollama pull qwen3.5:9b
+ollama run qwen3.5:9b
+</code></pre>
+<p>اگه مدل رو نداری، خودش برات دانلودش می‌کنه. (اسم و نسخه مدل‌ها مدام عوض می‌شه؛ لیست به‌روز رو تو <a href="https://ollama.com/library">ollama.com/library</a> ببین.)</p>
+<p><strong>یه قابلیت خیلی مهم:</strong> بعد از اجرای Ollama، یه <strong>سرور API سازگار با فرمت OpenAI</strong> روی سیستمت بالا میاد (روی <code>http://localhost:11434</code>). یعنی می‌تونی هر کدی که برای OpenAI نوشتی رو فقط با عوض کردن آدرس سرور، روی مدل لوکالت اجرا کنی! 🔄</p>
+<pre><code class="language-python">from openai import OpenAI
+
+# اتصال به مدل لوکال Ollama (به جای سرور OpenAI)
+client = OpenAI(base_url=&quot;http://localhost:11434/v1&quot;, api_key=&quot;ollama&quot;)
+response = client.chat.completions.create(
+    model=&quot;qwen3.5:4b&quot;,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;سلام! یه جوک فارسی بگو&quot;}]
+)
+print(response.choices[0].message.content)
+</code></pre>
+<p><strong>راه دوم: استفاده مستقیم از API بومی Ollama (بدون کتابخونه اضافه) 🔌</strong></p>
+<p>اگه نمی‌خوای کتابخونه <code>openai</code> رو نصب کنی، با <code>requests</code> ساده هم می‌تونی:</p>
+<pre><code class="language-python">import requests
+
+def chat_with_ollama(prompt, model=&quot;qwen3.5:4b&quot;):
+    &quot;&quot;&quot;چت ساده با مدل لوکال Ollama&quot;&quot;&quot;
+    response = requests.post(
+        &quot;http://localhost:11434/api/chat&quot;,
+        json={
+            &quot;model&quot;: model,
+            &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}],
+            &quot;stream&quot;: False
+        }
+    )
+    return response.json()[&quot;message&quot;][&quot;content&quot;]
+
+# استفاده
+answer = chat_with_ollama(&quot;سلام! تفاوت RAG و فاین‌تیون رو خلاصه بگو&quot;)
+print(answer)
+</code></pre>
+<blockquote>
+<p>💡 <strong>نکته:</strong> اگه <code>stream</code> رو <code>True</code> بذاری، جواب توکن‌به‌توکن میاد (مثل چت واقعی). ولی برای شروع، <code>False</code> راحت‌تره.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۳. اجرا کردن مدل با ظاهر گرافیکی توی LM Studio 🎛️</h2>
+<p>ابزار LM Studio هم مثل Ollama مدل رو روی سیستم خودت اجرا می‌کنه، با این تفاوت که یه <strong>رابط گرافیکی خوشگل</strong> داره. یعنی لازم نیست با خط فرمان کار کنی. خیلی راحت مدل رو انتخاب می‌کنی و توی یه پنجره تمیز باهاش چت می‌کنی. 🖥️</p>
+<p><strong>شروع کار با LM Studio:</strong></p>
+<ol>
+<li>از <a href="https://lmstudio.ai">lmstudio.ai</a> دانلود و نصب کن 📥</li>
+<li>توی برنامه، تب <strong>Discover</strong> رو باز کن و مدل دلخواهت رو سرچ کن 🔍</li>
+<li>مدل رو دانلود کن (فایل <strong>GGUF</strong> رو انتخاب کن؛ این قالب برای اجرای محلی مدل‌ها ساخته شده) 📦</li>
+<li>بعد از دانلود، مدل رو لود کن و شروع به چت کن! 💬</li>
+</ol>
+<blockquote>
+<p>💡 <strong>نکته درباره GGUF:</strong> <code>GGUF</code> قالب فایل مدل برای اجرای محلیه. مدل‌های GGUF معمولاً با سطح‌های مختلف <strong>کوانتیزاسیون</strong> منتشر می‌شن؛ یعنی دقت نمایش عددهای مدل کمتر می‌شه تا حافظه کمتری مصرف کنه و اجرا سبک‌تر بشه. نسخه‌هایی مثل Q4_K_M حجم کمتر و نسخه‌هایی مثل Q8_0 دقت عددی و حجم بیشتری دارن. اگه رم کم داری، معمولاً نسخه‌های Q4 نقطه شروع مناسب‌تری‌ان.</p>
+</blockquote>
+<p><strong>قابلیت API:</strong> درست مثل Ollama، این ابزار هم یه سرور API سازگار با فرمت OpenAI بالا میاره. فقط کافیه تب <strong>Developer</strong> رو فعال کنی. 🔌</p>
+<p>برای دیدن لیست مدل‌ها، برو به:
+<a href="https://lmstudio.ai/models">lmstudio.ai/models</a></p>
+<p><img src="images/vis-48-local-llm-stack.png" alt="مسیر اجرای محلی مدل از فایل GGUF تا Ollama و LM Studio و اتصال اپ به API محلی"></p>
+<blockquote>
+<p>🖼️ فایل مدل کوانتیزه‌شده با Ollama یا LM Studio روی سیستم خودت اجرا می‌شه و اپت از راه یه API محلی بهش وصل می‌شه؛ داده‌ها هم همون‌جا می‌مونن.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>۴. حداقل سخت‌افزار برای اجرای لوکال مدل‌ها 💻</h2>
+<p>قبل از اینکه بری سراغ Ollama یا LM Studio، مطمئن شو سیستمت از پسش برمیاد. یه قانون سرانگشتی:</p>
+<table>
+<thead>
+<tr>
+<th>اندازه مدل</th>
+<th>رم مورد نیاز</th>
+<th>مثال مدل</th>
+<th>مناسب برای</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>مدل‌های کلاس 1-4B</td>
+<td>حداقل ۴ گیگ رم</td>
+<td>مثل Qwen3.5 4B</td>
+<td>تست سریع، کارهای ساده 🧪</td>
+</tr>
+<tr>
+<td>مدل‌های کلاس 7-9B</td>
+<td>حداقل ۸ گیگ رم</td>
+<td>مثل Qwen3.5 9B</td>
+<td>تعادل کیفیت/سرعت ⚖️</td>
+</tr>
+<tr>
+<td>مدل‌های کلاس 12-14B</td>
+<td>حداقل ۱۶ گیگ رم</td>
+<td>مثل Gemma4 12B</td>
+<td>کیفیت خوب، نیاز به سیستم قوی‌تر 💪</td>
+</tr>
+<tr>
+<td>مدل‌های کلاس 70B+</td>
+<td>حداقل ۴۸ گیگ رم (فایل Q4 این مدل‌ها خودش حدود ۴۰ گیگه!)</td>
+<td>مثل Llama 3.3 70B</td>
+<td>بالاترین کیفیت، نیاز به سخت‌افزار جدی 🏋️</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚡ <strong>نکته:</strong> اگه <strong>کارت گرافیک (GPU)</strong> با حافظه کافی داری، سرعت اجرا <strong>چندین برابر</strong> بیشتر می‌شه. بدون GPU هم کار می‌کنه ولی کندتره (مخصوصاً برای مدل‌های بزرگ‌تر). کارت‌های NVIDIA با حداقل ۶ گیگ VRAM نقطه شروع خوبی‌ان. کامپیوترهای Apple Silicon (مثل سری M) هم عملکرد خوبی دارن، چون رم مشترک بین CPU و GPU دارن. 🍎</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>۵. مقایسه گزینه‌های رایگان (یه نگاه کلی) 📊</h2>
+<p>برای اینکه راحت‌تر تصمیم بگیری، این جدول یه خلاصه از همه گزینه‌هاییه که بالا گفتیم:</p>
+<table>
+<thead>
+<tr>
+<th>ارائه‌دهنده</th>
+<th>نوع</th>
+<th>پلن رایگان</th>
+<th>کیفیت فارسی</th>
+<th>پرداخت برای ایرانیا</th>
+<th>سختی استفاده</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>سرویس Google AI Studio</td>
+<td>ابری ☁️</td>
+<td>سهمیه محدود رایگان ✅</td>
+<td>خوب (Gemini) ✅</td>
+<td>نیاز به اکانت گوگل</td>
+<td>آسان ⭐</td>
+</tr>
+<tr>
+<td>سرویس DeepInfra</td>
+<td>ابری ☁️</td>
+<td>اعتبار اولیه ✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>کارت بین‌المللی/کریپتو</td>
+<td>آسان ⭐</td>
+</tr>
+<tr>
+<td>سرویس OpenRouter</td>
+<td>ابری ☁️</td>
+<td>محدود ✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>کریپتو ✅✅</td>
+<td>آسان ⭐</td>
+</tr>
+<tr>
+<td>سرویس Hugging Face</td>
+<td>ابری ☁️</td>
+<td>رایگان (با محدودیت نرخ) ✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>رایگانه!</td>
+<td>متوسط ⭐⭐</td>
+</tr>
+<tr>
+<td>سرویس Groq</td>
+<td>ابری ☁️</td>
+<td>پلن رایگان سخاوتمند ✅✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>رایگانه!</td>
+<td>آسان ⭐</td>
+</tr>
+<tr>
+<td>سرویس Together AI</td>
+<td>ابری ☁️</td>
+<td>نداره (حداقل شارژ چند دلاری) ❌</td>
+<td>بستگی به مدل ⚠️</td>
+<td>کارت بین‌المللی</td>
+<td>آسان ⭐</td>
+</tr>
+<tr>
+<td>ابزار Ollama</td>
+<td>لوکال 🏠</td>
+<td>کاملاً رایگان ✅✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>نیاز نیست!</td>
+<td>متوسط (خط فرمان) ⭐⭐</td>
+</tr>
+<tr>
+<td>ابزار LM Studio</td>
+<td>لوکال 🏠</td>
+<td>کاملاً رایگان ✅✅</td>
+<td>بستگی به مدل ⚠️</td>
+<td>نیاز نیست!</td>
+<td>آسان (گرافیکی) ⭐</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>پیشنهاد شروع:</strong> اگه تازه‌کاری، با <strong>Google AI Studio</strong> یا <strong>Groq</strong> شروع کن؛ هر دو رایگانن و نیاز به تنظیمات پیچیده ندارن. اگه حریم خصوصی برات مهمه یا اینترنت پایداری نداری، <strong>Ollama</strong> یا <strong>LM Studio</strong> بهترین انتخابن. 🎯</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. استفاده از سرویس‌های آنلاین 🌍</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">سرویس **[Google AI Studio](https://aistudio.google.com)**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">سرویس **[DeepInfra](https://deepinfra.com)**  </a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">سرویس **[OpenRouter](https://openrouter.ai)**</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">سرویس **[Hugging Face](https://huggingface.co)** 🤗</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">سرویس **[Groq](https://groq.com)** ⚡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">سرویس **[Together AI](https://together.ai)** 🤝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۲. اجرا کردن مدل روی لپ‌تاپ با Ollama 🖥️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">۳. اجرا کردن مدل با ظاهر گرافیکی توی LM Studio 🎛️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">۴. حداقل سخت‌افزار برای اجرای لوکال مدل‌ها 💻</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">۵. مقایسه گزینه‌های رایگان (یه نگاه کلی) 📊</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

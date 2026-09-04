@@ -1,0 +1,110 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="اصول نوشتن دستورهای روشن، محدودیت‌ها و مثال‌های ساده"><link rel="canonical" href="https://example.com/prompting-basics/"><meta property="og:type" content="article"><meta property="og:title" content="پرامپت‌نویسی پایه"><meta property="og:description" content="اصول نوشتن دستورهای روشن، محدودیت‌ها و مثال‌های ساده"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>پرامپت‌نویسی پایه | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / پرامپت‌نویسی پایه</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">PROMPTING-BASICS</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">پرامپت‌نویسی پایه</h1><p class="mt-5 text-lg text-smoke">اصول نوشتن دستورهای روشن، محدودیت‌ها و مثال‌های ساده</p></header><div class="prose-llm max-w-none"><h1>پرامپت‌نویسی: یعنی چی؟ چطور به LLM دستور بدیم؟ ✍️</h1>
+<p>پرامپت در واقع همون <strong>دستور یا سوالیه</strong> که تو به LLM می‌دی. مثل اینکه بخوای به یه دستیار خیلی باهوش بگی دقیقاً چی کار کنه یا چه اطلاعاتی بهت بده. این دستور می‌تونه یه سوال ساده باشه، یه درخواست برای نوشتن متن، خلاصه‌کردن یه مطلب، یا هر چیز دیگه‌ای.</p>
+<p>یه قانون خیلی ساده ولی مهم اینجا وجود داره: <strong>هر چی پرامپتت واضح‌تر، دقیق‌تر و حساب‌شده‌تر باشه، معمولاً جوابی هم که از LLM می‌گیری بهتر و به درد بخورتره.</strong> مثل این می‌مونه که آدرس دقیق بدی تا به مقصد برسی؛ اگه آدرس رو کلی و نامفهوم بدی، معلوم نیست کجا سر در میاری!</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>خب، چطور یه پرامپت خوب و کارراه‌انداز بنویسیم؟ 🏗</h2>
+<p>برای اینکه LLM بهترین جواب ممکن رو بهت بده، سعی کن پرامپت‌هات این ویژگی‌ها رو داشته باشن:</p>
+<ul>
+<li><strong>صاف و پوست‌کنده منظورت رو بگو:</strong> از کلی‌گویی و حرفای مبهم دوری کن. دقیقاً بگو چی می‌خوای.</li>
+<li><strong>شرایط و چارچوب رو مشخص کن:</strong> به مدل بگو جواب رو تو چه قالبی می‌خوای؟ (مثلاً لیست باشه، جدول باشه، کد باشه؟). لحنش چطور باشه؟ (رسمی، دوستانه، طنز؟). محدودیتی داره؟ (مثلاً طول جواب بیشتر از ۱۰۰ کلمه نباشه).</li>
+<li><strong>اگه لازمه، جزئیات یا مثال بزن:</strong> گاهی یه مثال کوچیک می‌تونه به مدل کمک کنه دقیقاً بفهمه دنبال چی هستی و کارت رو خیلی بهتر راه بندازه.</li>
+<li><strong>ساده و سرراست بنویس:</strong> جمله‌های پیچیده و تودرتو ممکنه مدل رو گیج کنه. سعی کن روان و مستقیم حرف بزن.</li>
+</ul>
+<p><strong>یه اسکلت ساده و قابل‌اعتماد:</strong></p>
+<p><img src="images/vis-05-prompt-anatomy.png" alt="فلوچارتی با اجزای نقش، هدف، قیدها و ورودی که به خروجی مدل منتهی می‌شن"></p>
+<blockquote>
+<p>🖼️ یه پرامپت قابل‌اتکا معمولاً هدف روشن، نقش یا موقعیت، قیدها و ورودی مشخص داره.</p>
+</blockquote>
+<ol>
+<li><strong>نقش/Context:</strong> مخاطب یا موقعیت رو مشخص کن (مثلاً «تو یه دستیار داده‌کاوی هستی»).</li>
+<li><strong>هدف:</strong> بگو دقیقاً چه خروجی‌ای می‌خوای (خلاصه‌سازی، تحلیل، کد، جدول و...).</li>
+<li><strong>قیدها:</strong> محدودیت‌ها و فرمت‌ها رو بذار (حداکثر ۵ نکته، خروجی JSON، لحن رسمی و...).</li>
+<li><strong>ورودی:</strong> داده خام رو با جداکننده یا تگ مشخص بذار.</li>
+</ol>
+<p>این چهار بخش به مدل می‌گه کجاست، چی ازش می‌خوای، چه خط قرمزهایی داره و روی چه داده‌ای باید کار کنه.</p>
+<p><strong>بذار با یه مثال واقعی پُرش کنیم:</strong> 🎯</p>
+<pre><code class="language-text"># ۱. نقش/Context
+تو یه ویراستار حرفه‌ای فارسی هستی که متن‌های غیررسمی رو به متن رسمی تبدیل می‌کنی.
+
+# ۲. هدف
+متن زیر رو ویرایش کن و به زبان رسمی و اداری بازنویسی کن.
+
+# ۳. قیدها
+- لحن: کاملاً رسمی و اداری
+- طول: حداکثر ۳ جمله
+- فرمت: فقط متن بازنویسی‌شده رو بده، توضیح اضافه نده
+
+# ۴. ورودی
+&quot;&quot;&quot;
+سلام، ما یه پروژه جدید داریم و می‌خوایم تیم رو بزرگ‌تر کنیم. لطفاً کمک کنید.
+&quot;&quot;&quot;
+</code></pre>
+<p>ببین چطور هر بخش مشخصه و مدل دقیقاً می‌دونه چی ازش می‌خوای!</p>
+<p><strong>پرامپت بد 🆚 پرامپت خوب:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>پرامپت بد ❌</th>
+<th>پرامپت خوب ✅</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>درخواست</strong></td>
+<td><code>یه چیزی در مورد هوش مصنوعی بنویس</code></td>
+<td><code>یه پاراگراف ۱۰۰ کلمه‌ای در مورد کاربرد هوش مصنوعی در پزشکی بنویس. لحن ساده و مناسب مخاطب عام باشه.</code></td>
+</tr>
+<tr>
+<td><strong>مشکل</strong></td>
+<td>مبهمه، هیچ قید و قالبی نداره</td>
+<td>هدف، طول، موضوع و لحن مشخصه</td>
+</tr>
+<tr>
+<td><strong>نتیجه</strong></td>
+<td>یه متن کلی و به‌دردنخور</td>
+<td>دقیقاً همون چیزی که می‌خوای</td>
+</tr>
+</tbody></table>
+<p><strong>اشتباهات رایج مبتدی‌ها:</strong> ⚠️</p>
+<ol>
+<li><strong>خیلی کوتاه و مبهم بنویسی:</strong> به جای «خلاصه کن» بگو «این متن رو در ۳ جمله خلاصه کن و نکات کلیدی رو بگو».</li>
+<li><strong>چند تا کار رو هم‌زمان بخوای:</strong> به جای «ترجمه کن و خلاصه کن و تحلیل کن»، هر کار رو جداگانه بخواه یا مرحله‌بندی کن.</li>
+<li><strong>فرض کنی مدل ذهنت رو می‌خونه:</strong> مدل هیچ پیش‌زمینه‌ای از کار تو نداره؛ هر چیزی که لازمه بدونه رو صریح بگو.</li>
+<li><strong>فرمت خروجی رو نگی:</strong> اگه JSON می‌خوای، بگو. اگه لیست می‌خوای، بگو. وگرنه مدل خودش تصمیم می‌گیره و ممکنه اونی نباشه که می‌خوای.</li>
+</ol>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>یه مثال ساده از پرامپت‌نویسی 🌍</h2>
+<p>بذار با یه مثال ببینیم منظور چیه:</p>
+<p><strong>فرض کن می‌خوایم یه ایمیل رسمی برای درخواست مرخصی بنویسیم.</strong></p>
+<p><strong>پرامپت ما می‌تونه این باشه:</strong>
+<code>یه ایمیل رسمی و مودبانه به مدیرم بنویس برای درخواست مرخصی ۳ روزه. دلیل مرخصی رو هم توی ایمیل بیار (مثلاً: به دلیل مسائل شخصی).</code></p>
+<p><strong>جواب احتمالی LLM:</strong></p>
+<pre><code class="language-text">موضوع: درخواست مرخصی
+
+جناب آقای/سرکار خانم [نام مدیر]،
+با سلام و احترام،
+
+احتراماً به استحضار می‌رساند، اینجانب [نام شما] قصد دارم از تاریخ [تاریخ شروع] به مدت سه روز تا تاریخ [تاریخ پایان] به دلیل مسائل شخصی از مرخصی استحقاقی خود استفاده نمایم.
+
+پیشاپیش از حسن توجه و موافقت حضرتعالی کمال تشکر را دارم.
+
+با احترام،
+[نام شما]
+[سمت شما (اختیاری)]
+[تاریخ]
+</code></pre>
+<p>ببین چطور با یه پرامپت نسبتاً واضح، یه خروجی کاملاً مناسب و کاربردی گرفتیم. توی بخش‌های بعدی، تکنیک‌های پیشرفته‌تری برای نوشتن پرامپت‌های قوی‌تر رو یاد می‌گیریم.</p>
+<br>
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">خب، چطور یه پرامپت خوب و کارراه‌انداز بنویسیم؟ 🏗</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">یه مثال ساده از پرامپت‌نویسی 🌍</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

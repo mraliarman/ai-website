@@ -1,0 +1,494 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="تعریف، ساختار، چندنوبتی و نکات حرفه‌ای System Prompt"><link rel="canonical" href="https://example.com/system-prompt/"><meta property="og:type" content="article"><meta property="og:title" content="سیستم پرامپت"><meta property="og:description" content="تعریف، ساختار، چندنوبتی و نکات حرفه‌ای System Prompt"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>سیستم پرامپت | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / سیستم پرامپت</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">SYSTEM-PROMPT</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">سیستم پرامپت</h1><p class="mt-5 text-lg text-smoke">تعریف، ساختار، چندنوبتی و نکات حرفه‌ای System Prompt</p></header><div class="prose-llm max-w-none"><h1>سیستم پرامپت (System Prompt) 🤖</h1>
+<div align="center">
+
+<h2>تعریف System Prompt 📌</h2>
+<p>سیستم پرامپت همون پیامیه که <strong>معمولاً اول کار</strong> (به عنوان پیام system) به مدل داده می‌شه تا <strong>چارچوب رفتاری</strong> و <strong>نوع پاسخ‌ها</strong> رو مشخص کنه. مثلاً می‌تونی به مدل بگی <strong>مودب باشه</strong> یا <strong>خروجی رو تا حد ممکن ساختاریافته بده</strong>. اثر این پیام معمولاً تا آخر همون مکالمه باقی می‌مونه.</p>
+<p><strong>نکته:</strong> سیستم پرامپت به تنهایی «قفل امنیتی» نیست؛ برای کارهای حساس، باید Guardrail و کنترل بیرون از مدل هم داشته باشی.</p>
+<hr>
+<div align="center">
+
+<h2>چطور کار می‌کنه؟ ⚙️</h2>
+<p>وقتی System Prompt رو <strong>تنظیم می‌کنی</strong>، مدل از اون به بعد <strong>طبق همون راهنما</strong> جواب می‌ده. دیگه لازم نیست <strong>هر دفعه</strong> تکرارش کنی. فقط کافیه <strong>یه بار</strong> بگی که مدل چه سبک و رویکردی داشته باشه (و اگه مکالمه جدید شروع شد، دوباره همون قواعد رو بذاری).</p>
+<hr>
+<div align="center">
+
+<h3>مثال کاربردی 📚</h3>
+<p>فرض کن می‌خوای مدل مثل یه مربی ورزشی جواب بده:</p>
+<p><strong>سیستم پرامپت:</strong></p>
+<pre><code>تو یه مربی ورزشی هستی که همیشه با انرژی و انگیزه صحبت می‌کنه.
+کاربران رو تشویق می‌کنی تا به اهداف ورزشی برسن.
+توصیه‌ها و برنامه‌های تمرینی رو ساده و قابل فهم توضیح بده.
+</code></pre>
+<p><strong>پرامپت:</strong></p>
+<pre><code>برای مسابقه دویدن ۱۰ کیلومتری چطور آماده بشم؟
+</code></pre>
+<p><strong>جواب (نمونه):</strong></p>
+<pre><code>سلام! برای مسابقه ۱۰ کیلومتری، سه بار در هفته به صورت منظم تمرین کن. 
+هر هفته کمی مسافت رو بیشتر کن تا بدن‌ت عادت کنه.
+فراموش نکن تغذیه مناسب و استراحت کافی داشته باشی.
+...
+</code></pre>
+<hr>
+<div align="center">
+
+<h2>چرا System Prompt مهمه؟ 🤔</h2>
+<ul>
+<li><strong>یک‌بار تنظیم می‌شه:</strong> دیگه نیازی به تکرار مداوم دستورها نداری.  </li>
+<li><strong>مشخص کردن رفتار کلی مدل:</strong> مثلاً لحن مودبانه یا خروجی ساختاریافته.  </li>
+<li><strong>سادگی و کارآمدی:</strong> مکالمه رو روان‌تر می‌کنه.  </li>
+<li><strong>یکپارچگی خروجی‌ها:</strong> جواب‌ها همیشه <strong>منسجم</strong> و در <strong>یک سبک ثابت</strong> ارائه می‌شن.  </li>
+<li><strong>کنترل بیشتر:</strong> می‌تونی <strong>دقیقاً</strong> تعیین کنی که مدل چطور جواب بده.</li>
+</ul>
+<hr>
+<div align="center">
+
+<h3>نحوه تنظیم سیستم پرامپت تو کد (API) 💻</h3>
+<p>تو API مدل‌های OpenAI، سیستم پرامپت به عنوان <strong>اولین پیام</strong> با نقش <code>system</code> فرستاده می‌شه (Anthropic یه پارامتر جداگانه به اسم <code>system</code> داره که تو فصل بعد می‌بینیش):</p>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+
+response = client.chat.completions.create(
+    model=&quot;gpt-5.5&quot;,
+    messages=[
+        {
+            &quot;role&quot;: &quot;system&quot;,  # 👈 سیستم پرامپت اینجاست
+            &quot;content&quot;: &quot;تو یه مشاور سفر هستی. کوتاه و مفید جواب بده. همیشه قیمت تقریبی رو هم بگو.&quot;
+        },
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;بهترین زمان سفر به استانبول کِیه؟&quot;
+        }
+    ]
+)
+</code></pre>
+<hr>
+<div align="center">
+
+<h3>گفت‌وگوی چندنوبتی (Multi-Turn Conversation) 💬</h3>
+<p>سیستم پرامپت تو کل مکالمه باقی می‌مونه؛ فقط کافیه یه بار اول کار بذاریش:</p>
+<pre><code class="language-python">messages = [
+    # سیستم پرامپت - فقط یه بار
+    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;تو یه معلم ریاضی صبور هستی. مسائل رو قدم به قدم توضیح بده.&quot;},
+
+    # نوبت اول کاربر
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;مشتق چیه؟&quot;},
+
+    # جواب مدل (از API برمی‌گرده، اینجا فقط برای نمایش)
+    {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;مشتق یعنی نرخ تغییر یه تابع. مثلاً اگه...&quot;},
+
+    # نوبت دوم کاربر
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;می‌شه یه مثال ساده بزنی؟&quot;}
+]
+
+# مدل هنوز می‌دونه معلم ریاضی صبوره!
+response = client.chat.completions.create(model=&quot;gpt-5.5&quot;, messages=messages)
+</code></pre>
+<p>سیستم پرامپت فقط یه بار تو لیست پیام‌هاست، ولی اثرش تو <strong>کل مکالمه</strong> می‌مونه.</p>
+<blockquote>
+<p>📌 نسخه کامل‌تر این بحث (مدیریت حافظه، کنترل هزینه و استریم) رو تو فصل <a href="#%DA%A9%D8%A7%D8%B1-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-%D8%A8%D8%A7-api-%DA%A9%D8%AF%D9%86%D9%88%DB%8C%D8%B3%DB%8C-%D8%A8%D8%A7-%D9%85%D8%AF%D9%84%E2%80%8C%D9%87%D8%A7-">کار مستقیم با API</a> می‌بینیم.</p>
+</blockquote>
+<p><img src="images/vis-08-message-stack.png" alt="پشته‌ای از سیستم، تاریخچه و پیام جدید که وارد مدل می‌شه و جواب تازه به تاریخچه برمی‌گرده"></p>
+<blockquote>
+<p>🖼️ در مکالمه API، سیستم پرامپت، تاریخچه و پیام تازه هر بار با هم برای مدل فرستاده می‌شن.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h3>قالب ساختاریافته برای سیستم پرامپت 📐</h3>
+<p>برای پروژه‌های جدی‌تر، بهتره سیستم پرامپت رو <strong>ساختاریافته</strong> بنویسی. این قالب کمکت می‌کنه:</p>
+<pre><code class="language-text"># هویت
+تو یه [نقش] هستی که [توضیح کوتاه].
+
+# قوانین
+- همیشه [قانون ۱]
+- هرگز [قانون ۲]
+- اگه [شرط]، [عمل]
+
+# محدودیت‌ها
+- جواب‌ها حداکثر [تعداد] جمله باشن
+- فقط به [زبان/موضوع] جواب بده
+- اطلاعات شخصی کاربر رو ذخیره نکن
+
+# فرمت خروجی
+- جواب رو به صورت [فرمت] بده
+- اول [بخش ۱]، بعد [بخش ۲]
+</code></pre>
+<p><strong>یه مثال واقعی:</strong></p>
+<pre><code class="language-text"># هویت
+تو یه دستیار پشتیبانی فنی محصول «اپ‌نویس» هستی.
+
+# قوانین
+- همیشه مودب و صبور باش
+- هرگز درباره محصولات رقیب اظهار نظر نکن
+- اگه جواب سوال رو نمی‌دونی، بگو «اجازه بدید از تیم فنی بپرسم»
+
+# محدودیت‌ها
+- جواب‌ها حداکثر ۵ جمله باشن
+- فقط به سوالات مرتبط با محصول جواب بده
+
+# فرمت خروجی
+- اول مشکل رو تایید کن
+- بعد راه‌حل رو مرحله‌ای بگو
+- آخر بپرس «مشکلت حل شد؟»
+</code></pre>
+<hr>
+<div align="center">
+
+<h3>نکات حرفه‌ای برای نوشتن سیستم پرامپت ✍️</h3>
+<ol>
+<li><strong>کوتاه و موثر بنویس:</strong> سیستم پرامپت هم توکن مصرف می‌کنه و هزینه‌ش تو <strong>هر پیامِ</strong> مکالمه حساب می‌شه. پس بی‌خود طولانیش نکن.</li>
+<li><strong>رفتارهای «نباید» رو هم بگو:</strong> فقط نگو چی کار کنه؛ بگو چی کار <strong>نکنه</strong>. مثلاً «هرگز دارو تجویز نکن.»</li>
+<li><strong>با ورودی‌های غیرمنتظره تستش کن:</strong> کاربرها همیشه سوال‌های عجیب می‌پرسن؛ مطمئن شو سیستم پرامپتت این حالت‌ها رو هم پوشش می‌ده.</li>
+<li><strong>از مثال استفاده کن:</strong> تو خود سیستم پرامپت هم می‌تونی دو سه نمونه سوال و جوابِ ایده‌آل بذاری تا سبک موردنظرت رو نشون بدن.</li>
+<li><strong>لایه‌بندی کن:</strong> اول هویت، بعد قوانین، بعد محدودیت‌ها، بعد فرمت خروجی. این ترتیب به مدل کمک می‌کنه بهتر بفهمه.</li>
+</ol>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h1>کار مستقیم با API (کدنویسی با مدل‌ها) 💻</h1>
+<p>تا اینجا مفاهیم رو شناختی؛ حالا بریم سراغ کد! تو این فصل بدون هیچ فریم‌ورکی (مثل LangChain)، مستقیم با SDK رسمی هر شرکت حرف می‌زنیم.</p>
+<p>فرق این کار با چت کردن تو مرورگر چیه؟ وقتی از API استفاده می‌کنی <strong>کنترل کامل</strong> داری: پارامترها رو دستکاری می‌کنی، خروجی رو توی برنامه خودت استفاده می‌کنی و کل فرایند رو خودکار می‌کنی. مثل فرق سفارش آنلاین غذا با آشپزی کردن خودت! 🍳</p>
+<div align="center">
+
+<h2>فراخوانی مستقیم API 💻</h2>
+<h3>نصب کتابخانه‌ها 📦</h3>
+<pre><code class="language-bash"># OpenAI
+pip install openai
+
+# Anthropic
+pip install anthropic
+
+# Google Gemini
+pip install google-genai
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>نکته امنیتی:</strong> کلید API رو هیچ‌وقت مستقیم تو کد ننویس! از متغیر محیطی استفاده کن:</p>
+<pre><code class="language-bash">export OPENAI_API_KEY=&quot;sk-...&quot;
+export ANTHROPIC_API_KEY=&quot;sk-ant-...&quot;
+export GEMINI_API_KEY=&quot;AI...&quot;
+</code></pre>
+</blockquote>
+<hr>
+<h3>مثال ۱: فراخوانی OpenAI (مدل GPT-5.5) 🟢</h3>
+<pre><code class="language-python">from openai import OpenAI
+
+# ساخت کلاینت (کلید API رو از متغیر محیطی می‌خونه)
+client = OpenAI()
+
+# ارسال پیام به مدل
+response = client.chat.completions.create(
+    model=&quot;gpt-5.5&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;تو یه دستیار فارسی‌زبان هستی که خیلی ساده و خودمونی جواب می‌دی.&quot;},
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;تفاوت هوش مصنوعی و یادگیری ماشین رو خیلی ساده توضیح بده.&quot;}
+    ]
+)
+
+# خواندن جواب مدل
+print(response.choices[0].message.content)
+</code></pre>
+<blockquote>
+<p>🆕 <strong>یه API تازه‌تر به اسم Responses:</strong> چیزی که تا الان باهاش کار کردیم، یعنی <code>chat.completions</code>، همون API کلاسیک و جاافتاده‌ست که هنوز هم پابرجاست. ولی OpenAI برای پروژه‌های جدید رابط تازه‌تری به اسم Responses رو پیشنهاد می‌ده؛ این رابط ابزارهای آماده (مثل جستجوی وب و اجرای کد) و مدیریت بهتر مکالمه و کش رو یه‌جا داخل خودش جمع کرده:</p>
+<pre><code class="language-python">response = client.responses.create(
+    model=&quot;gpt-5.5&quot;,
+    instructions=&quot;تو یه دستیار فارسی‌زبان خوش‌اخلاقی.&quot;,
+    input=&quot;فرق API و SDK رو با یه مثال ساده بگو.&quot;,
+)
+print(response.output_text)
+</code></pre>
+<p>مفاهیمی که تو این راهنما یاد می‌گیری (پیام‌ها، پارامترها، ابزارها) تو هر دو یکیه؛ فقط شکل صدا زدن فرق داره. پس نگران نباش، دانشت هدر نمی‌ره! 😉</p>
+</blockquote>
+<hr>
+<h3>مثال ۲: فراخوانی Anthropic (مدل Claude) 🟣</h3>
+<pre><code class="language-python">import anthropic
+
+# ساخت کلاینت
+client = anthropic.Anthropic()
+
+# ارسال پیام به مدل
+message = client.messages.create(
+    model=&quot;claude-opus-4-8&quot;,
+    max_tokens=1024,
+    system=&quot;تو یه دستیار فارسی‌زبان هستی که با لحن دوستانه و ساده جواب می‌دی.&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;فرق بین API و SDK رو با یه مثال روزمره توضیح بده.&quot;}
+    ]
+)
+
+# خواندن جواب مدل
+print(message.content[0].text)
+</code></pre>
+<blockquote>
+<p>💡 دقت کن: تو Anthropic سیستم پرامپت رو به جای یه پیام با نقش <code>system</code>، توی یه <strong>پارامتر جداگانه</strong> به اسم <code>system</code> می‌فرستی؛ مشخص کردن <code>max_tokens</code> هم اجباریه.</p>
+</blockquote>
+<hr>
+<h3>مثال ۳: فراخوانی Google Gemini 🔵</h3>
+<pre><code class="language-python">from google import genai
+
+# ساخت کلاینت (کلید API رو از متغیر محیطی GEMINI_API_KEY می‌خونه)
+client = genai.Client()
+
+# ارسال پیام به مدل
+response = client.models.generate_content(
+    model=&quot;gemini-3.5-flash&quot;,
+    contents=&quot;یه شعر کوتاه درباره برنامه‌نویسی به فارسی بگو.&quot;
+)
+
+# خواندن جواب مدل
+print(response.text)
+</code></pre>
+<hr>
+<h3>الگوی مشترک همه APIها 🔄</h3>
+<p>دقت کردی؟ هر سه API از یه الگوی مشابه پیروی می‌کنن:</p>
+<table>
+<thead>
+<tr>
+<th>مرحله</th>
+<th>توضیح</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>۱. ساخت کلاینت 🔑</td>
+<td>احراز هویت با کلید API</td>
+</tr>
+<tr>
+<td>۲. انتخاب مدل 🎯</td>
+<td>مشخص کردن اسم مدل</td>
+</tr>
+<tr>
+<td>۳. ارسال پیام‌ها 💬</td>
+<td>فرستادن سیستم پرامپت + پیام کاربر</td>
+</tr>
+<tr>
+<td>۴. تنظیم پارامترها ⚙️</td>
+<td>دما، حداکثر توکن و...</td>
+</tr>
+<tr>
+<td>۵. خواندن جواب 📖</td>
+<td>استخراج متن از پاسخ</td>
+</tr>
+</tbody></table>
+<p>فرقشون فقط تو اسم متدها و ساختار جوابه؛ مفهوم زیرش یکیه!</p>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h2>گفت‌وگوی چندنوبتی و مدیریت حافظه (Multi-Turn Conversation) 💬</h2>
+<p>وقتی تو ChatGPT یا Claude چت می‌کنی، مدل انگار «یادش می‌مونه» چی گفتی. ولی واقعیت اینه که مدل‌ها <strong>هیچ حافظه‌ای ندارن!</strong> 🤯</p>
+<p>هر بار که پیام می‌فرستی، <strong>تمام تاریخچه مکالمه</strong> دوباره به مدل فرستاده می‌شه؛ مدل مثل یه ماهی قرمزه که هر بار باید همه‌چیز رو از اول براش تعریف کنی! 🐟</p>
+<h3>چطوری تاریخچه مکالمه رو مدیریت کنیم؟ 📝</h3>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+
+# تاریخچه مکالمه - یه لیست از پیام‌ها
+messages = [
+    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;تو یه دستیار آشپزی فارسی هستی.&quot;}
+]
+
+def chat(user_message):
+    &quot;&quot;&quot;ارسال پیام و دریافت جواب با حفظ تاریخچه&quot;&quot;&quot;
+    # اضافه کردن پیام کاربر به تاریخچه
+    messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: user_message})
+
+    # ارسال کل تاریخچه به مدل
+    response = client.chat.completions.create(
+        model=&quot;gpt-5.5&quot;,
+        messages=messages  # همه پیام‌های قبلی هم ارسال می‌شن!
+    )
+
+    # استخراج جواب مدل
+    assistant_message = response.choices[0].message.content
+
+    # اضافه کردن جواب مدل به تاریخچه
+    messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: assistant_message})
+
+    return assistant_message
+
+# مکالمه نمونه
+print(chat(&quot;یه دستور غذای ساده ایرانی بگو&quot;))
+# مدل: &quot;قیمه بادمجون! مواد لازم: ...&quot;
+
+print(chat(&quot;همین غذا رو بدون گوشت چطور درست کنم؟&quot;))
+# مدل می‌فهمه منظورت قیمه بادمجونه چون تاریخچه رو داره!
+
+print(chat(&quot;چقدر طول می‌کشه؟&quot;))
+# مدل هنوز می‌دونه داریم درباره نسخه بدون گوشت حرف می‌زنیم
+</code></pre>
+<blockquote>
+<p>💡 <strong>این کد فقط برای فهم ایده‌ست، نه پروداکشن:</strong> اینجا تاریخچه رو توی یه متغیر سراسری (<code>messages</code>) نگه داشتیم و تابع از داخل خودش دستکاریش می‌کنه. برای یه مثال آموزشی اوکیه، ولی تو کد واقعی بهتره تاریخچه رو به تابع پاس بدی (یا توی یه کلاس نگهش داری) تا قاطی نشه و تست و نگه‌داریش هم راحت‌تر باشه.</p>
+</blockquote>
+<h3>مشکل بزرگ: انباشت توکن! 📈</h3>
+<p>هر پیام جدید = ارسال <strong>تمام</strong> پیام‌های قبلی + پیام جدید. یعنی:</p>
+<table>
+<thead>
+<tr>
+<th>مرحله مکالمه</th>
+<th>توکن‌های ارسالی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>پیام اول 💬</td>
+<td>~۱۰۰ توکن</td>
+</tr>
+<tr>
+<td>پیام پنجم 💬💬💬💬💬</td>
+<td>~۲٬۰۰۰ توکن</td>
+</tr>
+<tr>
+<td>پیام بیستم 💬×۲۰</td>
+<td>~۱۰٬۰۰۰ توکن</td>
+</tr>
+<tr>
+<td>پیام پنجاهم 💬×۵۰</td>
+<td>~۳۰٬۰۰۰+ توکن 💸</td>
+</tr>
+</tbody></table>
+<p>این یعنی هم <strong>هزینه</strong> بالا می‌ره و هم ممکنه از <strong>پنجره کانتکست</strong> مدل رد بشی!</p>
+<h3>راه‌حل‌ها 🛠️</h3>
+<p><strong>۱. فقط آخرین N پیام رو نگه دار (Sliding Window):</strong></p>
+<pre><code class="language-python">def get_recent_messages(messages, max_messages=20):
+    &quot;&quot;&quot;فقط سیستم پرامپت + آخرین پیام‌ها رو نگه می‌داره&quot;&quot;&quot;
+    system_msg = [m for m in messages if m[&quot;role&quot;] == &quot;system&quot;]
+    recent = messages[-max_messages:]
+    return system_msg + [m for m in recent if m[&quot;role&quot;] != &quot;system&quot;]
+</code></pre>
+<p><strong>۲. خلاصه‌سازی تاریخچه؛ از خود مدل بخواه خلاصه کنه:</strong></p>
+<pre><code class="language-python">def summarize_history(messages):
+    &quot;&quot;&quot;خلاصه کردن تاریخچه قدیمی برای صرفه‌جویی در توکن&quot;&quot;&quot;
+    summary_prompt = &quot;این مکالمه رو در ۳ خط خلاصه کن. فقط نکات مهم رو بگو:&quot;
+    old_text = &quot;\n&quot;.join([f&quot;{m[&#39;role&#39;]}: {m[&#39;content&#39;]}&quot; for m in messages[1:-4]])
+
+    # خلاصه رو جایگزین پیام‌های قدیمی کن
+    # (get_summary_from_llm یه تابع فرضیه که همین متن رو به مدل می‌ده و خلاصه می‌گیره)
+    summary = get_summary_from_llm(summary_prompt + old_text)
+
+    return [
+        messages[0],  # سیستم پرامپت
+        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: f&quot;خلاصه مکالمه قبلی: {summary}&quot;},
+        *messages[-4:]  # ۴ پیام آخر کامل
+    ]
+</code></pre>
+<p><strong>۳. حافظه خارجی (External Memory)؛ ذخیره اطلاعات مهم در دیتابیس:</strong></p>
+<ul>
+<li>اطلاعات مهم کاربر رو استخراج و جداگانه ذخیره کن</li>
+<li>هر بار فقط اطلاعات مرتبط رو به کانتکست اضافه کن</li>
+<li>فریم‌ورک‌هایی مثل <strong>Mem0</strong> و <strong>LangGraph</strong> این کار رو راحت‌تر می‌کنن</li>
+</ul>
+<p><img src="images/vis-09-conversation-context-growth.png" alt="رشد پشته تاریخچه در چند نوبت و سه راه‌حل پیام‌های اخیر، خلاصه و حافظه خارجی"></p>
+<blockquote>
+<p>🖼️ با هر نوبت، تاریخچه بزرگ‌تر می‌شه؛ نگه‌داشتن پیام‌های اخیر، خلاصه‌سازی و حافظه خارجی سه راه رایج برای کنترل این رشدن.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h2>نمایش تدریجی پاسخ (Streaming) ⚡</h2>
+<p>تا حالا دقت کردی که ChatGPT جوابش رو <strong>کلمه‌کلمه</strong> می‌نویسه، نه اینکه یه‌دفعه همش رو بفرسته؟ این همون <strong>استریمینگ</strong> هست!</p>
+<p>چرا مهمه؟ 🤔</p>
+<ul>
+<li><strong>تجربه کاربری بهتر:</strong> کاربر احساس می‌کنه مدل داره فکر می‌کنه و جواب می‌ده (مثل تایپ کردن آدم)</li>
+<li><strong>سرعت درک‌شده:</strong> حتی اگه کل جواب ۱۰ ثانیه طول بکشه، چون از همون ثانیه اول شروعش رو می‌بینی، <strong>حس می‌کنی</strong> سریع‌تره</li>
+<li><strong>پردازش زودتر:</strong> می‌تونی قبل از تموم شدن جواب، شروع به پردازش کنی</li>
+</ul>
+<h3>مثال استریمینگ با OpenAI 🌊</h3>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+
+# با stream=True جواب تیکه‌تیکه میاد
+stream = client.chat.completions.create(
+    model=&quot;gpt-5.5&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;یه داستان کوتاه درباره یه ربات فارسی‌زبان بنویس.&quot;}
+    ],
+    stream=True  # کلید جادویی! ✨
+)
+
+# خواندن تیکه‌تیکه جواب
+for chunk in stream:
+    content = chunk.choices[0].delta.content
+    if content:
+        print(content, end=&quot;&quot;, flush=True)  # بدون رفتن به خط بعد
+
+# خروجی: کلمه‌کلمه روی صفحه ظاهر می‌شه ✍️
+</code></pre>
+<h3>مثال استریمینگ با Anthropic 🌊</h3>
+<pre><code class="language-python">import anthropic
+
+client = anthropic.Anthropic()
+
+# استریمینگ با Anthropic
+with client.messages.stream(
+    model=&quot;claude-opus-4-8&quot;,
+    max_tokens=1024,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;مزایای یادگیری برنامه‌نویسی رو بگو.&quot;}
+    ]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end=&quot;&quot;, flush=True)
+</code></pre>
+<h3>بدون استریمینگ در مقابل با استریمینگ ⏱️</h3>
+<pre><code class="language-text">❌ بدون استریمینگ:
+   کاربر: سوال می‌پرسه
+   [... ۸ ثانیه صبر ...]
+   💬 کل جواب یکجا ظاهر می‌شه
+
+✅ با استریمینگ:
+   کاربر: سوال می‌پرسه
+   [۰.۵ ثانیه] اولین کلمه ظاهر می‌شه
+   [۱ ثانیه] جمله اول کامل شد
+   [۲ ثانیه] پاراگراف اول آماده‌ست
+   [۸ ثانیه] کل جواب تکمیل شد
+</code></pre>
+<blockquote>
+<p>💡 <strong>نکته:</strong> استریمینگ هزینه اضافه‌ای نداره! تعداد توکن‌ها دقیقاً مثل حالت عادیه؛ فقط نحوه دریافتشون فرق می‌کنه.</p>
+</blockquote>
+<blockquote>
+<p>🧰 <strong>چهار عادت حرفه‌ای برای کد پروداکشن:</strong>
+۱. <strong>تلاش دوباره (Retry) با فاصله‌های فزاینده (Exponential Backoff):</strong> APIها گاهی شلوغن (ارور 429 یا 503). به جای کرش، چند بار با فاصله‌های فزاینده دوباره تلاش کن. (نمونه کدش رو تو <a href="#%D9%BE%D8%B1%D9%88%DA%98%D9%87-%D8%B9%D9%85%D9%84%DB%8C-%D8%B3%D8%A7%D8%AE%D8%AA-%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1-%D9%BE%D8%B1%D8%B3%D8%B4%E2%80%8C%D9%88%D9%BE%D8%A7%D8%B3%D8%AE-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-">پروژه عملی</a> همین راهنما داریم.)
+۲. <strong>مهلت انتظار (Timeout) بذار:</strong> نذار درخواست تا ابد منتظر بمونه.
+۳. <strong>مدل پشتیبان (Fallback):</strong> اگه مدل اصلی جواب نداد، خودکار برو سراغ یه مدل دیگه.
+۴. <strong>لاگ کن:</strong> ورودی، خروجی و هزینه رو ثبت کن تا هم دیباگ راحت بشه هم قبض آخر ماه سورپرایزت نکنه.</p>
+</blockquote>
+<p><img src="images/vis-10-streaming-vs-buffered.png" alt="دو خط زمانی که پاسخ یک‌جا در پایان و پاسخ استریمینگ به‌صورت تدریجی ظاهر می‌شه"></p>
+<blockquote>
+<p>🖼️ استریمینگ اولین بخش جواب رو زودتر نشون می‌ده، حتی اگر زمان تکمیل کل پاسخ تقریباً همون باشه.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>وقتی پروژه جدی می‌شه: گیت‌وی، کش و سرو کردن مدل 🏭</h2>
+<p>برای پروژه شخصی، همین SDK مستقیم به‌علاوه چهار عادت بالا کاملاً کافیه. ولی وقتی یه اپ واقعی با کاربر واقعی داری، چند تا قطعه جدید به معماری اضافه می‌شه. لازم نیست الان هیچ‌کدوم رو راه بندازی؛ فقط بدون چی به چیه که وقتی اسمشون رو شنیدی غافلگیر نشی:</p>
+<ul>
+<li><strong>گیت‌وی LLM (LLM Gateway):</strong> یه لایه واسط بین اپ تو و ارائه‌دهنده‌ها که سوییچ بین مدل‌ها، سقف هزینه، مانیتورینگ و Fallback رو یه‌جا مدیریت می‌کنه. اسم‌های شناخته‌شده: <strong><a href="https://openrouter.ai">OpenRouter</a></strong> (یه API واحد برای صدها مدل از ده‌ها ارائه‌دهنده) و <strong><a href="https://github.com/BerriAI/litellm">LiteLLM</a></strong> (متن‌باز؛ بیش از ۱۰۰ ارائه‌دهنده رو پشت یه رابط سازگار با OpenAI جمع می‌کنه).</li>
+<li><strong>مسیریابی مدل (Model Routing):</strong> سوال ساده بره سراغ مدل ارزون، سوال سخت بره سراغ مدل گرون. همین یه قلم می‌تونه هزینه رو چند برابر کم کنه؛ گیت‌وی‌ها معمولاً همین‌جا پیاده‌ش می‌کنن.</li>
+<li><strong>کش معنایی (Semantic Cache):</strong> با «کش پرامپت» که خود ارائه‌دهنده‌ها دارن فرق داره. کش پرامپت فقط پیشوندِ دقیقاً تکراری رو ارزون‌تر می‌کنه؛ کش معنایی سوال‌های <strong>مشابه</strong> رو هم تشخیص می‌ده و جواب قبلی رو برمی‌گردونه، حتی اگه عین هم نوشته نشده باشن.</li>
+<li><strong>موتور سرو مدل (Inference Engine):</strong> اگه مدل متن‌باز رو خودت روی GPU سرو می‌کنی، بدون که Ollama برای پروداکشن ساخته نشده؛ ابزار استاندارد این کار <strong><a href="https://docs.vllm.ai">vLLM</a></strong> هست و رقیبش <strong><a href="https://docs.sglang.ai">SGLang</a></strong>؛ این دو با مدیریت هوشمند حافظه و پردازش دسته‌ای، از همون GPU چند برابر ظرفیت بیرون می‌کشن.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>قانون سرانگشتی:</strong> تا وقتی روزی چند هزار درخواست نداری، هیچ‌کدوم این‌ها لازم نیست. اول محصول، بعد زیرساخت!</p>
+</blockquote>
+<p><img src="images/vis-11-production-llm-architecture.png" alt="اپی که از راه گیت‌وی، کش معنایی و مسیریاب به مدل اصلی، پشتیبان یا موتور اجرا وصل می‌شه"></p>
+<blockquote>
+<p>🖼️ گیت‌وی بین اپ و مدل‌ها می‌ایسته تا کش، مسیریابی، fallback و پایش رو یک‌جا کنترل کنه.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">تعریف System Prompt 📌</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">چطور کار می‌کنه؟ ⚙️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">مثال کاربردی 📚</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">چرا System Prompt مهمه؟ 🤔</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">نحوه تنظیم سیستم پرامپت تو کد (API) 💻</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">گفت‌وگوی چندنوبتی (Multi-Turn Conversation) 💬</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">قالب ساختاریافته برای سیستم پرامپت 📐</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">نکات حرفه‌ای برای نوشتن سیستم پرامپت ✍️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">فراخوانی مستقیم API 💻</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">نصب کتابخانه‌ها 📦</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">مثال ۱: فراخوانی OpenAI (مدل GPT-5.5) 🟢</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">مثال ۲: فراخوانی Anthropic (مدل Claude) 🟣</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">مثال ۳: فراخوانی Google Gemini 🔵</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">الگوی مشترک همه APIها 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">گفت‌وگوی چندنوبتی و مدیریت حافظه (Multi-Turn Conversation) 💬</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">چطوری تاریخچه مکالمه رو مدیریت کنیم؟ 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">مشکل بزرگ: انباشت توکن! 📈</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-17">راه‌حل‌ها 🛠️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-18">نمایش تدریجی پاسخ (Streaming) ⚡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-19">مثال استریمینگ با OpenAI 🌊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-20">مثال استریمینگ با Anthropic 🌊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-21">بدون استریمینگ در مقابل با استریمینگ ⏱️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-22">وقتی پروژه جدی می‌شه: گیت‌وی، کش و سرو کردن مدل 🏭</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

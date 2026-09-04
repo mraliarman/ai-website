@@ -1,0 +1,216 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Fine-tuning، LoRA/QLoRA، داده آموزشی و انتخاب بین Fine-tuning و RAG"><link rel="canonical" href="https://example.com/finetuning-vs-rag/"><meta property="og:type" content="article"><meta property="og:title" content="معماری و شخصی‌سازی"><meta property="og:description" content="Fine-tuning، LoRA/QLoRA، داده آموزشی و انتخاب بین Fine-tuning و RAG"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>معماری و شخصی‌سازی | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / معماری و شخصی‌سازی</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">FINETUNING-VS-RAG</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">معماری و شخصی‌سازی</h1><p class="mt-5 text-lg text-smoke">Fine-tuning، LoRA/QLoRA، داده آموزشی و انتخاب بین Fine-tuning و RAG</p></header><div class="prose-llm max-w-none"><h1>معماری و شخصی‌سازی (Fine-tuning vs RAG) 🏗️</h1>
+<p>تا اینجا فقط یاد گرفتیم چطور با مدل &quot;حرف بزنیم&quot; (Prompt Engineering). اما خود این مدل چطور ساخته شده؟ و کی لازمه که ما خودمون دست به آچار بشیم و مدل رو آموزش بدیم؟
+برای شخصی‌سازی مدل‌های زبانی <strong>دو راه اصلی</strong> داریم: <strong>Fine-tuning</strong> (آموزش مجدد) و <strong>RAG</strong> (وصل کردن به دیتابیس). بیا عمیق بررسی کنیم.</p>
+<hr>
+<div align="center">
+
+<h2>۱. داستان زندگی یک LLM: سه مرحله اصلی 👶👨‍🎓🕵️</h2>
+<p>برای اینکه جایگاه Fine-tuning رو بفهمیم، باید کل مسیر رو ببینیم:</p>
+<p><img src="images/vis-23-llm-lifecycle.png" alt="خط زمانی پیش‌آموزش، Fine-tuning و Prompting با جداسازی آموزش از زمان اجرا"></p>
+<blockquote>
+<p>🖼️ پیش‌آموزش پایه مدل رو می‌سازه، Fine-tuning رفتارش رو تنظیم می‌کنه و Prompting فقط دستور همین اجراست.</p>
+</blockquote>
+<h3>مرحله ۱: پیش‌آموزش (Pre-training) - &quot;یادگیری الفبا و زبان&quot; 👶</h3>
+<p>اینجا مدل رو می‌بریم توی یه کتابخونه عظیم (کل اینترنت) و در رو روش قفل می‌کنیم. بهش می‌گیم: &quot;فقط بخون و یاد بگیر کلمه بعدی چیه.&quot;</p>
+<ul>
+<li><strong>هزینه:</strong> وحشتناک زیاد (میلیون‌ها دلار).</li>
+<li><strong>نتیجه:</strong> مدل یاد می‌گیره &quot;پایتخت ایران، تهران است&quot; یا &quot;بعد از سلام، علیک میاد&quot;. اما هنوز بلد نیست <strong>چت</strong> کنه. فقط متن رو ادامه می‌ده.</li>
+</ul>
+<h3>مرحله ۲: فاین‌تیون (Fine-tuning) - &quot;تخصص و رفتار&quot; 👨‍🎓</h3>
+<p>حالا مدل که زبان بلده، می‌ره دانشگاه تا &quot;رفتار درست&quot; رو یاد بگیره. بهش یاد می‌دیم که وقتی کاربر سوال پرسید، جواب بده (نه اینکه سوال رو ادامه بده).</p>
+<ul>
+<li>معمولاً این مرحله ترکیبیه از <strong>تنظیم مدل برای پیروی از دستورها (Instruction Tuning)</strong> و <strong>بهینه‌سازی ترجیحات (Preference Optimization)</strong>؛ اولی «جواب‌دادن به دستور» رو یاد می‌ده و دومی مدل رو به سمت جواب‌های بهتر و امن‌تر می‌بره.</li>
+<li>روش <strong>RLHF (یادگیری تقویتی با بازخورد انسانی):</strong> یه گروه آدم جواب‌های مدل رو نمره‌دهی می‌کنن. بعد یه مدل پاداش (Reward Model) از روی این نمره‌ها آموزش می‌بینه و در نهایت مدل اصلی با همین مدل پاداش تنظیم می‌شه. مثل اینه که یه معلم خصوصی بشینه تک‌تک تمرین‌هات رو تصحیح کنه و بگه «این جوابت خوب بود، اون یکی بد».</li>
+<li>روش <strong>بهینه‌سازی مستقیم ترجیحات (DPO):</strong> یه روش ساده‌تر و ارزون‌تره. به جای ساختن مدل پاداش جدا، مستقیماً از جفت‌های «جواب خوب در مقابل جواب بد» استفاده می‌کنیم و مدل رو طوری تنظیم می‌کنیم که جواب خوب رو ترجیح بده. نتیجه‌ش خیلی وقت‌ها به RLHF نزدیکه، ولی پیاده‌سازیش راحت‌تره.</li>
+<li>روش <strong>RLVR (یادگیری تقویتی با پاداش قابل راستی‌آزمایی):</strong> نسل جدیدتر که موتور مدل‌های استدلالی شد. به جای نظر انسان، از پاداشی استفاده می‌کنه که <strong>ماشینی چک می‌شه:</strong> جواب ریاضی درست بود؟ کد تست‌ها رو پاس کرد؟ مدل هزاران بار تلاش می‌کنه و فقط وقتی جایزه می‌گیره که جوابش واقعاً درست دربیاد. الگوریتم معروف این حوزه <strong>GRPO</strong> هست (که DeepSeek معرفیش کرد) و نکته جذابش اینه که رفتارهایی مثل «صبر کن، بذار از یه راه دیگه حساب کنم» خودبه‌خود از دل همین آموزش بیرون اومدن؛ کسی مستقیم یادشون نداده!</li>
+<li><strong>همینجاست که مدل‌های Instruct/Chat</strong> (مثل نسخه‌های گفت‌وگومحور مدل‌های متن‌باز) شکل می‌گیرن.</li>
+<li><strong>هزینه:</strong> متوسط.</li>
+</ul>
+<h3>مرحله ۳: پرامپت (Prompting) - &quot;دستور لحظه‌ای&quot; 🕵️</h3>
+<p>این همون کاریه که ما تا الان می‌کردیم. آموزش مدل تموم شده و ما فقط بهش دستور می‌دیم.</p>
+<hr>
+<div align="center">
+
+<h2>۲. کی لازم داریم فاین‌تیون کنیم؟ 🤷</h2>
+<p>خیلی‌ها فکر می‌کنن برای اینکه &quot;اطلاعات جدید&quot; به مدل بدن، باید فاین‌تیون کنن.
+این کار <strong>معمولاً لازم نیست</strong>. برای اطلاعات جدید و قابل تغییر، اغلب بهتره از <strong>RAG</strong> (یا اتصال به یک منبع/جست‌وجوی به‌روز) استفاده کنی.</p>
+<p><strong>پس فاین‌تیون به چه دردی می‌خوره؟</strong></p>
+<ol>
+<li><strong>تغییر فرمت/لحن:</strong> می‌خوای مدل همیشه مثل &quot;سعدی&quot; حرف بزنه؟ یا همیشه خروجی رو به فرمت <code>XML</code> خاص شرکتت بده؟</li>
+<li><strong>یادگیری مهارت جدید:</strong> می‌خوای مدل یاد بگیره چطور کد <code>Cobol</code> قدیمی شرکتت رو به <code>Python</code> تبدیل کنه (چیزی که تو اینترنت کم بوده).</li>
+<li><strong>مدل‌های کوچیک (Small Models):</strong> می‌خوای یه مدل ۳ میلیاردی (که روی لپ‌تاپ اجرا می‌شه) توی یه کار خاص (مثلاً تحلیل احساسات) به عملکرد یک مدل بزرگ‌تر <strong>نزدیک‌تر</strong> بشه.</li>
+</ol>
+<hr>
+<div align="center">
+
+<h2>۳. معجزه LoRA و QLoRA (چطور بدون ورشکستگی مدل بسازیم؟) 📉</h2>
+<p>قدیم‌ها برای فاین‌تیون، باید کل &quot;مغز&quot; مدل رو تغییر می‌دادیم (Full Fine-tune). این کار کارت گرافیک‌های چند هزار دلاری می‌خواست.
+اما الان روش <strong>LoRA (Low-Rank Adaptation)</strong> رو داریم؛ آداپتر کوچکی که فاین‌تیون کم‌هزینه رو ممکن می‌کنه.</p>
+<p><strong>استعاره کتاب درسی:</strong> 📚
+فرض کن یه کتاب ۱۰۰۰ صفحه‌ای (مدل اصلی) داری.</p>
+<ul>
+<li><strong>روش قدیمی:</strong> کل ۱۰۰۰ صفحه رو پاکنویس می‌کردی و تغییرات رو توش اعمال می‌کردی. (سخت و گرون).</li>
+<li><strong>روش LoRA:</strong> کتاب رو دست نمی‌زنی. فقط چند تا <strong>برچسب زرد (Sticky Note)</strong> که نکات جدید رو روشون نوشتی، جاهای مهم کتاب می‌چسبونی.</li>
+</ul>
+<p><strong>نتیجه؟</strong></p>
+<ul>
+<li>به جای اینکه کل وزن‌های مدل رو دستکاری/ذخیره کنی، معمولاً فقط <strong>آداپترها</strong> رو ذخیره می‌کنی (که اغلب خیلی کوچیک‌ترن).</li>
+<li>برای اجرا هنوز به <strong>مدل پایه</strong> نیاز داری، ولی هزینه آموزش و نگهداری خیلی کمتر می‌شه.</li>
+<li>روش <strong>QLoRA</strong> هم فاین‌تیون LoRA رو روی مدل کوانتیزه انجام می‌ده تا مصرف VRAM کمتر بشه (مثلاً با مدل پایه ۴ بیتی) و معمولاً کیفیتش می‌تونه به LoRA معمولی <strong>نزدیک</strong> باشه.</li>
+</ul>
+<p><strong>تخمین هزینه و زمان LoRA 💰⏱️:</strong>
+خبر خوب اینه که فاین‌تیون با LoRA/QLoRA دیگه مثل قدیم بودجه نجومی نمی‌خواد:</p>
+<table>
+<thead>
+<tr>
+<th align="left">مدل</th>
+<th align="left">سخت‌افزار</th>
+<th align="left">زمان تقریبی</th>
+<th align="left">هزینه تقریبی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">مدل کلاس 7B-9B (مثل Qwen یا Llama)</td>
+<td align="left">گوگل Colab رایگان (T4)</td>
+<td align="left">۱ تا ۳ ساعت</td>
+<td align="left">رایگان!</td>
+</tr>
+<tr>
+<td align="left">مدل کلاس 7B-9B</td>
+<td align="left">یه GPU اجاره‌ای (A100)</td>
+<td align="left">۳۰ تا ۶۰ دقیقه</td>
+<td align="left">۲ تا ۵ دلار</td>
+</tr>
+<tr>
+<td align="left">مدل کلاس 13B-14B</td>
+<td align="left">یه GPU اجاره‌ای (A100 80GB)</td>
+<td align="left">۱ تا ۳ ساعت</td>
+<td align="left">۵ تا ۱۵ دلار</td>
+</tr>
+<tr>
+<td align="left">مدل کلاس 70B</td>
+<td align="left">۲ تا ۴ عدد GPU (A100)</td>
+<td align="left">۴ تا ۱۲ ساعت</td>
+<td align="left">۳۰ تا ۱۰۰ دلار</td>
+</tr>
+</tbody></table>
+<p>البته این اعداد بسته به اندازه دیتاست، تعداد epoch و طول کانتکست تغییر می‌کنه. ولی نکته مهم اینه: <strong>با چند دلار می‌تونی شروع کنی!</strong> 🎉</p>
+<hr>
+<div align="center">
+
+<h2>۴. دیتا برای فاین‌تیون چه‌شکلیه؟ 📊</h2>
+<p>برعکس Pre-training که متون درهم‌برهم می‌خواست، اینجا (تو Instruction Tuning) دیتا باید <strong>تمیز و جفت‌جفت (ورودی-خروجی)</strong> باشه.
+معمولاً فرمت استاندارد <strong>JSONL</strong> هست.</p>
+<p><strong>مثال فایل دیتا (<code>dataset.jsonl</code>):</strong></p>
+<pre><code class="language-json">{&quot;input&quot;: &quot;سلام، خوبی؟&quot;, &quot;output&quot;: &quot;سلام! من یک هوش مصنوعی هستم، چطور کمکت کنم؟&quot;}
+{&quot;input&quot;: &quot;پایتخت فرانسه کجاست؟&quot;, &quot;output&quot;: &quot;پاریس.&quot;}
+</code></pre>
+<p>اگه فرمت چت باشه (برای مدل‌هایی مثل Llama 3):</p>
+<pre><code class="language-json">{&quot;messages&quot;: [
+  {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;تو دستیار مودب هستی.&quot;},
+  {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;یه جوک بگو.&quot;},
+  {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;چرا خیارشورها هیچ‌وقت دروغ نمی‌گن؟ چون نمک‌گیر می‌شن!&quot;}
+]}
+</code></pre>
+<p>کیفیت این دیتا <strong>خیلی مهم‌تر</strong> از کمیتشه. ۵۰ تا مثال عالی، بهتر از ۵۰۰۰ تا مثال آشغاله.</p>
+<p><strong>نکته حرفه‌ای: تولید داده مصنوعی (Synthetic Data) 🏭</strong>
+یه ترفند خیلی رایج اینه که از یه <strong>مدل بزرگ‌تر</strong> (مثلاً GPT-5.5 یا Claude) استفاده کنی تا داده آموزشی برای فاین‌تیون یه مدل کوچیک‌تر تولید کنه. مثلاً بهش بگی: «۱۰۰ تا سوال و جواب درباره قوانین مالیاتی ایران بنویس.» بعد این داده‌ها رو بررسی و فیلتر می‌کنی و می‌دی به مدل کوچیک‌تر. مثل اینه که استاد دانشگاه (مدل بزرگ) سوالات تمرینی بنویسه تا شاگرد (مدل کوچیک) باهاشون تمرین کنه! فقط حواست باشه شرایط استفاده مدل مبدأ رو چک کنی؛ بعضی مدل‌ها برای این کار محدودیت دارن.</p>
+<blockquote>
+<p>⚠️ <strong>دام فروپاشی مدل (Model Collapse):</strong> داده مصنوعی مکمل داده واقعیه، نه جایگزینش. اگه یه مدل رو نسل‌به‌نسل فقط روی خروجی خودش یا مدل‌هایی مثل خودش و بدون داده واقعی و فیلتر درست آموزش بدی، کم‌کم تنوعش کم می‌شه، خطاهای ریزش روی هم جمع می‌شن و خروجی‌ها یک‌نواخت و بی‌جون می‌شن. داده مصنوعی رو با داده واقعی قاطی و سفت‌وسخت فیلتر کن؛ بعد هم کیفیتش رو با یه معیار واقعی بسنج، نه فقط با نظر خود مدل.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h2>۵. مراحل عملی فاین‌تیون (نقشه راه) 🗺️</h2>
+<p>اگه خواستی واقعاً این کار رو بکنی، مسیر اینه:</p>
+<ol>
+<li><strong>انتخاب مدل پایه (Base Model):</strong> مثلاً یکی از مدل‌های متن‌باز ۷B/۸B مثل <code>Llama</code> یا <code>Mistral</code> یا <code>Qwen</code> (بسته به زبان/مجوز/سخت‌افزار).</li>
+<li><strong>آماده‌سازی دیتا:</strong> تبدیل داده‌های شرکت به فرمت JSONL (این سخت‌ترین بخشه!).</li>
+<li><strong>انتخاب ابزار:</strong> استفاده از ابزارهایی مثل <code>Axolotl</code> یا <code>Unsloth</code> یا کتابخونه‌های <code>PEFT/TRL</code> (بسته به اینکه چه جور فاین‌تیونی می‌خوای).</li>
+<li><strong>آموزش (Training):</strong> اجرا روی GPU (مثلاً Colab یا سرور). زمان آموزش به اندازه دیتا، طول کانتکست، و سخت‌افزار بستگی داره.</li>
+<li><strong>تست و ارزیابی:</strong> مدل جدید رو با سوال‌های سخت تست کن.<ul>
+<li><strong>منحنی Loss</strong> رو حین آموزش و ارزیابی زیر نظر داشته باش. اگه Loss آموزش پایین میاد ولی Loss ارزیابی بالا می‌ره، یعنی مدل داره <strong>بیش‌برازش (Overfit)</strong> می‌کنه.</li>
+<li>حتماً یه <strong>مجموعه تست جدا (Held-out Test Set)</strong> نگه دار که مدل موقع آموزش ندیده باشه؛ عملکرد واقعی رو فقط روی همین مجموعه می‌تونی بسنجی.</li>
+<li>خروجی‌ها رو با <strong>مدل پایه (قبل از فاین‌تیون)</strong> مقایسه کن تا مطمئن بشی واقعاً بهتر شده، نه فقط فرق کرده!</li>
+</ul>
+</li>
+<li><strong>دیپلوی:</strong> یا آداپتر (LoRA) رو جدا نگه می‌داری و موقع اجرا روی مدل پایه سوار می‌کنی، یا در صورت نیاز <strong>Merge</strong> می‌کنی تا یک مدل واحد داشته باشی.</li>
+</ol>
+<p><strong>خلاصه مسیر فاین‌تیون در یه نگاه:</strong></p>
+<p><img src="images/vis-24-fine-tuning-roadmap.png" alt="مسیر داده خام، پاک‌سازی، جداسازی Train و Test، آموزش LoRA، ارزیابی، مقایسه و دیپلوی"></p>
+<blockquote>
+<p>🖼️ کیفیت داده و ارزیابی روی مجموعه‌ای که مدل ندیده، از خود مرحله آموزش مهم‌ترن.</p>
+</blockquote>
+<hr>
+<div align="center">
+
+<h2>۶. پس RAG (بازیابی اطلاعات) چیه؟ 🌐</h2>
+<p>اگه فاین‌تیون مثل «یاد گرفتن مهارت» باشه، <strong>RAG (Retrieval-Augmented Generation)</strong> مثل داشتن «کتابِ باز» سر جلسه امتحانه.</p>
+<p>در RAG، اطلاعات رو داخل مغز مدل نمی‌ریزیم؛ بلکه مدل رو به یه <strong>کتابخونه (دیتابیس)</strong> وصل می‌کنیم.
+این «کتابخونه» می‌تونه <strong>داکیومنت‌های شرکت</strong>، ویکی داخلی، پایگاه دانش، یا حتی وبِ به‌روز باشه (بسته به نیاز و سطح دسترسی).</p>
+<ul>
+<li>به جای اینکه به مدل یاد بدیم &quot;قیمت دلار چنده&quot; (که فردا عوض می‌شه)، بهش دسترسی می‌دیم بره سرچ کنه.</li>
+</ul>
+<p><strong>چرا RAG این‌قدر مهمه و کِی ازش استفاده کنیم؟</strong> 🤔</p>
+<p>فکر کن یه دکتر خیلی باهوش داری، ولی اطلاعاتش مال ۲ سال پیشه. وقتی ازش درباره یه داروی جدید بپرسی، یا چیز اشتباه می‌گه یا اصلاً نمی‌دونه. حالا اگه بهش بگی «قبل از جواب دادن، اول این مقاله جدید رو بخون»، جوابش خیلی بهتر می‌شه. دقیقاً همینه RAG!</p>
+<ul>
+<li><strong>دانش به‌روز:</strong> مدل‌ها تا یه تاریخ خاص آموزش دیدن و هر چیزی بعد از اون رو نمی‌دونن. با RAG این مشکل حل می‌شه.</li>
+<li><strong>دانش اختصاصی:</strong> اطلاعات داخلی شرکت، قراردادها، مستندات فنی. هیچ مدل عمومی‌ای این‌ها رو نداره.</li>
+<li><strong>کاهش توهم:</strong> وقتی مدل منبع مشخص داشته باشه، خیلی کمتر از خودش چیز درمیاره.</li>
+<li><strong>قابل به‌روزرسانی:</strong> فقط دیتابیس رو آپدیت کن؛ نیازی نیست مدل رو دوباره آموزش بدی.</li>
+<li><strong>ارزون‌تر از فاین‌تیون:</strong> نه GPU لازمه، نه ساعت‌ها آموزش. فقط اطلاعاتت رو ایندکس کن و تمام.</li>
+</ul>
+<p>بخش «RAG در عمل» رو پایین‌تر مفصل بررسی می‌کنیم، ولی اینجا مهمه بدونی که RAG یکی از <strong>پرکاربردترین</strong> معماری‌ها توی پروژه‌های واقعیه. اکثر چت‌بات‌های شرکتی، سیستم‌های پشتیبانی مشتری و دستیارهای دانش از RAG استفاده می‌کنن.</p>
+<hr>
+<div align="center">
+
+<h2>۷. مقایسه نهایی: فاین‌تیون یا RAG؟ ⚔️</h2>
+<table>
+<thead>
+<tr>
+<th align="left">ویژگی</th>
+<th align="left">فاین‌تیون (Fine-Tuning) 🎓</th>
+<th align="left">RAG (بازیابی + تولید) 📚</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>هدف اصلی</strong></td>
+<td align="left">تغییر رفتار، فرمت، و یادگیری مهارت</td>
+<td align="left">دسترسی به دانش جدید و دقیق</td>
+</tr>
+<tr>
+<td align="left"><strong>دانش جدید</strong></td>
+<td align="left">سخت و کند (باید دوباره آموزش بدی)</td>
+<td align="left">عالی و آنی (کافیه فقط دیتابیس رو آپدیت کنی)</td>
+</tr>
+<tr>
+<td align="left"><strong>هزینه</strong></td>
+<td align="left">متوسط تا بالا (GPU نیاز داره)</td>
+<td align="left">کم (هزینه دیتابیس و Embeddings)</td>
+</tr>
+<tr>
+<td align="left"><strong>توهم (Hallucination)</strong></td>
+<td align="left">ممکنه توهمات رو حفظ کنه/تولید کنه</td>
+<td align="left">معمولاً کمتر می‌شه (اگر Retrieval خوب باشه)، ولی صفر نیست</td>
+</tr>
+<tr>
+<td align="left"><strong>مثال کاربردی</strong></td>
+<td align="left">&quot;مثل شکسپیر حرف بزن&quot;</td>
+<td align="left">&quot;قیمت بیت‌کوین چنده؟&quot;</td>
+</tr>
+</tbody></table>
+<h3>جمع‌بندی: کدوم رو انتخاب کنم؟ 🤔</h3>
+<ul>
+<li><strong>اگه می‌خوای:</strong> مدل ادبیات خاصی داشته باشه، کدهای خاص شرکتت رو بفهمه، یا روی سخت‌افزار ضعیف کار کنه -&gt; <strong>Fine-Tuning</strong></li>
+<li><strong>اگه می‌خوای:</strong> مدل به اخبار روز، داکیومنت‌های حقوقی در حال تغییر، یا ایمیل‌های شخصی دسترسی داشته باشه -&gt; <strong>RAG</strong></li>
+<li><strong>حالت طلایی:</strong> <strong>ترکیب هر دو!</strong> (مدلی که فاین‌تیون شده تا &quot;پاسخ‌دهنده حقوقی&quot; خوبی باشه + RAG متصل به &quot;قوانین جدید&quot;).</li>
+</ul>
+<p><img src="images/vis-25-fine-tuning-vs-rag-decision.png" alt="درخت تصمیمی که دانش تازه رو به RAG، رفتار و مهارت رو به Fine-tuning و نیاز مشترک رو به ترکیب هر دو وصل می‌کنه"></p>
+<blockquote>
+<p>🖼️ برای دانش تازه معمولاً RAG، برای رفتار و مهارت Fine-tuning، و برای نیاز ساده اول Prompting رو امتحان کن.</p>
+</blockquote>
+<hr>
+<br>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. داستان زندگی یک LLM: سه مرحله اصلی 👶👨‍🎓🕵️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">مرحله ۱: پیش‌آموزش (Pre-training) - &quot;یادگیری الفبا و زبان&quot; 👶</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">مرحله ۲: فاین‌تیون (Fine-tuning) - &quot;تخصص و رفتار&quot; 👨‍🎓</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">مرحله ۳: پرامپت (Prompting) - &quot;دستور لحظه‌ای&quot; 🕵️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۲. کی لازم داریم فاین‌تیون کنیم؟ 🤷</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۳. معجزه LoRA و QLoRA (چطور بدون ورشکستگی مدل بسازیم؟) 📉</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۴. دیتا برای فاین‌تیون چه‌شکلیه؟ 📊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۵. مراحل عملی فاین‌تیون (نقشه راه) 🗺️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">۶. پس RAG (بازیابی اطلاعات) چیه؟ 🌐</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">۷. مقایسه نهایی: فاین‌تیون یا RAG؟ ⚔️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">جمع‌بندی: کدوم رو انتخاب کنم؟ 🤔</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

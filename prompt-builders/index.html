@@ -1,0 +1,387 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="پرامپت‌سازها، کتابخانه‌ها و بهینه‌سازی خودکار"><link rel="canonical" href="https://example.com/prompt-builders/"><meta property="og:type" content="article"><meta property="og:title" content="ابزارهای ساخت پرامپت"><meta property="og:description" content="پرامپت‌سازها، کتابخانه‌ها و بهینه‌سازی خودکار"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>ابزارهای ساخت پرامپت | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / ابزارهای ساخت پرامپت</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">PROMPT-BUILDERS</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">ابزارهای ساخت پرامپت</h1><p class="mt-5 text-lg text-smoke">پرامپت‌سازها، کتابخانه‌ها و بهینه‌سازی خودکار</p></header><div class="prose-llm max-w-none"><h1>ابزارهای ساخت و بهبود پرامپت 🚀</h1>
+<p>این بخش چند ابزار و روش ساده معرفی می‌کنه که باهاشون می‌تونی پرامپت‌های بهتری بسازی یا اونایی که داری رو بهبود بدی.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۱. استفاده از پرامپت‌های پرامپت‌ساز 🛠️</h2>
+<p>توی این روش، از خود مدل می‌خوایم نقش یه «پرامپت‌نویس حرفه‌ای» رو بازی کنه و براساس نیاز ما، یه پرامپت کامل و باکیفیت تولید کنه. به این کار می‌گن <strong>متاپرامپتینگ (Meta-Prompting)</strong>؛ یعنی پرامپت نوشتن برای ساختن پرامپت! 🤯</p>
+<p><strong>چطوری کار می‌کنه؟</strong>  </p>
+<ol>
+<li>پرامپت زیر رو به مدل می‌دی.  </li>
+<li>موضوع یا کاری که براش پرامپت می‌خوای رو مشخص می‌کنی.  </li>
+<li>مدل یه پرامپت ساختاریافته برای همون موضوع تولید می‌کنه.</li>
+</ol>
+<blockquote>
+<p>💡 <strong>نکته مهم درباره زبان:</strong> متاپرامپت‌ها رو معمولاً <strong>به انگلیسی</strong> بنویس، حتی اگه خروجی نهایی رو فارسی می‌خوای. دلیلش اینه که مدل‌ها روی دیتای انگلیسی بیشتر آموزش دیدن و دستورالعمل‌های ساختاریافته انگلیسی رو بهتر می‌فهمن. بعداً توی خود پرامپتِ تولیدشده می‌تونی مشخص کنی که خروجی فارسی باشه.</p>
+</blockquote>
+<hr>
+<h3>پرامپت پیشنهادی برای شروع ✏️</h3>
+<div align="left">
+
+<pre><code class="language-text">You are an expert prompt engineer. Your objective is to create a comprehensive, high-quality system prompt based on the user’s request. Use precise and professional language, ensuring the prompt thoroughly addresses each of the following sections:
+
+---
+
+### 1. System Prompt
+- **Objective**: Clearly state the AI’s primary goal.  
+- **Role Definition**: Define the AI’s role with precision, focusing on the core functionality the user needs.
+
+### 2. Instructions
+- **Task Breakdown**: Break down complex actions into sequential, easy-to-follow steps.  
+- **Actionable Language**: Provide explicit directives to avoid ambiguity.  
+- **Coverage**: Address every necessary aspect of the functionality or process requested.
+
+### 3. Constraints
+- **Boundaries**: Specify what the AI can and cannot do (e.g., scope of tasks or compliance requirements).  
+- **Ethical Considerations**: Ensure adherence to relevant standards, regulations, and responsible practices.
+
+### 4. Output Format
+- **Structure**: Indicate how the AI’s final answer should be organized (e.g., headings, bullet points).  
+- **Formatting Requirements**: Detail any specific text styling or layout guidelines (e.g., code blocks, markdown).  
+- **Level of Detail**: Clarify whether the output should be concise, moderately detailed, or exhaustive.
+
+### 5. Examples
+- **Sample Inputs**: Provide illustrative prompts or scenarios that the AI could receive.  
+- **Sample Outputs**: Show how the AI should respond to these inputs, adhering to the established format and constraints.
+</code></pre>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۲. ابزارهای آماده برای ساخت پرامپت 🧰</h2>
+<p>علاوه بر متاپرامپتینگ دستی، چند تا ابزار آماده هم هستن که خودشون پرامپت‌ساز دارن:</p>
+<ul>
+<li><strong>کنسول Anthropic:</strong> توی <a href="https://platform.claude.com">platform.claude.com</a> یه بخش <strong>Prompt Generator</strong> هست که کمکت می‌کنه پرامپت‌های حرفه‌ای بسازی. فقط هدفت رو بنویس و خودش یه پرامپت ساختاریافته تحویلت می‌ده. 🎯</li>
+<li><strong>پلی‌گراند OpenAI:</strong> توی <a href="https://platform.openai.com/playground">platform.openai.com/playground</a> می‌تونی پرامپت‌هات رو تست کنی و پارامترها رو لحظه‌ای تغییر بدی. محیط آزمایشی عالی‌ای برای بهینه‌سازی پرامپته. 🔬</li>
+<li><strong>گوگل AI Studio:</strong> سایت <a href="https://aistudio.google.com">aistudio.google.com</a> هم امکان تست و ساخت پرامپت رو داره. 🌐</li>
+</ul>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۳. کتابخانه‌های پرامپت آماده 📚</h2>
+<p>لازم نیست همیشه از صفر شروع کنی! یه سری کتابخانه پرامپت وجود دارن که پرامپت‌های آماده و تست‌شده دارن:</p>
+<ul>
+<li><strong>هاب LangChain:</strong> توی <a href="https://smith.langchain.com/hub">smith.langchain.com/hub</a> کلی پرامپت آماده برای کارهای مختلف هست؛ از خلاصه‌سازی گرفته تا تحلیل احساسات. می‌تونی مستقیم توی کدت استفاده‌شون کنی. ⚡</li>
+<li><strong>کتابخانه Awesome ChatGPT Prompts:</strong> یه ریپوی محبوب توی گیت‌هاب که کلی پرامپت خلاقانه برای سناریوهای مختلف جمع کرده. 🌟</li>
+</ul>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۴. بهینه‌سازی خودکار پرامپت 🤖</h2>
+<p>برای پروژه‌های جدی، نسل جدیدی از ابزارها کلاً فلسفه رو عوض کردن: به جای اینکه پرامپت رو دستی سوهان بزنی، <strong>ورودی و خروجی موردنظرت رو تعریف می‌کنی و یه معیار موفقیت می‌دی؛ خود ابزار با آزمون‌وخطای سیستماتیک، متن پرامپت و مثال‌های Few-Shot رو بهینه می‌کنه.</strong> معروف‌ترین اسم این حوزه <strong><a href="https://dspy.ai">DSPy</a></strong> هست با شعار «برنامه‌نویسی به جای پرامپت‌نویسی». وقتی به دردت می‌خوره که دیتاست ارزیابی داشته باشی (فصل ارزیابی رو یادته؟) و بخوای اون چند درصد آخرِ دقت رو بدون هفته‌ها سعی و خطای دستی به دست بیاری.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h1>نکات ویژه زبان فارسی 🇮🇷</h1>
+<p>اگه فارسی‌زبانی و داری با LLMها کار می‌کنی، یه سری نکات خیلی مهم هست که باید بدونی. این بخش رو هیچ‌جای دیگه پیدا نمی‌کنی، چون مختص ماست! 🎯</p>
+<h3>مشکل توکن فارسی: چرا بیشتر پول می‌دیم؟ 💸</h3>
+<p>یه واقعیت تلخ: <strong>متن فارسی معمولاً ۱.۵ تا ۳ برابر بیشتر از انگلیسی توکن مصرف می‌کنه</strong> (و با توکنایزرهای قدیمی‌تر حتی تا ۴ برابر)! 😱</p>
+<p>دلیلش اینه که توکنایزرها (مخصوصاً BPE) بیشتر روی متن انگلیسی آموزش دیدن. کلمات انگلیسی معمولاً یه توکن کامل می‌شن، ولی کلمات فارسی به چند تکه شکسته می‌شن.</p>
+<p>بیا عملی ببینیم:</p>
+<pre><code class="language-python">import tiktoken
+
+# توکنایزر o200k_base (مال نسل‌های جدید مدل‌های OpenAI)
+enc = tiktoken.get_encoding(&quot;o200k_base&quot;)
+
+# مقایسه فارسی و انگلیسی
+text_en = &quot;Artificial intelligence is transforming the world.&quot;
+text_fa = &quot;هوش مصنوعی داره دنیا رو متحول می‌کنه.&quot;
+
+tokens_en = enc.encode(text_en)
+tokens_fa = enc.encode(text_fa)
+
+print(f&quot;انگلیسی: {len(tokens_en)} توکن&quot;)   # ۷ توکن
+print(f&quot;فارسی:  {len(tokens_fa)} توکن&quot;)    # ۱۴ توکن!
+
+# نسبت
+ratio = len(tokens_fa) / len(tokens_en)
+print(f&quot;نسبت: فارسی {ratio:.1f} برابر بیشتر توکن مصرف می‌کنه&quot;)  # ۲.۰ برابر
+</code></pre>
+<blockquote>
+<p>💡 <strong>نکته عملی:</strong> وقتی قیمت API رو حساب می‌کنی، حواست باشه هزینه واقعیت حدود <strong>۱.۵ تا ۳ برابر</strong> قیمتیه که برای انگلیسی تبلیغ می‌شه! (عدد دقیق به توکنایزر و متن بستگی داره؛ خودت اجرا کن و ببین.)</p>
+</blockquote>
+<p><img src="images/vis-29-persian-token-cost.png" alt="مقایسه دو جمله انگلیسی و فارسی با ۷ و ۱۴ توکن و اثر روی هزینه و فضای کانتکست"></p>
+<blockquote>
+<p>🖼️ در نمونه کتاب، جمله فارسی دو برابر معادل انگلیسی توکن مصرف می‌کنه؛ عدد دقیق به متن و توکنایزر بستگی داره.</p>
+</blockquote>
+<h3>نیم‌فاصله (ZWNJ) و مدل‌ها 🔤</h3>
+<p><strong>نیم‌فاصله</strong> (کاراکتر یونیکد U+200C) یکی از ویژگی‌های خاص فارسیه. مثلاً:</p>
+<ul>
+<li>✅ «می‌کنه» (با نیم‌فاصله: درست)</li>
+<li>❌ «می کنه» (با فاصله: غلط)</li>
+<li>❌ «میکنه» (بدون فاصله: غلط)</li>
+</ul>
+<p>خبر خوب: مدل‌های بزرگ (مثل GPT و Claude) معمولاً نیم‌فاصله رو <strong>درست</strong> استفاده می‌کنن. ولی مدل‌های کوچیک‌تر و متن‌باز ممکنه اشتباه بزنن.</p>
+<p><strong>راهکار:</strong> تو پرامپتت صریح بگو:</p>
+<pre><code class="language-text">لطفاً از نیم‌فاصله (ZWNJ) استفاده کن. مثلاً «می‌کنه» نه «می کنه».
+</code></pre>
+<h3>مشکلات راست‌به‌چپ (RTL) در خروجی کد 📝</h3>
+<p>وقتی از مدل می‌خوای کدی بنویسه که خروجی فارسی داره، گاهی <strong>جهت متن قاطی می‌شه</strong>:</p>
+<ul>
+<li>اعداد و حروف انگلیسی وسط متن فارسی جابه‌جا می‌شن</li>
+<li>پرانتز و علائم نگارشی جای اشتباهی قرار می‌گیرن</li>
+</ul>
+<p><strong>راهکار:</strong> ازش بخواه از کاراکترهای کنترلی یونیکد یا <code>dir=&quot;rtl&quot;</code> در HTML استفاده کنه.</p>
+<h3>کدوم مدل‌ها فارسی رو بهتر می‌فهمن؟ 🏆</h3>
+<p>بر اساس تجربه عملی (نه بنچمارک رسمی!):</p>
+<table>
+<thead>
+<tr>
+<th>رتبه</th>
+<th>مدل</th>
+<th>کیفیت فارسی</th>
+<th>توضیح</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🥇</td>
+<td>مدل‌های GPT-5.x</td>
+<td>عالی ⭐⭐⭐⭐⭐</td>
+<td>درک و نگارش عالی، نیم‌فاصله درست</td>
+</tr>
+<tr>
+<td>🥇</td>
+<td>مدل Claude (نسل‌های جدید Sonnet/Opus)</td>
+<td>عالی ⭐⭐⭐⭐⭐</td>
+<td>درک عمیق، نگارش روان</td>
+</tr>
+<tr>
+<td>🥈</td>
+<td>مدل‌های Gemini 3.x</td>
+<td>خیلی خوب ⭐⭐⭐⭐</td>
+<td>قوی؛ گاهی لحنش رسمی می‌زنه</td>
+</tr>
+<tr>
+<td>🥉</td>
+<td>مدل‌های DeepSeek و Qwen</td>
+<td>خوب ⭐⭐⭐</td>
+<td>قابل قبول؛ گاهی خطای نگارشی</td>
+</tr>
+<tr>
+<td>۴</td>
+<td>مدل‌های متن‌باز متوسط (مثل Llama)</td>
+<td>متوسط ⭐⭐</td>
+<td>درک خوب، نگارش ضعیف‌تر</td>
+</tr>
+<tr>
+<td>۵</td>
+<td>مدل‌های کوچک لوکال</td>
+<td>ضعیف ⭐</td>
+<td>فقط برای کارهای ساده</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🧪 <strong>می‌خوای خودت بسنجی؟</strong> برای فارسی بنچمارک‌های تخصصی هم ساخته شده: <a href="https://github.com/ParsBench/ParsBench">ParsBench</a> (ابزار و لیدربورد ارزیابی فارسی)، <a href="https://arxiv.org/abs/2404.06644">Khayyam Challenge یا همون PersianMMLU</a> با بیش از ۲۰ هزار سوال چهارگزینه‌ای از امتحانات واقعی فارسی، <a href="https://arxiv.org/abs/2508.00673">MELAC</a> با ۱۹ دیتاست تازه (از حقوق ایران تا سوالات کنکور)، و <a href="https://arxiv.org/abs/2509.21104">PerHalluEval</a> برای سنجش توهم در فارسی. اگه می‌خوای بین چند مدل برای محصول فارسیت انتخاب کنی، این‌ها نقطه شروع خیلی بهتری از حس و حال شخصی‌ان.</p>
+</blockquote>
+<h3>مدل‌های تخصصی فارسی چی؟ 🧿</h3>
+<p>چند تیم ایرانی مدل‌های متن‌باز رو با داده فارسی فاین‌تیون کردن؛ شناخته‌شده‌ترها: <strong><a href="https://huggingface.co/PartAI/Dorna2-Llama3.1-8B-Instruct">Dorna2</a></strong> (از Part AI، روی پایه Llama 3.1) و <strong>PersianMind</strong> (دانشگاه تهران، با واژگان گسترش‌یافته فارسی). واقعیت صادقانه: برای اکثر کارها، مدل‌های چندزبانه بزرگ هنوز فارسیِ بهتری از مدل‌های تخصصی کوچیک تحویل می‌دن؛ مدل‌های تخصصی بیشتر برای پژوهش، اجرای کاملاً لوکال یا فاین‌تیون اختصاصی روی داده خودت جذابن. برای رصد وضعیت، لیدربورد <a href="https://huggingface.co/spaces/PartAI/open-persian-llm-leaderboard">Open Persian LLM Leaderboard</a> رو ببین.</p>
+<h3>فارسی رسمی یا محاوره‌ای؟ نکات پرامپت‌نویسی 🎭</h3>
+<p>مدل‌ها معمولاً تمایل به <strong>فارسی رسمی</strong> دارن. اگه لحن خودمونی می‌خوای، باید صریح بگی:</p>
+<pre><code class="language-text">❌ بدون مشخص کردن لحن:
+پرامپت: &quot;مزایای ورزش رو بگو&quot;
+خروجی: &quot;ورزش منظم مزایای بسیاری دارد از جمله بهبود سلامت قلب و عروق و...&quot;
+   (خیلی رسمی و کتابی! 📚)
+
+✅ با مشخص کردن لحن:
+پرامپت: &quot;مزایای ورزش رو با لحن خودمونی و جوون‌پسند بگو. مثل اینکه داری برای رفیقت تعریف می‌کنی.&quot;
+خروجی: &quot;داداش، ورزش کردن خیلی حال می‌ده! اولاً که کلی انرژی می‌گیری...&quot;
+   (خیلی بهتر! 🎉)
+</code></pre>
+<h3>مدیریت فینگلیش (Finglish) 🔀</h3>
+<p>خیلی از کاربرای فارسی‌زبان <strong>فینگلیش</strong> (فارسی با حروف لاتین) تایپ می‌کنن. خبر خوب اینه که مدل‌های بزرگ فینگلیش رو می‌فهمن!</p>
+<h4>مثال: تبدیل فینگلیش به فارسی ✨</h4>
+<pre><code class="language-text">پرامپت: «این متن فینگلیش رو به فارسی درست و روان تبدیل کن.
+از نیم‌فاصله درست استفاده کن. علائم نگارشی رو هم اضافه کن:
+
+salam, man mikham ye barname benevisam ke gheymate dollar ro neshon bede.
+momkene komakam koni?»
+
+خروجی مدل:
+«سلام، من می‌خوام یه برنامه بنویسم که قیمت دلار رو نشون بده.
+ممکنه کمکم کنی؟»
+</code></pre>
+<h4>مثال: تبدیل لحن رسمی به محاوره‌ای 🔄</h4>
+<pre><code class="language-text">پرامپت: «این متن رسمی رو به فارسی محاوره‌ای و خودمونی تبدیل کن.
+طوری بنویس که انگار داری برای یه دوست توضیح می‌دی:
+
+&quot;هوش مصنوعی مولد، شاخه‌ای از هوش مصنوعی است که قادر به تولید محتوای جدید
+شامل متن، تصویر، صوت و ویدیو می‌باشد. این فناوری با بهره‌گیری از مدل‌های
+یادگیری عمیق، الگوهای موجود در داده‌های آموزشی را فرا می‌گیرد.&quot;»
+
+خروجی مدل:
+«هوش مصنوعی مولد یعنی چی؟ ببین، یه جور AI هست که می‌تونه خودش چیز جدید
+بسازه: متن، عکس، صدا، ویدیو، هر چی! طرز کارش اینه که کلی نمونه دیده و
+یاد گرفته الگوها رو تقلید کنه. مثل یه هنرمند که کلی نقاشی دیده و حالا
+خودش می‌تونه نقاشی بکشه!»
+</code></pre>
+<h3>انتخاب امبدینگ مناسب برای RAG فارسی 🔎</h3>
+<p>اگه روی اسناد فارسی RAG می‌سازی، انتخاب مدل امبدینگ از همیشه مهم‌تر می‌شه؛ خیلی از امبدینگ‌های معروف اصلاً برای فارسی آموزش جدی ندیدن!</p>
+<ul>
+<li><strong>گزینه امن:</strong> امبدینگ‌های چندزبانه‌ای که فارسی رو رسماً پشتیبانی می‌کنن؛ مثل text-embedding-3 از OpenAI، امبدینگ Gemini، یا مدل چندزبانه متن‌باز BGE-M3.</li>
+<li><strong>معیار انتخاب:</strong> بنچمارک <strong>FaMTEB</strong>، نسخه فارسی بنچمارک امبدینگ‌ها، دقیقاً برای همین سوال ساخته شده (نتایجش تو <a href="https://huggingface.co/spaces/mteb/leaderboard">لیدربورد MTEB</a> با فیلتر زبان فارسی). مدل‌های امبدینگ تخصصی فارسی مثل <strong><a href="https://huggingface.co/PartAI/Tooka-SBERT">Tooka-SBERT</a></strong> (که نسخه V2 هم داره) و <strong><a href="https://huggingface.co/MCINext/Hakim">Hakim</a></strong> هم تو همین بنچمارک رتبه‌های خوبی گرفتن.</li>
+<li><strong>دو تا دام فارسی:</strong> قبل از ایندکس کردن، متن رو نرمال‌سازی کن: «ي» و «ك» عربی رو فارسی کن، فاصله‌های خراب رو درست کن و اعداد رو یکدست کن. حواست هم باشه موقع چانک کردن، کلمه‌های نیم‌فاصله‌دار از وسط نشکنن.</li>
+</ul>
+<h3>نکات طلایی برای کار با فارسی 🌟</h3>
+<ol>
+<li><strong>پرامپت فارسی بنویس، نه انگلیسی:</strong> مدل‌های جدید فارسی رو خوب می‌فهمن. نیازی نیست انگلیسی بنویسی، مگه اینکه خروجی انگلیسی بخوای.</li>
+<li><strong>لحن رو مشخص کن:</strong> «رسمی»، «محاوره‌ای»، «ادبی»، «طنزآمیز»؛ هر چی می‌خوای، بگو.</li>
+<li><strong>مراقب توکن‌ها باش:</strong> پرامپت‌های فارسیت ۱.۵ تا ۳ برابر بیشتر توکن مصرف می‌کنن.</li>
+<li><strong>نیم‌فاصله رو یادآوری کن:</strong> مخصوصاً برای مدل‌های کوچیک‌تر.</li>
+<li><strong>فینگلیش قاطی نکن:</strong> یا کامل فارسی بنویس یا کامل انگلیسی. قاطی کردن کیفیت رو پایین میاره.</li>
+</ol>
+<h3>مدل‌های فارسی‌زبان متن‌باز 🇮🇷</h3>
+<p>اگه بخوای یه مدل متن‌باز رو لوکال (مثلاً با Ollama) برای کار فارسی بالا بیاری، چند تا مدل هست که مخصوص فارسی فاین‌تیون شدن. عملی‌ترین گزینه به‌روز الان <strong><a href="https://huggingface.co/PartAI/Dorna2-Llama3.1-8B-Instruct">Dorna2</a></strong> از تیمِ PartAI هست که روی Llama 3.1 هشت‌میلیاردی ساخته شده. تو فضای پژوهشی هم کارهای تازه‌ای مثل Persian-Phi و Matina (هر دو از ۲۰۲۵) نشون می‌دن این حوزه هنوز فعاله و داره جلو می‌ره.</p>
+<p><strong>ولی یه نکته صادقانه:</strong> این مدل‌های تخصصی فارسی معمولاً روی پایه‌های کوچیک‌تر و قدیمی‌تر (در حد ۸ میلیارد پارامتر) سوارن. برای خیلی از کارها، یه مدل چندزبانه قوی و به‌روز (مثل نسخه‌های جدید Qwen یا Gemma) تو فارسی هم‌ترازِ این مدل‌های تخصصی یا حتی بهتر جواب می‌ده. پس انتخابت رو بر اساس نیازت بکن: اگه حریم خصوصی و اجرای کاملاً لوکال برات مهمه، یه مدل فارسیِ سبک عالیه؛ اگه دنبال بالاترین کیفیتی، مدل چندزبانه بزرگ‌تر رو هم امتحان کن.</p>
+<br>
+
+<hr>
+<br>
+
+<div align="center">
+
+<h1>مدیریت هزینه 💰</h1>
+<p>استفاده از API مدل‌ها <strong>پولیه</strong> و اگه حواست نباشه، قبضت می‌تونه غافلگیرت کنه! 😅 بیا ببینیم چطوری هزینه رو مدیریت کنیم.</p>
+<h3>مدل قیمت‌گذاری: توکن = پول 💵</h3>
+<p>هزینه API بر اساس <strong>تعداد توکن</strong> محاسبه می‌شه. دو نوع توکن داریم:</p>
+<ul>
+<li><strong>توکن ورودی (Input):</strong> پرامپت + کانتکست + تاریخچه مکالمه</li>
+<li><strong>توکن خروجی (Output):</strong> جوابی که مدل تولید می‌کنه (معمولاً حدود ۵ برابر گرون‌تر!)</li>
+</ul>
+<h3>محاسبه هزینه بدون دردسر 🧮</h3>
+<p>قیمت‌ها مدام عوض می‌شن، پس به جای اینکه جدول قیمت رو دستی توی کدت بنویسی (که زود قدیمی می‌شه)، از یه کتابخونه مثل <strong>litellm</strong> استفاده کن که قیمت مدل‌ها رو خودش به‌روز نگه می‌داره. فقط اسم مدل و تعداد توکن رو می‌دی:</p>
+<pre><code class="language-python"># pip install litellm
+from litellm import cost_per_token
+
+# قیمت‌ها داخل litellm نگه‌داری می‌شن؛ تو فقط مدل و تعداد توکن رو می‌دی
+prompt_cost, completion_cost = cost_per_token(
+    model=&quot;gpt-5.5&quot;,
+    prompt_tokens=1000,
+    completion_tokens=500,
+)
+total = prompt_cost + completion_cost
+print(f&quot;ورودی: ${prompt_cost:.4f} | خروجی: ${completion_cost:.4f} | کل: ${total:.4f}&quot;)
+# خروجی: ورودی: $0.0050 | خروجی: $0.0150 | کل: $0.0200
+</code></pre>
+<h3>مقایسه هزینه ارائه‌دهنده‌ها 📊</h3>
+<table>
+<thead>
+<tr>
+<th>مدل</th>
+<th>ورودی (هر 1M توکن)</th>
+<th>خروجی (هر 1M توکن)</th>
+<th>سطح کیفیت</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>مدل GPT-5.5 🟢</td>
+<td>$5.00</td>
+<td>$30.00</td>
+<td>عالی</td>
+</tr>
+<tr>
+<td>مدل GPT-5.4 mini 🟢</td>
+<td>$0.75</td>
+<td>$4.50</td>
+<td>خوب</td>
+</tr>
+<tr>
+<td>مدل Claude Fable 5 🟣</td>
+<td>$10.00</td>
+<td>$50.00</td>
+<td>عالی</td>
+</tr>
+<tr>
+<td>مدل Claude Opus 4.8 🟣</td>
+<td>$5.00</td>
+<td>$25.00</td>
+<td>عالی</td>
+</tr>
+<tr>
+<td>مدل Claude Sonnet 4.6 🟣</td>
+<td>$3.00</td>
+<td>$15.00</td>
+<td>عالی</td>
+</tr>
+<tr>
+<td>مدل Claude Haiku 4.5 🟣</td>
+<td>$1.00</td>
+<td>$5.00</td>
+<td>خوب</td>
+</tr>
+<tr>
+<td>مدل Gemini 3.1 Pro 🔵</td>
+<td>$2.00</td>
+<td>$12.00</td>
+<td>عالی</td>
+</tr>
+<tr>
+<td>مدل Gemini 3.5 Flash 🔵</td>
+<td>$1.50</td>
+<td>$9.00</td>
+<td>خیلی خوب</td>
+</tr>
+<tr>
+<td>مدل DeepSeek V4</td>
+<td>$0.44</td>
+<td>$0.87</td>
+<td>خوب</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>📝 قیمت‌ها بر اساس خرداد ۱۴۰۵ (ژوئن ۲۰۲۶) هستن و ممکنه تغییر کنن. همیشه صفحه قیمت رسمی رو چک کن.</p>
+<ul>
+<li>قیمت Gemini 3.1 Pro برای درخواست‌های زیر 200K توکنه؛ بالاتر از اون، ورودی $4 و خروجی $18 می‌شه.</li>
+<li>برای درخواست‌های با ورودی بالای 272K توکن، قیمت GPT-5.5 فرق می‌کنه: توکن ورودی دو برابر و توکن خروجی ۱.۵ برابر حساب می‌شه.</li>
+<li>با Prompt Caching تا ۹۰٪ و با Batch تا ۵۰٪ می‌شه ارزون‌ترش کرد (OpenAI و Anthropic و Google هر کدوم نسخه خودشون رو دارن).</li>
+</ul>
+</blockquote>
+<h3>استراتژی‌های کاهش هزینه 📉</h3>
+<p><strong>۱. از مدل مناسب کار استفاده کن (نه لزوماً بهترین!) 🎯</strong></p>
+<ul>
+<li>برای طبقه‌بندی ساده: مدل‌های mini/flash (ارزون)</li>
+<li>برای تحلیل پیچیده: مدل‌های بزرگ (گرون ولی دقیق)</li>
+</ul>
+<p><strong>۲. پرامپت‌ها رو کوتاه و بهینه کن ✂️</strong></p>
+<ul>
+<li>حشو و تکرار رو حذف کن</li>
+<li>به جای توضیح طولانی، از مثال استفاده کن</li>
+<li>مخصوصاً برای فارسی: گاهی ترجمه بخش سیستم پرامپت به انگلیسی کلی توکن صرفه‌جویی می‌کنه!</li>
+</ul>
+<p><strong>۳. کش کردن (Caching) 💾</strong></p>
+<ul>
+<li>جواب سوالات تکراری رو ذخیره کن</li>
+<li><strong>کش کانتکست:</strong> OpenAI و Anthropic و Google قابلیت «کش پیشوند» دارن که بخش ثابت و تکراری پرامپت رو تا ۹۰٪ ارزون‌تر حساب می‌کنه!</li>
+</ul>
+<p><strong>۴. پردازش دسته‌ای (Batch Processing) 📦</strong></p>
+<ul>
+<li>اگه عجله نداری، درخواست‌ها رو دسته‌ای بفرست</li>
+<li>ارائه‌دهنده‌های بزرگ برای درخواست‌های دسته‌ای <strong>۵۰٪ تخفیف</strong> می‌دن!</li>
+</ul>
+<p><strong>۵. مسیردهی هوشمند (Smart Routing) 🧠</strong></p>
+<ul>
+<li>اول با مدل ارزون امتحان کن</li>
+<li>اگه کیفیت کافی نبود، به مدل بهتر ارجاع بده</li>
+<li>مثل رفتن اول پیش پزشک عمومی و بعد متخصص!</li>
+</ul>
+<blockquote>
+<p>💡 <strong>تخمین سرانگشتی:</strong> اگه روزی ۱۰۰ درخواست با GPT-5.5 بفرستی (هر کدوم حدود ۱۰۰۰ توکن ورودی و ۵۰۰ توکن خروجی)، ماهانه حدود <strong>۶۰ دلار</strong> هزینه داری. با مدل GPT-5.4 mini همین کار حدود <strong>۹ دلار</strong> می‌شه!</p>
+</blockquote>
+<p><img src="images/vis-35-cost-optimization-flow.png" alt="جریان کنترل هزینه از پرامپت کوتاه و کش تا مسیریابی مدل، سقف خروجی و پایش"></p>
+<blockquote>
+<p>🖼️ کنترل هزینه یه قدم نیست؛ پرامپت کوتاه‌تر، کش، مسیریابی بین مدل سبک و قوی و سقف خروجی با هم جمع می‌شن.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. استفاده از پرامپت‌های پرامپت‌ساز 🛠️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">پرامپت پیشنهادی برای شروع ✏️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">1. System Prompt</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">2. Instructions</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">3. Constraints</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">4. Output Format</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">5. Examples</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۲. ابزارهای آماده برای ساخت پرامپت 🧰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">۳. کتابخانه‌های پرامپت آماده 📚</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">۴. بهینه‌سازی خودکار پرامپت 🤖</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">مشکل توکن فارسی: چرا بیشتر پول می‌دیم؟ 💸</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">نیم‌فاصله (ZWNJ) و مدل‌ها 🔤</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">مشکلات راست‌به‌چپ (RTL) در خروجی کد 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">کدوم مدل‌ها فارسی رو بهتر می‌فهمن؟ 🏆</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">مدل‌های تخصصی فارسی چی؟ 🧿</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">فارسی رسمی یا محاوره‌ای؟ نکات پرامپت‌نویسی 🎭</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">مدیریت فینگلیش (Finglish) 🔀</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-17">انتخاب امبدینگ مناسب برای RAG فارسی 🔎</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-18">نکات طلایی برای کار با فارسی 🌟</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-19">مدل‌های فارسی‌زبان متن‌باز 🇮🇷</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-20">مدل قیمت‌گذاری: توکن = پول 💵</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-21">محاسبه هزینه بدون دردسر 🧮</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-22">مقایسه هزینه ارائه‌دهنده‌ها 📊</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-23">استراتژی‌های کاهش هزینه 📉</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

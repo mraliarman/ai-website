@@ -1,0 +1,348 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><link rel="canonical" href="https://example.com/advanced-techniques/"><meta property="og:type" content="article"><meta property="og:title" content="تکنیک‌های پیشرفته پرامپت‌نویسی"><meta property="og:description" content="جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>تکنیک‌های پیشرفته پرامپت‌نویسی | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / تکنیک‌های پیشرفته پرامپت‌نویسی</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">ADVANCED-TECHNIQUES</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">تکنیک‌های پیشرفته پرامپت‌نویسی</h1><p class="mt-5 text-lg text-smoke">جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار</p></header><div class="prose-llm max-w-none"><h1>چطور پرامپت‌های بهتری بنویسیم؟ (تکنیک‌های پیشرفته‌تر) 🚀</h1>
+<p>خب، حالا که اصول اولیه پرامپت‌نویسی رو گفتیم، وقتشه یه کم حرفه‌ای‌تر بشیم! 😎
+یادته گفتیم هرچی پرامپت دقیق‌تر باشه، جواب بهتری می‌گیریم؟ این چند تا تکنیک بهت کمک می‌کنه پرامپت‌هات رو <strong>واضح‌تر، دقیق‌تر و قوی‌تر</strong> کنی تا LLM دقیقاً همون کاری که می‌خوای رو برات انجام بده.</p>
+<blockquote>
+<p>🗺️ <strong>جای این فصل تو نقشه:</strong> اینجا با هفت عادت پایه آشنا می‌شی که تو ۹۰٪ پرامپت‌هات به کار میان. چند تا از این تکنیک‌ها (مثل Few-Shot و زنجیره تفکر) بعداً تو فصل «تکنیک‌های پرامپت‌نویسی» با جزئیات و مثال‌های حرفه‌ای‌تر دوباره باز می‌شن. اگه وسط اون فصل حس آشنایی بهت دست داد تعجب نکن؛ اونجا «مرجع کامل»ه و اینجا «شروع سریع».</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</h2>
+<p>بعضی وقتا لازمه هم یه <strong>دستور</strong> به مدل بدی (مثلاً «این متن رو خلاصه کن») و هم یه <strong>تکه داده</strong> (همون متنی که باید خلاصه بشه). اگه این دوتا رو همین‌جوری پشت سر هم بنویسی، مدل ممکنه قاطی کنه که کدوم دستوره و کدوم داده!</p>
+<p>بهترین کار اینه که با یه <strong>جداکننده واضح</strong>، این دو بخش رو از هم سوا کنی. رایج‌ترین و ساده‌ترین راه، استفاده از سه تا بک‌تیک (```) هست:</p>
+<p><strong>مثال:</strong> فرض کن می‌خوای یه پاراگراف رو خلاصه کنی.</p>
+<pre><code class="language-markdown">لطفاً پاراگراف زیر رو در یک جمله خلاصه کن:
+
+```text
+مدل‌های زبانی بزرگ یا LLMها، نوعی هوش مصنوعی هستند که بر روی حجم عظیمی از داده‌های متنی آموزش دیده‌اند. آن‌ها می‌توانند زبان انسان را درک کرده، تولید کنند و وظایف مختلفی مانند ترجمه، خلاصه‌سازی و پاسخ به سوالات را انجام دهند. توانایی آن‌ها در درک مفاهیم پیچیده و تولید متن منسجم، آن‌ها را به ابزاری قدرتمند در حوزه‌های مختلف تبدیل کرده است.
+```
+</code></pre>
+<p><strong>روش‌های دیگه هم هست؟</strong>
+آره، می‌تونی از جداکننده‌های دیگه مثل سه تا هشتگ (<code>###</code>) یا حتی تگ‌های ساده XML/HTML (مثل <code>&lt;text_to_summarize&gt; ... &lt;/text_to_summarize&gt;</code>) هم استفاده کنی. مهم اینه که یه مرز مشخص بین دستور و داده‌ت بذاری.</p>
+<p><strong>چرا این کار مهمه؟</strong>
+چون به مدل کمک می‌کنه <strong>دقیقاً بفهمه</strong> قراره روی کدوم قسمت از متن کار کنه و چه کاری رو انجام بده. اینطوری احتمال خطا و کج‌فهمی خیلی کمتر می‌شه.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</h2>
+<p>گاهی وقتا نمی‌خوای جواب مدل همین‌جوری یه متن ساده باشه. مثلاً اگه برنامه‌نویس باشی، شاید لازم داشته باشی جواب رو تو فرمت <strong>JSON</strong> بگیری تا راحت تو کدت ازش استفاده کنی. یا شاید بخوای جواب به صورت یه <strong>لیست شماره‌دار</strong> یا یه <strong>جدول</strong> باشه.</p>
+<p><strong>خیلی راحت می‌تونی تو پرامپت از مدل بخوای خروجی رو تو فرمت خاصی بهت بده.</strong></p>
+<p><strong>مثال: گرفتن خروجی JSON</strong></p>
+<pre><code class="language-markdown">اطلاعات کتاب زیر رو به صورت یک آبجکت JSON با کلیدهای `title` و `author` و `year` بهم بده:
+
+```text
+نام کتاب: بوف کور
+نویسنده: صادق هدایت
+سال انتشار: ۱۳۱۵
+```
+</code></pre>
+<p><strong>پاسخ احتمالی مدل:</strong></p>
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;بوف کور&quot;,
+  &quot;author&quot;: &quot;صادق هدایت&quot;,
+  &quot;year&quot;: 1315
+}
+</code></pre>
+<p><strong>مثال دیگه: درخواست لیست</strong>
+<code>مزایای اصلی یادگیری پایتون رو به صورت یه لیست شماره‌دار برام بنویس.</code></p>
+<p><strong>مثال دیگه: درخواست جدول</strong></p>
+<pre><code class="language-markdown">مقایسه سه زبان برنامه‌نویسی پایتون، جاوااسکریپت و راست رو به صورت یه جدول Markdown بنویس.
+ستون‌ها: نام زبان | سال ایجاد | کاربرد اصلی | سطح یادگیری
+</code></pre>
+<p><strong>پاسخ احتمالی مدل:</strong></p>
+<table>
+<thead>
+<tr>
+<th>نام زبان</th>
+<th>سال ایجاد</th>
+<th>کاربرد اصلی</th>
+<th>سطح یادگیری</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>پایتون</td>
+<td>۱۹۹۱</td>
+<td>هوش مصنوعی، وب، اتوماسیون</td>
+<td>آسان</td>
+</tr>
+<tr>
+<td>جاوااسکریپت</td>
+<td>۱۹۹۵</td>
+<td>وب (فرانت‌اند و بک‌اند)</td>
+<td>متوسط</td>
+</tr>
+<tr>
+<td>راست</td>
+<td>۲۰۱۰</td>
+<td>برنامه‌نویسی سیستمی، عملکرد بالا</td>
+<td>سخت</td>
+</tr>
+</tbody></table>
+<p><strong>چرا این کار مفیده؟</strong></p>
+<ul>
+<li>جوابی که می‌گیری <strong>استاندارد و قابل پیش‌بینی</strong> می‌شه.</li>
+<li>اگه قراره خروجی رو جای دیگه‌ای (مثل کد، دیتابیس، اکسل) استفاده کنی، کارت <strong>خیلی راحت‌تر</strong> می‌شه.</li>
+</ul>
+<p><strong>نمونه سریع با LangChain (پایتون):</strong></p>
+<pre><code class="language-python">from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
+
+model = ChatOpenAI(model=&quot;gpt-5.5&quot;)
+parser = JsonOutputParser()
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        (&quot;system&quot;, &quot;تو یه داده‌پرداز دقیق هستی&quot;),
+        (
+            &quot;user&quot;,
+            &quot;اطلاعات کتاب زیر را در JSON برگردان. فقط کلیدهای title, author, year را بنویس.\n\n&quot;
+            &quot;نام کتاب: بوف کور\nنویسنده: صادق هدایت\nسال انتشار: ۱۳۱۵&quot;,
+        ),
+    ]
+)
+
+chain = prompt | model.bind(response_format={&quot;type&quot;: &quot;json_object&quot;}) | parser
+result = chain.invoke({})
+
+print(result)
+</code></pre>
+<p>با <code>response_format</code> و <code>JsonOutputParser</code> خروجی به‌صورت JSON ساختاریافته برمی‌گرده و دیگه لازم نیست متن رو دستی تمیز کنی.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</h2>
+<p>یکی از قابلیت‌های باحال LLMها اینه که می‌تونن با <strong>لحن‌ها و شخصیت‌های مختلف</strong> برات متن تولید کنن! فقط کافیه تو پرامپت بهش بگی چه لحنی مدنظرته.</p>
+<p><strong>مثال: لحن دوستانه</strong></p>
+<pre><code class="language-markdown">با یه لحن ساده و خودمونی توضیح بده چطوری می‌تونم یه چای خوب دم کنم. انگار داری برای دوستت توضیح می‌دی.
+</code></pre>
+<p><strong>مثال: لحن رسمی</strong></p>
+<pre><code class="language-markdown">یک پاراگراف رسمی در مورد اهمیت حفظ حریم خصوصی در دنیای دیجیتال بنویس.
+</code></pre>
+<p><strong>مثال: لحن خاص (شخصیت‌سازی)</strong></p>
+<pre><code class="language-markdown">فرض کن یه دزد دریایی هستی! توضیح بده چرا پیدا کردن گنج مهمه.
+</code></pre>
+<p><strong>نتیجه چیه؟</strong>
+مدل سعی می‌کنه از کلمات و جمله‌بندی‌هایی استفاده کنه که همون <strong>حس و حال و لحنی</strong> که خواستی رو منتقل کنه. این برای تولید محتوای متناسب با مخاطب یا هدف خاص، عالیه!</p>
+<p><strong>مثال مخصوص فارسی‌زبان‌ها:</strong> 🇮🇷</p>
+<p>فارسی طیف وسیعی از لحن‌ها داره و می‌تونی از مدل بخوای دقیقاً تو یکی از همین لحن‌ها بنویسه:</p>
+<pre><code class="language-markdown">این جمله رو به دو لحن مختلف فارسی بازنویسی کن:
+
+جمله: &quot;تکنولوژی هوش مصنوعی داره دنیا رو عوض می‌کنه.&quot;
+
+۱. لحن ادبی/شاعرانه (مثل نثر کلاسیک فارسی)
+۲. لحن محاوره‌ای خودمونی
+</code></pre>
+<p><strong>پاسخ احتمالی مدل:</strong></p>
+<blockquote>
+<p><strong>ادبی/شاعرانه:</strong> «هوش مصنوعی، همچون بادی نوآور، بنیان عالم را دگرگون می‌سازد و نویدبخش فصلی تازه در حکایت بشر است.»</p>
+<p><strong>محاوره‌ای خودمونی:</strong> «ببین، این هوش مصنوعیه داره همه‌چی رو زیر و رو می‌کنه! یه چیزایی داره میاد که باورت نمی‌شه.»</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۴. شرط بذار، بعد دستور بده! ✅</h2>
+<p>می‌تونی از LLM بخوای <strong>اول یه سری شرط رو چک کنه</strong> و بعد بر اساس نتیجه‌ش تصمیم بگیره چه جوابی بده یا چه کاری انجام بده.</p>
+<p><strong>مثال:</strong> فرض کن یه ربات پشتیبانی برای یه فروشگاه اینترنتی داری.</p>
+<pre><code class="language-markdown">لطفاً بر اساس قانون مرجوعی جواب بده:
+اگر کمتر از ۷ روز از تاریخ خرید گذشته باشه، مراحل مرجوع کردن کالا رو توضیح بده؛ در غیر این صورت، مودبانه بگو که مهلت مرجوعی تموم شده.
+
+تاریخ خرید: ۳ روز پیش
+</code></pre>
+<p><strong>جواب احتمالی:</strong>
+<code>چون فقط ۳ روز از خریدت گذشته، هنوز می‌تونی کالا رو مرجوع کنی. برای این کار کافیه...</code></p>
+<p><strong>مثال دیگه (چک کردن متن):</strong></p>
+<pre><code class="language-markdown">اگر متن زیر شامل کلمه &quot;تخفیف&quot; بود، بنویس &quot;پیشنهاد ویژه وجود دارد!&quot;. در غیر این صورت، بنویس &quot;پیشنهاد خاصی یافت نشد.&quot;
+
+متن:
+همین حالا ثبت نام کنید و از ۱۰ درصد تخفیف ویژه بهره‌مند شوید!
+</code></pre>
+<p><strong>جواب احتمالی:</strong>
+<code>پیشنهاد ویژه وجود دارد!</code></p>
+<p><strong>به چه دردی می‌خوره؟</strong>
+برای پیاده‌سازی <strong>منطق‌های ساده و تصمیم‌گیری‌های شرطی</strong> توی خود پرامپت خیلی کاربردیه و می‌تونه جواب‌ها رو هدفمندتر کنه.</p>
+<p><strong>مثال پیشرفته‌تر (if-then-else با حالت پیش‌فرض):</strong></p>
+<pre><code class="language-markdown">متن کاربر رو تحلیل کن و بر اساس زبانش عمل کن:
+
+- اگر متن فارسی بود: خلاصه‌اش رو به فارسی بنویس.
+- اگر متن انگلیسی بود: اول ترجمه‌اش کن، بعد خلاصه‌اش رو به فارسی بنویس.
+- در غیر این صورت (هر زبان دیگه‌ای): بنویس &quot;متأسفم، فعلاً فقط فارسی و انگلیسی پشتیبانی می‌شه.&quot; و زبان شناسایی‌شده رو هم ذکر کن.
+
+متن:
+&quot;&quot;&quot;
+[متن کاربر اینجا]
+&quot;&quot;&quot;
+</code></pre>
+<p>نکته مهم اینه که همیشه <strong>یه حالت پیش‌فرض (default/fallback)</strong> بذاری. اگه فقط بگی «اگه فارسیه... اگه انگلیسیه...» و حالت «در غیر این صورت» رو نذاری، مدل برای ورودی‌های غیرمنتظره گیج می‌شه.</p>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</h2>
+<p>این یکی از تکنیک‌های خیلی قدرتمنده! به جای اینکه فقط دستور بدی، <strong>چند تا مثال از کار موردنظرت به مدل نشون می‌دی.</strong> مدل از روی مثال‌هات الگو رو یاد می‌گیره و کار رو برای ورودی جدیدت انجام می‌ده. به این روش می‌گن <strong>Few-Shot Prompting</strong> (یعنی یادگیری با چند مثال).</p>
+<p><strong>سه حالت مختلف وجود داره:</strong></p>
+<ul>
+<li><strong>صفر مثال (Zero-Shot):</strong> هیچ مثالی نمی‌دی، فقط دستور می‌دی. مثلاً: <code>حس این متن رو بگو: &quot;فیلم عالی بود&quot;</code>. برای کارهای ساده و رایج کافیه.</li>
+<li><strong>یک مثال (One-Shot):</strong> فقط یه مثال می‌دی. برای وقتایی که می‌خوای فرمت خروجی رو مشخص کنی ولی کارت ساده‌ست.</li>
+<li><strong>چند مثال (Few-Shot):</strong> چند تا مثال می‌دی (معمولاً ۳ تا ۵ تا). برای کارهای پیچیده‌تر یا وقتایی که مدل باید الگوی خاصی رو یاد بگیره.</li>
+</ul>
+<p><strong>مثال: تشخیص حس متن (Sentiment Analysis)</strong></p>
+<pre><code class="language-markdown">حس متن‌های زیر رو مشخص کن (مثبت، منفی، خنثی).
+
+متن: من عاشق این رستورانم! غذاش عالیه!
+حس: مثبت
+
+متن: متاسفانه کیفیت خدمات خیلی پایین بود.
+حس: منفی
+
+متن: این کتاب درباره تاریخ ایران است.
+حس: خنثی
+
+حالا حس این متن رو بگو:
+متن: فیلم خوبی بود، ارزش دیدن داره.
+حس: ؟
+</code></pre>
+<p><strong>پاسخ احتمالی:</strong>
+<code>مثبت</code></p>
+<p><strong>مثال دیگه: تبدیل لحن</strong></p>
+<pre><code class="language-markdown">لحن جمله زیر رو از رسمی به خودمونی تغییر بده.
+
+جمله رسمی: احتراماً به استحضار می‌رساند جلسه فردا لغو گردیده است.
+جمله خودمونی: بچه‌ها، جلسه فردا کنسله!
+
+حالا این جمله رو خودمونی کن:
+جمله رسمی: لطفاً در اسرع وقت نسبت به تکمیل فرم اقدام فرمایید.
+جمله خودمونی: ؟
+</code></pre>
+<p><strong>پاسخ احتمالی:</strong>
+<code>لطفاً هر چی زودتر فرم رو پر کنید.</code></p>
+<p><strong>کی به درد می‌خوره؟</strong></p>
+<ul>
+<li>وقتی می‌خوای مدل یه <strong>الگوی خاص</strong> رو یاد بگیره (مثل طبقه‌بندی، تبدیل فرمت، تشخیص حس).</li>
+<li>وقتی توضیح دادن دقیق کاری که می‌خوای سخته، اما <strong>نشون دادنش با مثال راحته</strong>.</li>
+<li>وقتی می‌خوای خروجی <strong>دقیقاً شبیه مثال‌هات</strong> باشه.</li>
+</ul>
+<p><strong>چند تا مثال بدم؟</strong> 🔢
+معمولاً <strong>۳ تا ۵ مثال</strong> برای اکثر کارها کافیه؛ بیشتر از اون معمولاً تاثیر چندانی نداره و فقط توکن بیشتری مصرف می‌کنه. البته برای کارهای خیلی خاص یا پیچیده، ممکنه مثال بیشتری لازم بشه.</p>
+<blockquote>
+<p>⚠️ <strong>نکته مهم درباره ترتیب مثال‌ها:</strong> مدل‌ها به ترتیب مثال‌ها حساسن و مثال‌های آخر معمولاً اثر بیشتری روی خروجی دارن. پس مثال‌هایی رو که بیشتر شبیه ورودی واقعی خودت هستن آخر بذار و حواست باشه بین مثال‌ها تنوع کافی باشه.</p>
+</blockquote>
+<blockquote>
+<p>📌 <strong>مرتبط:</strong> تو فصل <a href="#%DB%B2-%D8%A7%D8%B1%D8%A7%D8%A6%D9%87-%DA%86%D9%86%D8%AF-%D9%85%D8%AB%D8%A7%D9%84-few-shot-prompting-">تکنیک‌های پرامپت‌نویسی</a> با جزئیات بیشتری سراغ Few-Shot می‌ریم.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</h2>
+<p>گاهی اوقات، مخصوصاً برای مسائل پیچیده‌تر (مثل مسائل ریاضی یا استدلالی)، اگه از مدل بخوای <strong>قبل از دادن جواب نهایی، مراحل فکر کردنش رو هم بنویسه</strong>، نتیجه بهتری می‌گیری. انگار داری بهش می‌گی «بلند بلند فکر کن!». اسم استاندارد این تکنیک <strong>Chain-of-Thought (زنجیره تفکر)</strong> یا به اختصار <strong>CoT</strong> هست و یکی از مهم‌ترین تکنیک‌های پرامپت‌نویسیه.</p>
+<p><strong>مثال: حل مسئله ریاضی</strong></p>
+<pre><code class="language-markdown">لطفاً مسئله زیر رو مرحله به مرحله حل کن و در نهایت جواب آخر رو بنویس:
+
+سوال: قیمت یک دفتر ۱۲ هزار تومان است و قیمت یک خودکار ۸ هزار تومان. اگر ۳ دفتر و ۲ خودکار بخریم، کل هزینه چقدر می‌شود؟
+
+مراحل حل:
+۱. محاسبه قیمت ۳ دفتر: ۳ * ۱۲۰۰۰ = ۳۶۰۰۰ تومان
+۲. محاسبه قیمت ۲ خودکار: ۲ * ۸۰۰۰ = ۱۶۰۰۰ تومان
+۳. محاسبه هزینه کل: ۳۶۰۰۰ + ۱۶۰۰۰ = ۵۲۰۰۰ تومان
+
+جواب نهایی: ۵۲۰۰۰ تومان
+</code></pre>
+<p><em>(توجه: توی پرامپت واقعی، تو فقط سوال رو می‌دی و از مدل می‌خوای مراحل و جواب رو بنویسه. اینجا فقط برای اینکه شکل کاملش رو ببینی، همه‌ش رو آوردم)</em></p>
+<p><strong>چرا این روش خوبه؟</strong></p>
+<ul>
+<li>به مدل <strong>فرصت می‌ده</strong> تا مسئله رو تجزیه کنه و احتمال اشتباهش کمتر می‌شه.</li>
+<li>اگه جواب نهایی اشتباه بود، می‌تونی <strong>مراحل رو ببینی</strong> و بفهمی کجای کار ایراد داشته.</li>
+<li>برای مسائلی که نیاز به <strong>استدلال چند مرحله‌ای</strong> دارن، خیلی کمک‌کننده‌ست.</li>
+</ul>
+<p><strong>مثال غیرریاضی: دیباگ کردن یه مشکل</strong> 🐛</p>
+<p>به مدل می‌گی «کد پایتون زیر یه باگ داره، قدم به قدم فکر کن و مشکلش رو پیدا کن» و این کد رو بهش می‌دی:</p>
+<pre><code class="language-python">def average(numbers):
+    total = 0
+    for n in numbers:
+        total += n
+    return total / len(numbers)
+
+result = average([])
+</code></pre>
+<p><strong>پاسخ احتمالی مدل:</strong></p>
+<pre><code class="language-text">بیا مرحله به مرحله بررسی کنیم:
+۱. تابع average یه لیست می‌گیره و میانگین رو حساب می‌کنه.
+۲. متغیر total از ۰ شروع می‌شه و مشکلی نداره.
+۳. حلقه for روی اعضای لیست می‌چرخه؛ اگه لیست خالی باشه اصلاً اجرا نمی‌شه.
+۴. مشکل اینجاست: وقتی لیست خالی باشه، len(numbers) برابر ۰ می‌شه.
+۵. تقسیم بر صفر باعث خطای ZeroDivisionError می‌شه.
+
+جواب: باگ تقسیم بر صفره. قبل از تقسیم باید چک کنی لیست خالی نباشه.
+</code></pre>
+<p>دیدی؟ این تکنیک فقط برای ریاضی نیست! هر جا استدلال مرحله‌ای لازم باشه (دیباگ، تحلیل متن، تصمیم‌گیری) جواب می‌ده.</p>
+<blockquote>
+<p>📌 <strong>مرتبط:</strong> تو فصل <a href="#%DB%B3-%D8%B2%D9%86%D8%AC%DB%8C%D8%B1%D9%87-%D8%AA%D9%81%DA%A9%D8%B1-chain-of-thought-prompting---cot-">تکنیک‌های پرامپت‌نویسی</a> با جزئیات بیشتر سراغ زنجیره تفکر می‌ریم.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</h2>
+<p>خیلی مهمه که بدونی: <strong>نوشتن پرامپت یه مهارته و مثل هر مهارت دیگه‌ای با تمرین بهتر می‌شه!</strong> خیلی کم پیش میاد که با همون اولین پرامپتی که می‌نویسی، دقیقاً به بهترین جواب ممکن برسی.</p>
+<p>پس <strong>اصلاً ناامید نشو!</strong> فرایند کار معمولاً اینطوریه:</p>
+<ol>
+<li><strong>یه پرامپت اولیه بنویس</strong> و نتیجه رو ببین.</li>
+<li><strong>جواب مدل رو تحلیل کن:</strong> آیا دقیقاً همونیه که می‌خواستی؟ کجاش خوبه؟ کجاش ایراد داره؟ آیا چیزی رو اشتباه فهمیده؟</li>
+<li><strong>پرامپتت رو اصلاح کن:</strong> شاید باید واضح‌تر بگی چی می‌خوای، شاید باید مثال اضافه کنی، شاید باید لحن رو مشخص کنی، یا از یکی از تکنیک‌هایی که گفتیم استفاده کنی.</li>
+<li><strong>دوباره امتحان کن</strong> و این چرخه رو اونقدر تکرار کن تا به نتیجه دلخواهت برسی.</li>
+</ol>
+<p><strong>پرامپت‌نویسی یه جورایی مثل آشپزیه؛ باید هی مواد اولیه (همون جمله‌های پرامپتت) رو کم و زیاد کنی و تست کنی تا به اون طعم عالی برسی!</strong> 😉</p>
+<p><strong>بذار یه مثال واقعی ببینیم:</strong> 🔄</p>
+<pre><code class="language-text"># تلاش اول ❌
+پرامپت: &quot;در مورد قهوه بنویس.&quot;
+خروجی: یه متن ۵۰۰ کلمه‌ای کلی درباره تاریخچه قهوه... (خیلی طولانی و بی‌هدف)
+
+# تلاش دوم (بهتر، ولی هنوز ایراد داره) ⚠️
+پرامپت: &quot;یه پاراگراف کوتاه درباره فواید قهوه بنویس.&quot;
+خروجی: &quot;قهوه حاوی کافئین است که...&quot; (خوبه ولی خیلی خشک و رسمیه)
+
+# تلاش سوم (عالی!) ✅
+پرامپت: &quot;یه پاراگراف ۵۰ کلمه‌ای با لحن خودمونی و شاد درباره فواید قهوه صبحگاهی بنویس. مخاطب: جوونای ایرانی.&quot;
+خروجی: &quot;صبح بدون قهوه مثل گوشی بدون شارژه! ...&quot; (دقیقاً همون چیزی که می‌خواستیم)
+</code></pre>
+<p>ببین چطور با هر بار اصلاح، خروجی بهتر شد؟ <strong>نکته حرفه‌ای:</strong> یه دفترچه (حتی یه فایل ساده) داشته باش و پرامپت‌هایی که خوب جواب دادن رو توش ذخیره کن؛ دفعه بعد لازم نیست از صفر شروع کنی! 📓</p>
+<p><img src="images/vis-06-prompt-iteration-loop.png" alt="چرخه‌ای شامل نسخه اولیه، اجرا، بررسی خروجی، یک تغییر، نسخه بهتر و تکرار"></p>
+<blockquote>
+<p>🖼️ خروجی رو ببین، یک ایراد مشخص پیدا کن، یک تغییر بده و دوباره با همون معیار امتحان کن.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h3>جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</h3>
+<p>پس دیدیم که با چند تا تکنیک ساده اما کاربردی می‌تونیم کنترل خیلی بیشتری روی جواب‌های LLM داشته باشیم:</p>
+<ul>
+<li><strong>جدا کردن دستور و داده:</strong> با جداکننده‌ها (مثل سه تا بک‌تیک، <code>###</code> و...).</li>
+<li><strong>درخواست فرمت خاص خروجی:</strong> مثل JSON، لیست، جدول.</li>
+<li><strong>تعیین لحن و سبک:</strong> رسمی، دوستانه، طنز، یا حتی یه شخصیت خاص.</li>
+<li><strong>گذاشتن شرط برای مدل:</strong> اول چک کن، بعد جواب بده.</li>
+<li><strong>یاد دادن با مثال (Few-Shot):</strong> الگو رو نشون بده تا یاد بگیره.</li>
+<li><strong>درخواست فکر کردن مرحله به مرحله (Chain-of-Thought):</strong> برای مسائل پیچیده‌تر.</li>
+<li><strong>تکرار و بهبود مداوم:</strong> کلید اصلی برای رسیدن به بهترین نتیجه.</li>
+</ul>
+<p>با استفاده از این تکنیک‌ها، می‌تونی از یه کاربر معمولی LLM به یه <strong>کاربر حرفه‌ای</strong> تبدیل بشی و جواب‌های خیلی دقیق‌تر، مفیدتر و خلاقانه‌تری از این مدل‌ها بگیری!</p>
+<br>
+
+
+<hr>
+<br>
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. دستور و داده رو قاطی نکن! (استفاده از جداکننده‌ها) ✂️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">۲. خروجی رو تو قالب دلخواهت بگیر (JSON، لیست، جدول و...) 🗂️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">۳. به مدل بگو با چه لحنی حرف بزنه (رسمی، خودمونی، طنزآمیز؟) 🎨</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۴. شرط بذار، بعد دستور بده! ✅</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۵. با مثال بهش یاد بده چی می‌خوای (Few-Shot Prompting) 🚀</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۶. ازش بخواه قدم به قدم فکر کنه و بعد جواب بده 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۷. بار اول نشد؟ دوباره و دوباره امتحان کن! (تکرار و بهبود) 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">جمع‌بندی: جعبه ابزار پرامپت‌نویسی حرفه‌ای ✨</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

@@ -1,0 +1,370 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="کیفیت، Latency، هزینه، مدل‌های بسته و متن‌باز و مسیر انتخاب"><link rel="canonical" href="https://example.com/model-selection/"><meta property="og:type" content="article"><meta property="og:title" content="انتخاب مدل و Provider"><meta property="og:description" content="کیفیت، Latency، هزینه، مدل‌های بسته و متن‌باز و مسیر انتخاب"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>انتخاب مدل و Provider | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / انتخاب مدل و Provider</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">MODEL-SELECTION</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">انتخاب مدل و Provider</h1><p class="mt-5 text-lg text-smoke">کیفیت، Latency، هزینه، مدل‌های بسته و متن‌باز و مسیر انتخاب</p></header><div class="prose-llm max-w-none"><h1>راهبرد انتخاب مدل و ارائه‌دهنده 🧭</h1>
+<p>تا اینجا یاد گرفتی چطور پرامپت بنویسی؛ ولی یه سوال مهم مونده: <strong>با کدوم مدل؟</strong> 🤔
+انتخاب مدل و ارائه‌دهنده یه تصمیم مهندسی واقعیه: روی <strong>کیفیت، سرعت، هزینه و حتی اینکه محصولت اصلاً شدنی باشه یا نه</strong> اثر مستقیم داره.</p>
+<hr>
+<div align="center">
+
+<h2>معیارهای انتخاب مدل (چک لیست واقعی) 🧰</h2>
+<h3>۱) کیفیت (Quality) 🎯</h3>
+<p>کیفیت یعنی مدل چقدر «درست و به‌دردبخور» جواب می‌ده، نه اینکه فقط قشنگ حرف بزنه.</p>
+<ul>
+<li>اگه کارت <strong>تحلیل و تصمیم‌گیری</strong>ه، کیفیت یعنی «اشتباه منطقیِ کمتر».</li>
+<li>اگه کارت <strong>تولید محتوا</strong>ست، کیفیت یعنی «لحن درست + نیاز کمتر به بازنویسی».</li>
+</ul>
+<p>روش سریع و واقعی: ۲۰ تا سناریوی واقعی از کار خودت جمع کن، چند مدل رو روی همونا تست کن، خروجی‌ها رو کنار هم ببین. قضاوت ذهنی نکن، مقایسه کن. 👀</p>
+<blockquote>
+<p>🏆 <strong>کجا مقایسه کنم؟</strong> سایت <a href="https://arena.ai">LMArena (arena.ai)</a> یه لیدربورد زنده داره: کاربرهای واقعی جواب دو مدل رو بدون اینکه اسمشون رو ببینن مقایسه می‌کنن و از همین مقایسه‌ها امتیاز ELO درمیاد. خیلی بهتر از بنچمارک‌های خشک و رسمیه، چون نظر کاربر واقعی رو نشون می‌ده. سایت <a href="https://artificialanalysis.ai">artificialanalysis.ai</a> هم مقایسه سرعت و قیمت مدل‌ها رو خیلی شفاف نشون می‌ده. 📊</p>
+</blockquote>
+<h3>۲) تاخیر (Latency) ⚡</h3>
+<p>این همون چیزیه که کاربر واقعاً حسش می‌کنه.</p>
+<ul>
+<li>برای چت‌بات، پاسخ کند یعنی تجربه بد.</li>
+<li>برای تجربه‌های تعاملی و استریم خروجی، هرچی کمتر بهتر.</li>
+<li>برای مکالمه صوتی، تاخیر زیاد یعنی مکالمه مصنوعی و اعصاب‌خردکن.</li>
+</ul>
+<h3>۳) هزینه (Cost) 💸</h3>
+<p>هزینه فقط «توکن ورودی و خروجی» نیست. اینا هم حساب می‌شن:</p>
+<ul>
+<li>طول کانتکستی که هر بار می‌فرستی (تاریخچه چت، اسناد RAG) 📚</li>
+<li>تعداد تلاش مجدد وقتی خروجی خراب می‌شه 🔄</li>
+<li>توکن بیشتری که فارسی نسبت به انگلیسی مصرف می‌کنه</li>
+</ul>
+<p>یه نکته مهم: بعضی وقت‌ها یه مدل گرون‌تر که درست جواب می‌ده، از یه مدل ارزون‌تر که هی باید دوباره صداش بزنی، ارزون‌تر درمیاد. 😅</p>
+<h3>۴) اندازه کانتکست (Context Window) 📦</h3>
+<p>اگه قراره سندهای طولانی بدی به مدل، یا تاریخچه چت طولانی نگه داری، یا RAG سنگین داشته باشی، کانتکست بزرگ‌تر خیلی کمک می‌کنه.
+ولی حواست باشه کانتکست بزرگ‌تر معمولاً یعنی <strong>هزینه بیشتر</strong> و گاهی <strong>کندتر شدن</strong>.</p>
+<h3>۵) ابزارها و قابلیت‌ها (Tools &amp; Features) 🧩</h3>
+<p>برای محصول واقعی، این بخش خیلی تعیین‌کننده‌ست:</p>
+<ul>
+<li>پشتیبانی از Function Calling / Tools 🛠️</li>
+<li>خروجی ساختاریافته (JSON) 🧱</li>
+<li>استریمینگ ⚡</li>
+<li>کیفیت SDK و مستندات 📖</li>
+</ul>
+<h3>۶) پشتیبانی زبان فارسی 🇮🇷</h3>
+<p>همه مدل‌ها تو همه زبان‌ها یکسان نیستن.
+برای فارسی حتماً نمونه‌های واقعی تست کن، مخصوصاً:</p>
+<ul>
+<li>درک سوال محاوره‌ای</li>
+<li>نیم‌فاصله و نگارش درست</li>
+<li>متن‌های ترکیبی فارسی و انگلیسی</li>
+</ul>
+<h3>۷) قابلیت چندوجهی (Multimodal) 🖼️</h3>
+<p>اگه کارت فقط متن نیست، حتماً چک کن مدل از ورودی و خروجی‌های دیگه هم پشتیبانی می‌کنه یا نه:</p>
+<ul>
+<li><strong>تصویر:</strong> آیا می‌تونی بهش عکس بدی تا تحلیلش کنه؟ (مثلاً توضیح نمودار، خوندن دست‌خط، OCR) 📷</li>
+<li><strong>صوت:</strong> آیا تبدیل گفتار به متن (Speech-to-Text) یا برعکس (Text-to-Speech) داره؟ 🎤</li>
+<li><strong>ویدیو:</strong> بعضی مدل‌ها (مثل Gemini) می‌تونن ویدیو هم تحلیل کنن 🎬</li>
+</ul>
+<p>اگه مثلاً قراره کاربرهات عکس بفرستن و جواب بگیرن، حتماً مطمئن شو مدل انتخابیت این قابلیت رو داره.</p>
+<h3>۸) قابلیت فاین‌تیون (Fine-tuning) 🔧</h3>
+<p>اگه فکر می‌کنی ممکنه بعداً بخوای مدل رو سفارشی‌سازی کنی:</p>
+<ul>
+<li><strong>مدل‌های بسته:</strong> فقط بعضی‌هاشون قابل فاین‌تیون هستن (معمولاً مدل‌های اقتصادی‌تر هر شرکت)</li>
+<li><strong>مدل‌های متن‌باز:</strong> تقریباً همه قابل فاین‌تیون هستن (مثل Qwen، Llama و Mistral)</li>
+<li>اگه بودجه سخت‌افزاری نداری، سرویس‌هایی مثل Together AI و Fireworks فاین‌تیون ابری ارائه می‌دن ☁️</li>
+</ul>
+<br>
+
+<div align="center">
+
+<h2>یه نگاه سریع به مدل‌های محبوب (اسنپ‌شات) 📸</h2>
+<blockquote>
+<p>⚠️ <strong>توجه:</strong> این جدول یه عکس لحظه‌ای از وضعیت مدل‌هاست و طبیعتاً خیلی سریع قدیمی می‌شه. ولی به عنوان نقطه شروع برای فهمیدن بازار مدل‌ها خیلی به‌درد می‌خوره. برای آخرین وضعیت، لیدربوردهایی مثل <a href="https://arena.ai">LMArena</a> رو چک کن.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>مدل</th>
+<th>ارائه‌دهنده</th>
+<th>نوع</th>
+<th>کانتکست</th>
+<th>چندوجهی</th>
+<th>فارسی</th>
+<th>نکته کلیدی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>مدل GPT-5.5</td>
+<td>OpenAI</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>پرچم‌دار همه‌فن‌حریف؛ استدلال داخل خودشه</td>
+</tr>
+<tr>
+<td>مدل GPT-5.4 mini</td>
+<td>OpenAI</td>
+<td>بسته</td>
+<td>400K</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>ارزون و سریع برای کارهای روزمره</td>
+</tr>
+<tr>
+<td>مدل Claude Fable 5</td>
+<td>Anthropic</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>قوی‌ترین مدل فعلی Anthropic</td>
+</tr>
+<tr>
+<td>مدل Claude Opus 4.8</td>
+<td>Anthropic</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>از بهترین‌ها تو کدنویسی و کارهای ایجنتی</td>
+</tr>
+<tr>
+<td>مدل Claude Sonnet 4.6</td>
+<td>Anthropic</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>تعادل عالی کیفیت/سرعت/قیمت</td>
+</tr>
+<tr>
+<td>مدل Claude Haiku 4.5</td>
+<td>Anthropic</td>
+<td>بسته</td>
+<td>200K</td>
+<td>متن+تصویر ✅</td>
+<td>متوسط ⚠️</td>
+<td>سبک و ارزون برای حجم بالا</td>
+</tr>
+<tr>
+<td>مدل Gemini 3.1 Pro</td>
+<td>گوگل</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر+صوت+ویدیو ✅</td>
+<td>خوب ✅</td>
+<td>چندوجهی کامل</td>
+</tr>
+<tr>
+<td>مدل Gemini 3.5 Flash</td>
+<td>گوگل</td>
+<td>بسته</td>
+<td>1M</td>
+<td>متن+تصویر+صوت+ویدیو ✅</td>
+<td>خوب ✅</td>
+<td>سریع و به‌صرفه؛ تو کارهای ایجنتی غافلگیرکننده‌ست</td>
+</tr>
+<tr>
+<td>مدل DeepSeek V4</td>
+<td>DeepSeek</td>
+<td>متن‌باز</td>
+<td>1M</td>
+<td>متن ✅</td>
+<td>متوسط ⚠️</td>
+<td>از قوی‌ترین خانواده‌های متن‌باز، هزینه خیلی پایین</td>
+</tr>
+<tr>
+<td>مدل GLM-5.1</td>
+<td>Z.ai</td>
+<td>متن‌باز</td>
+<td>200K</td>
+<td>متن ✅</td>
+<td>متوسط ⚠️</td>
+<td>صدر جدول متن‌بازها تو کارهای ایجنتی</td>
+</tr>
+<tr>
+<td>مدل Kimi K2.6</td>
+<td>Moonshot</td>
+<td>متن‌باز</td>
+<td>256K</td>
+<td>متن+تصویر ✅</td>
+<td>متوسط ⚠️</td>
+<td>عالی برای کدنویسی و ایجنت</td>
+</tr>
+<tr>
+<td>مدل Qwen3.5</td>
+<td>علی‌بابا</td>
+<td>متن‌باز</td>
+<td>262K</td>
+<td>متن+تصویر ✅</td>
+<td>خوب ✅</td>
+<td>چندزبانه قوی؛ لایسنس Apache 2.0</td>
+</tr>
+<tr>
+<td>مدل Llama 4</td>
+<td>متا</td>
+<td>متن‌باز</td>
+<td>10M</td>
+<td>متن+تصویر ✅</td>
+<td>متوسط ⚠️</td>
+<td>اکوسیستم بزرگ؛ ولی دیگه تنها گزینه متن‌باز نیست</td>
+</tr>
+</tbody></table>
+<p><strong>یادداشت کانتکست:</strong> عددهای این ستون سقف اعلام‌شده‌ان؛ عدد 10M فقط به نسخه Scout از Llama 4 مربوطه.</p>
+<h3>بنچمارک‌ها رو چطور بخونیم؟ 🧪</h3>
+<p>تو معرفی هر مدل جدید، یه جدول بنچمارک هست که اتفاقاً همون مدل توش اول شده! برای اینکه گول نخوری، سه تا نکته رو بدون:</p>
+<ul>
+<li><strong>بنچمارک‌های قدیمی اشباع شدن.</strong> آزمون‌هایی مثل MMLU که یه زمانی معیار اصلی بودن، الان برای همه مدل‌های بزرگ تقریباً حل‌شده محسوب می‌شن و دیگه فرق مدل‌ها رو نشون نمی‌دن.</li>
+<li><strong>آلودگی داده (Contamination) جدیه.</strong> چون بنچمارک‌ها روی اینترنت منتشر می‌شن، ممکنه سوال‌هاشون (یا شبیهشون) تو داده آموزشی مدل بوده باشه؛ یعنی مدل جواب رو «حفظ کرده»، نه اینکه فهمیده باشه. به امتیازهایی که خود شرکت‌ها اعلام می‌کنن با احتیاط نگاه کن.</li>
+<li><strong>اسم‌هایی که این روزها معتبرن:</strong> GPQA Diamond (سوالات سطح دکترا)، Humanity&#39;s Last Exam یا HLE (سخت‌ترین سوالات دانشگاهی)، SWE-bench (حل باگ واقعی از گیت‌هاب)، ARC-AGI (استدلال انتزاعی) و τ-Bench (کار ایجنتی با ابزار). هر کدوم یه توانایی متفاوت رو می‌سنجن؛ «بهترین مدل» بسته به اینکه کدوم توانایی برات مهمه عوض می‌شه.</li>
+</ul>
+<blockquote>
+<p>💡 بهترین بنچمارک، دیتاست ارزیابی خودته (فصل ارزیابی رو یادته؟)؛ بنچمارک‌های عمومی فقط برای غربال اولیه خوبن.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>مدل‌های بسته یا متن‌باز؟ (کی کدوم به‌صرفه‌تره؟) ⚖️</h2>
+<h3>مدل‌های بسته (Closed) 🔒</h3>
+<p>معمولاً وقتی خوبن که:</p>
+<ul>
+<li>می‌خوای سریع محصول رو لانچ کنی و درگیر زیرساخت نشی 🚀</li>
+<li>کیفیت پایدار و امکانات آماده برات مهمه ✅</li>
+</ul>
+<p>ولی معمولاً:</p>
+<ul>
+<li>هزینه می‌تونه بالا بره 💸</li>
+<li>کنترل عمیق روی مدل کمتره 🧩</li>
+</ul>
+<h3>مدل‌های متن‌باز (Open Source) 🔓</h3>
+<p>معمولاً وقتی خوبن که:</p>
+<ul>
+<li>می‌خوای مدل رو لوکال یا روی سرور خودت اجرا کنی (کنترل، حریم خصوصی، یا هزینه) 🏠</li>
+<li>می‌خوای سفارشی‌سازی جدی داشته باشی (فاین‌تیون، تنظیمات inference) 🎛️</li>
+</ul>
+<p>ولی معمولاً:</p>
+<ul>
+<li>دیپلوی، آپدیت، مانیتورینگ و مقیاس‌دهی با خودته 🔧</li>
+<li>کیفیت بعضی مدل‌ها تو بعضی سناریوها ممکنه پایین‌تر باشه (بسته به کار) 🎯</li>
+</ul>
+<p>یه قانون کاربردی: اگه هنوز دقیق نمی‌دونی الگوی مصرفت چیه، بهتره با مدل بسته شروع کنی. وقتی مصرف و نیازها مشخص شد، بعد برو سمت متن‌باز یا ترکیبی.</p>
+<p><img src="images/vis-45-closed-vs-open-weight-models.png" alt="مقایسه مدل بسته و مدل وزن‌باز از نظر کنترل، هزینه و حریم خصوصی با گزینه ترکیبی"></p>
+<blockquote>
+<p>🖼️ مدل بسته شروع سریع و زیرساخت مدیریت‌شده می‌ده؛ مدل وزن‌باز کنترل و میزبانی دلخواه؛ خیلی وقت‌ها جواب درست ترکیبیه.</p>
+</blockquote>
+<h3>نکته مهم درباره حریم خصوصی و محل نگهداری داده 🔐</h3>
+<p>اگه از ایران استفاده می‌کنی یا داده‌های حساس داری، این نکات رو حتماً در نظر بگیر:</p>
+<ul>
+<li><strong>مدل‌های بسته (API):</strong> هر چیزی که به API می‌فرستی، روی سرورهای اون شرکت پردازش می‌شه. بعضی ارائه‌دهنده‌ها (مثل OpenAI و Anthropic) قول می‌دن داده API رو برای آموزش استفاده نکنن، ولی بازم داده‌ت از کشور خارج می‌شه. 🌍</li>
+<li><strong>مدل‌های لوکال:</strong> اگه حریم خصوصی خیلی مهمه، مدل رو روی سیستم خودت اجرا کن (با Ollama یا LM Studio). هیچ داده‌ای از سیستمت خارج نمی‌شه. 🏠</li>
+<li><strong>تحریم‌ها:</strong> بعضی سرویس‌ها (مثل OpenAI مستقیم) IP ایران رو بلاک می‌کنن. سرویس‌هایی مثل OpenRouter یا DeepInfra معمولاً محدودیت کمتری دارن. 🔓</li>
+<li><strong>داده‌های حساس:</strong> هیچ‌وقت اطلاعات شخصی، رمز عبور، کد ملی، یا اطلاعات مالی رو به API نفرست. حتی اگه سرویس امن باشه، ریسکش رو نکن! ⛔</li>
+</ul>
+<br>
+
+<div align="center">
+
+<h2>مدل‌های Chat vs Reasoning vs Realtime (صوتی) 🎛️</h2>
+<h3>۱) مدل‌های چتی (Chat) 💬</h3>
+<p>برای گفتگو، نوشتن متن، خلاصه‌سازی، ترجمه و کارهای روزمره عالی‌ان. معمولاً هم سریع‌تر و به‌صرفه‌ترن.</p>
+<p>مثال‌های رایج: ربات پشتیبانی، تولید محتوا، خلاصه کردن ایمیل‌ها.</p>
+<h3>۲) مدل‌های استدلالی (Reasoning) 🧠</h3>
+<p>وقتی خوبن که مسئله واقعاً «فکر» می‌خواد:</p>
+<ul>
+<li>حل مسئله چندمرحله‌ای</li>
+<li>برنامه‌ریزی</li>
+<li>تحلیل پیچیده و دیباگ سخت</li>
+</ul>
+<p>نمونه‌های معروف:</p>
+<ul>
+<li><strong>خانواده GPT-5.x:</strong> استدلال داخل خود مدل ادغام شده و با پارامتر <code>reasoning_effort</code> می‌گی چقدر «فکر» کنه 🧠</li>
+<li><strong>مدل Claude (نسل‌های جدید):</strong> حالت <strong>Adaptive Thinking</strong>؛ مدل خودش میزان فکرکردن رو تنظیم می‌کنه 💭</li>
+<li><strong>مدل‌های Gemini 3.x:</strong> حالت thinking با سطح‌بندی، برای مسائل سنگین 🌟</li>
+<li><strong>متن‌بازها:</strong> DeepSeek (سری R و V4) و Qwen هم نسخه‌های استدلالی دارن 🔓</li>
+</ul>
+<p>نکته مهم: دیگه «مدل استدلالی» یه محصول جدا نیست؛ تو اکثر پرچم‌دارها یه <strong>حالت یا درجه</strong>‌ست که خودت روشنش می‌کنی و میزانش رو تنظیم می‌کنی.</p>
+<p><strong>ایده پشتش چیه؟</strong> بهش می‌گن <strong>محاسبات بیشتر هنگام تولید پاسخ (Test-Time Compute)</strong>. تا چند سال پیش، راه اصلی باهوش‌تر کردن مدل‌ها بزرگ‌تر کردنشون بود: پارامتر بیشتر، داده بیشتر. الان یه اهرم دوم پیدا شده: به همون مدل اجازه بده موقع جواب دادن بیشتر «فکر» کنه. یعنی چند مسیر حل رو امتحان کنه، خودش رو چک کنه و اگه لازم شد برگرده. نتیجه اینکه تو مسائل سخت، یه مدل متوسطِ پرفکر می‌تونه از یه مدل بزرگِ بی‌فکر جلو بزنه. البته مجانی هم نیست: فکرِ بیشتر یعنی توکن بیشتر، یعنی هزینه و تاخیر بیشتر.</p>
+<p>ولی مدل‌های استدلالی معمولاً کندترن ⏳ و بعضی وقت‌ها گرون‌تر 💸 (چون توکن‌های «فکر کردن» هم حساب می‌شن). تو بخش بعدی یاد می‌گیریم با این مدل‌ها چطور حرف بزنیم.</p>
+<h3>۳) مدل‌های بلادرنگ (Realtime) برای صوت 🎙️</h3>
+<p>برای تجربه‌هایی طراحی شدن که کاربر حس کنه با یه نفر واقعی حرف می‌زنه:</p>
+<ul>
+<li>تاخیر خیلی کم</li>
+<li>تعامل زنده و استریم ورودی و خروجی</li>
+</ul>
+<p>مثال واقعی: وقتی کاربر می‌گه «سلام»، تو نباید ۳ ثانیه بعد تازه بگی «سلام!» 😄</p>
+<p><img src="images/vis-46-chat-reasoning-realtime.png" alt="نگاشت سه نوع کار به مدل چتی، استدلالی و بلادرنگ"></p>
+<blockquote>
+<p>🖼️ کار روزمره با مدل چتی، مسئله پیچیده با مدل استدلالی و تعامل زنده صوتی با مدل بلادرنگ؛ انتخاب نهایی رو تست واقعی مشخص می‌کنه.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>پرامپت‌نویسی برای مدل‌های استدلالی: قواعد بازی عوض می‌شه! 🧠</h2>
+<p>تا اینجا هر چی تکنیک یاد گرفتیم (CoT، نقش‌دهی، چند مثال و...) بیشتر برای مدل‌های چتی معمولی بود.
+ولی مدل‌های استدلالی قبل از جواب دادن، خودشون یه «فکر درونی» طولانی می‌کنن؛ انگار چرک‌نویس دارن!
+و این یعنی بعضی از عادت‌های پرامپت‌نویسی ما نه‌تنها لازم نیست، بلکه ممکنه نتیجه رو بدتر کنه.</p>
+<p><strong>پنج قانون طلایی برای مدل‌های استدلالی:</strong></p>
+<p>۱. <strong>«قدم به قدم فکر کن» نگو!</strong> مدل خودش داره داخلی فکر می‌کنه. اینکه دستی بهش دستور CoT بدی، مثل اینه که به یه شطرنج‌باز حرفه‌ای وسط بازی بگی «حواست به وزیرت باشه»؛ حواسش هست! داک رسمی OpenAI صریح می‌گه این کار لازم نیست و حتی می‌تونه عملکرد رو پایین بیاره.</p>
+<p>۲. <strong>ساده و مستقیم بنویس.</strong> این مدل‌ها با دستورهای کوتاه و شفاف بهترین نتیجه رو می‌دن. لازم نیست نقش عجیب بدی یا با ترفند گرمشون کنی.</p>
+<p>۳. <strong>به جای «روش»، «هدف و معیار موفقیت» بده.</strong> نگو «اول این کار رو بکن، بعد اون کار رو»؛ بگو «این خروجی رو می‌خوام، با این شرط‌ها». بذار خودش مسیر رو پیدا کنه؛ کارش همینه!</p>
+<p>۴. <strong>اول Zero-Shot امتحان کن.</strong> مدل‌های استدلالی معمولاً بدون مثال هم عالی کار می‌کنن. مثال فقط وقتی اضافه کن که فرمت خاصی می‌خوای و نگرفتی.</p>
+<p>۵. <strong>قیدها رو صریح کن.</strong> بودجه، محدودیت، فرمت خروجی؛ هر چی برات مهمه از اول بگو، چون مدل قراره خودش کلی تصمیم ریز بگیره.</p>
+<p><strong>یه مثال قبل و بعد:</strong></p>
+<pre><code class="language-text">❌ برای مدل استدلالی این‌طوری ننویس:
+«تو یه ریاضی‌دان نابغه هستی. قدم به قدم و با دقت فکر کن. اول مسئله رو تجزیه کن،
+بعد هر بخش رو جدا حل کن، بعد جواب‌ها رو ترکیب کن و در نهایت دوباره چک کن: [مسئله]»
+
+✅ این‌طوری بنویس:
+«[مسئله] رو حل کن. جواب نهایی رو با واحد درست و حداکثر در ۳ خط توضیح بده.»
+</code></pre>
+<p><strong>تنظیمات مخصوص این مدل‌ها:</strong></p>
+<ul>
+<li><strong>میزان فکر کردن:</strong> تو OpenAI با پارامتری مثل <code>reasoning_effort</code> (از none تا high و بالاتر) مشخص می‌کنی مدل چقدر اجازه داره فکر کنه؛ تو Anthropic هم حالت Adaptive Thinking هست که خود مدل عمقش رو تنظیم می‌کنه. مسئله ساده‌ست؟ کمش کن تا سریع‌تر و ارزون‌تر بشه. مسئله سنگینه؟ بازش کن.</li>
+<li><strong>پارامترهای قدیمی:</strong> تو خیلی از مدل‌های استدلالی <code>temperature</code> و دوستانش یا قابل تغییر نیستن یا اثرشون فرق می‌کنه. اگه API بهت ارور داد، تعجب نکن.</li>
+<li><strong>هزینه:</strong> توکن‌های «فکر کردن» هم به عنوان توکن خروجی حساب می‌شن! یعنی یه جواب ۳ خطی ممکنه پشت صحنه چند هزار توکن فکر خرج برداشته باشه. 💸</li>
+</ul>
+<p><strong>کی سراغ مدل استدلالی برم، کی نرم؟</strong></p>
+<table>
+<thead>
+<tr>
+<th>وضعیت</th>
+<th>انتخاب</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>چت معمولی، خلاصه، ترجمه، تولید محتوا</td>
+<td>❌ مدل چتی کافیه (سریع‌تر و ارزون‌تر)</td>
+</tr>
+<tr>
+<td>مسئله ریاضی/منطقی چندمرحله‌ای</td>
+<td>✅ استدلالی</td>
+</tr>
+<tr>
+<td>دیباگ سخت، تحلیل معماری، برنامه‌ریزی پیچیده</td>
+<td>✅ استدلالی</td>
+</tr>
+<tr>
+<td>کار ایجنتی طولانی با چند ابزار</td>
+<td>✅ استدلالی (یا حالت thinking مدل پرچم‌دار)</td>
+</tr>
+<tr>
+<td>پاسخ سریع لازمه (چت‌بات پشتیبانی)</td>
+<td>❌ تاخیر استدلالی اذیت می‌کنه</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>جانِ کلام:</strong> با مدل چتی مثل یه دستیار حرف بزن که باید راهنماییش کنی؛ با مدل استدلالی مثل یه متخصص که فقط باید «صورت‌مسئله و معیار تحویل» رو بدونه. (<a href="https://developers.openai.com/api/docs/guides/reasoning-best-practices">راهنمای رسمی OpenAI</a>)</p>
+</blockquote>
+<p><img src="images/vis-47-reasoning-model-prompting.png" alt="پرامپت کوتاه با صورت مسئله و قیدها برای مدل استدلالی، همراه تنظیم تلاش استدلال و بررسی جواب"></p>
+<blockquote>
+<p>🖼️ برای مدل استدلالی صورت مسئله، قیدها و معیار تحویل کافیه؛ شلوغی اضافه به‌جای کمک، مسیر فکرش رو به هم می‌ریزه.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>یه مسیر پیشنهادی برای انتخاب (بدون وسواس) 🗺️</h2>
+<p>۱. <strong>کار اصلی رو دقیق تعریف کن:</strong> چت؟ استدلال؟ RAG؟ صوت؟<br>۲. <strong>محدودیت‌ها رو بنویس:</strong> سقف هزینه، سقف تاخیر، نیاز به فارسی، نیاز به ابزارها.<br>۳. <strong>دو گزینه انتخاب کن:</strong> یکی گزینه کیفیت بالا، یکی گزینه به‌صرفه.<br>۴. <strong>با یک دیتاست کوچیک تست کن:</strong> ۲۰ سناریوی واقعی.<br>۵. <strong>تصمیم بگیر و پلن پشتیبان داشته باش:</strong> یه مدل سبک‌تر برای fallback، روز مبادا حسابی به دادت می‌رسه.</p>
+<p><img src="images/vis-30-model-selection-path.png" alt="معیارهای انتخاب مدل که از کار واقعی به آزمون، مدل اصلی، fallback و بازبینی دوره‌ای می‌رسن"></p>
+<blockquote>
+<p>🖼️ بهترین مدل، مدلیه که روی سناریوهای واقعی تو بهترین تعادل کیفیت، سرعت، هزینه و قابلیت رو بده.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">معیارهای انتخاب مدل (چک لیست واقعی) 🧰</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">۱) کیفیت (Quality) 🎯</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">۲) تاخیر (Latency) ⚡</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">۳) هزینه (Cost) 💸</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">۴) اندازه کانتکست (Context Window) 📦</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۵) ابزارها و قابلیت‌ها (Tools &amp; Features) 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۶) پشتیبانی زبان فارسی 🇮🇷</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">۷) قابلیت چندوجهی (Multimodal) 🖼️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">۸) قابلیت فاین‌تیون (Fine-tuning) 🔧</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">یه نگاه سریع به مدل‌های محبوب (اسنپ‌شات) 📸</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">بنچمارک‌ها رو چطور بخونیم؟ 🧪</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">مدل‌های بسته یا متن‌باز؟ (کی کدوم به‌صرفه‌تره؟) ⚖️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">مدل‌های بسته (Closed) 🔒</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">مدل‌های متن‌باز (Open Source) 🔓</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">نکته مهم درباره حریم خصوصی و محل نگهداری داده 🔐</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">مدل‌های Chat vs Reasoning vs Realtime (صوتی) 🎛️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">۱) مدل‌های چتی (Chat) 💬</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-17">۲) مدل‌های استدلالی (Reasoning) 🧠</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-18">۳) مدل‌های بلادرنگ (Realtime) برای صوت 🎙️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-19">پرامپت‌نویسی برای مدل‌های استدلالی: قواعد بازی عوض می‌شه! 🧠</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-20">یه مسیر پیشنهادی برای انتخاب (بدون وسواس) 🗺️</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>

@@ -1,0 +1,392 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Human Eval، LLM-as-a-Judge، Metrics، Rubric، A/B Test و Observability"><link rel="canonical" href="https://example.com/evaluation/"><meta property="og:type" content="article"><meta property="og:title" content="ارزیابی پرامپت و خروجی"><meta property="og:description" content="Human Eval، LLM-as-a-Judge، Metrics، Rubric، A/B Test و Observability"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>ارزیابی پرامپت و خروجی | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main><article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / ارزیابی پرامپت و خروجی</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">EVALUATION</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">ارزیابی پرامپت و خروجی</h1><p class="mt-5 text-lg text-smoke">Human Eval، LLM-as-a-Judge، Metrics، Rubric، A/B Test و Observability</p></header><div class="prose-llm max-w-none"><h1>ارزیابی پرامپت و خروجی LLM (از کجا بفهمیم خوبه؟) 📏</h1>
+<p>خیلی وقت‌ها پرامپت می‌نویسیم و چشمی می‌گیم &quot;به نظر خوب میاد!&quot;. ولی تو کارهای جدی و سازمانی، &quot;به نظر خوب میاد&quot; کافی نیست. باید بتونیم با عدد و منطق بگیم چرا یه پرامپت از اون یکی بهتره یا اصلاً سیستممون چقدر دقیقه.</p>
+<p><img src="images/vis-20-llm-evaluation-lifecycle.png" alt="چرخه هدف، دیتاست، Rubric، Baseline، نمره‌دهی، مقایسه، انتشار و پایش آنلاین با بازگشت شکست‌ها"></p>
+<blockquote>
+<p>🖼️ ارزیابی از هدف و دیتاست شروع می‌شه و با شکست‌های واقعیِ بعد از انتشار دوباره بهتر می‌شه.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۱. انواع روش‌های ارزیابی 🕵️‍♂️</h2>
+<p>برای اینکه مچ مدل رو بگیریم، چند تا راه داریم:</p>
+<h3>الف) ارزیابی انسانی (Human Eval) 👤</h3>
+<p>این دقیق‌ترین ولی گرون‌ترین روشه. یه آدم (خودت یا یه تیم ارزیاب) می‌شینه خروجی‌ها رو می‌خونه و نمره می‌ده.</p>
+<ul>
+<li>معمولاً یه <strong>مجموعه‌داده مرجع</strong> درست می‌کنن که پاسخ‌های مرجع توشه و خروجی مدل رو با اون مقایسه می‌کنن.</li>
+</ul>
+<h3>ب) مدل به عنوان داور (LLM-as-a-Judge) ⚖️</h3>
+<p>این روش خیلی ترند شده! از یه مدل داور قوی (مثلاً <code>gpt-5.5</code> یا <code>claude-opus-4-8</code>) استفاده می‌کنی تا خروجی یه مدل دیگه رو نقد کنه و بهش نمره بده.</p>
+<ul>
+<li>مثلاً به مدل داور می‌گی: &quot;با این Rubric از ۱ تا ۵ نمره بده و خیلی کوتاه بگو چرا&quot;.</li>
+<li>خیلی سریع‌تر و ارزون‌تر از ارزیابی انسانیه.</li>
+<li><strong>نکته‌های مهم:</strong>  <ul>
+<li>بهتره داور رو با <strong>دمای پایین</strong> اجرا کنی تا نوسانش کمتر بشه.</li>
+<li>اگه خروجی حساسه، از <strong>چند داور</strong> یا چند بار داوری استفاده کن و میانگین بگیر.  </li>
+<li>داور هم می‌تونه اشتباه کنه؛ پس همیشه بخشی از نمونه‌ها رو برای <strong>بازبینی انسانی</strong> نگه دار.</li>
+</ul>
+</li>
+</ul>
+<p><strong>نمونه پرامپت داوری با Rubric:</strong></p>
+<pre><code class="language-text">تو یک ارزیاب متخصص هستی. خروجی زیر رو بر اساس این معیارها از ۱ تا ۵ نمره بده:
+
+معیارها:
+- دقت (Accuracy): آیا اطلاعات درسته؟ (۱=کاملاً غلط، ۵=کاملاً دقیق)
+- کامل بودن (Completeness): آیا به همه بخش‌های سوال جواب داده؟ (۱=ناقص، ۵=کامل)
+- وضوح (Clarity): آیا جواب واضح و خوانا هست؟ (۱=گیج‌کننده، ۵=شفاف)
+
+سوال کاربر: {question}
+خروجی مدل: {output}
+
+برای هر معیار نمره بده و در یک خط کوتاه دلیل بیار.
+فرمت خروجی:
+دقت: [نمره]/۵ - [دلیل]
+کامل بودن: [نمره]/۵ - [دلیل]
+وضوح: [نمره]/۵ - [دلیل]
+نمره کل: [میانگین]/۵
+</code></pre>
+<blockquote>
+<p><strong>ابزارهای ارزیابی حرفه‌ای 🧰:</strong> برای خودکارسازی این فرایند، فریم‌ورک‌های آماده‌ای وجود دارن:</p>
+<ul>
+<li>ابزار <strong>LangSmith</strong>: پلتفرم ارزیابی و مانیتورینگ از تیم LangChain. داوری خودکار، مقایسه نسخه‌ها و ردیابی هزینه/تاخیر رو باهاش انجام می‌دی.</li>
+<li>ابزار <strong>RAGAS</strong>: مخصوص ارزیابی سیستم‌های RAG، با معیارهایی مثل وفاداری، میزان ارتباط پاسخ و دقت نتایج بازیابی.</li>
+<li>ابزار <strong>DeepEval</strong>: یه فریم‌ورک متن‌باز برای ارزیابی خروجی LLM با متریک‌های متنوع و قابلیت ادغام با pytest.</li>
+</ul>
+</blockquote>
+<p><strong>نمونه کد: پیاده‌سازی داوری خودکار با LLM 🧑‍⚖️</strong></p>
+<p>بیا ببینیم چطور عملاً یه مدل داور رو با پایتون پیاده‌سازی کنیم:</p>
+<pre><code class="language-python">from openai import OpenAI
+import json
+
+client = OpenAI()
+
+def llm_judge(question, model_output, rubric=None):
+    &quot;&quot;&quot;ارزیابی خروجی مدل با استفاده از LLM-as-a-Judge&quot;&quot;&quot;
+    if rubric is None:
+        rubric = &quot;دقت (۱-۵), کامل بودن (۱-۵), وضوح (۱-۵)&quot;
+
+    judge_prompt = f&quot;&quot;&quot;تو یک ارزیاب دقیق و بی‌طرف هستی.
+خروجی زیر رو بر اساس معیارهای داده‌شده ارزیابی کن.
+
+سوال کاربر: {question}
+خروجی مدل: {model_output}
+معیارها: {rubric}
+
+پاسخ رو به صورت JSON بده:
+{{&quot;accuracy&quot;: &lt;1-5&gt;, &quot;completeness&quot;: &lt;1-5&gt;, &quot;clarity&quot;: &lt;1-5&gt;, &quot;average&quot;: &lt;float&gt;, &quot;reasoning&quot;: &quot;&lt;توضیح کوتاه&gt;&quot;}}
+&quot;&quot;&quot;
+
+    response = client.chat.completions.create(
+        model=&quot;gpt-5.5&quot;,  # داور باید مدل قوی باشه
+        messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: judge_prompt}],
+        response_format={&quot;type&quot;: &quot;json_object&quot;}
+    )
+
+    return json.loads(response.choices[0].message.content)
+
+# مثال استفاده
+result = llm_judge(
+    question=&quot;مزایای استفاده از RAG چیه؟&quot;,
+    model_output=&quot;RAG باعث می‌شه مدل اطلاعات به‌روز داشته باشه و کمتر توهم بزنه.&quot;
+)
+print(f&quot;نمره دقت: {result[&#39;accuracy&#39;]}/5&quot;)
+print(f&quot;نمره میانگین: {result[&#39;average&#39;]}/5&quot;)
+print(f&quot;دلیل: {result[&#39;reasoning&#39;]}&quot;)
+</code></pre>
+<blockquote>
+<p>💡 <strong>نکته:</strong> برای نتایج قابل اطمینان‌تر، داوری رو ۳ بار اجرا کن و میانگین بگیر. ضمناً داور هم ممکنه اشتباه کنه؛ پس درصدی از نمونه‌ها رو خودت هم بررسی کن.</p>
+</blockquote>
+<p><strong>داور LLM هم سوگیری داره؛ این چهار تا رو بشناس</strong> ⚠️</p>
+<p>مدل داور بی‌طرف مطلق نیست؛ چند خطای تکرارشونده داره که اگه حواست نباشه، بی‌سروصدا نتیجه ارزیابیت رو منحرف می‌کنن:</p>
+<ul>
+<li><strong>سوگیری ناشی از ترتیب نمایش پاسخ‌ها (Position Bias):</strong> تو مقایسه جفتی، ممکنه مدل پاسخ اول یا دوم رو ترجیح بده، حتی اگه بهتر نباشه. <strong>راهکار:</strong> مقایسه رو یه بار دیگه با جابه‌جا کردن A و B اجرا کن؛ اگه نتیجه برگشت، اون مورد رو ناسازگار علامت بزن و برای داوری دوباره یا بازبینی انسانی کنار بذار.</li>
+<li><strong>سوگیری به جواب بلندتر (Verbosity Bias):</strong> ممکنه داور جواب بلندتر رو بهتر ببینه، حتی وقتی فقط حرف اضافه بیشتری داره. <strong>راهکار:</strong> تو معیارها صریح بنویس که جواب کوتاه و درست نباید امتیاز کمتری بگیره؛ بعد هم این رفتار رو روی چند نمونه با نمره انسانی امتحان کن.</li>
+<li><strong>سوگیری مدل به نفع پاسخ خودش یا مدل‌های هم‌خانواده (Self-Preference):</strong> بعضی داورها به چنین خروجی‌هایی امتیاز بیشتری می‌دن. <strong>راهکار:</strong> داوری با یه مدل از خانواده دیگه می‌تونه این ریسک رو کمتر کنه، ولی هیچ داوری رو کاملاً بی‌طرف فرض نکن.</li>
+<li><strong>تغییر رفتار داور (Judge Drift):</strong> خود مدل داور هم یه سرویسه و ممکنه بی‌خبر عوض بشه. <strong>راهکار:</strong> یه <strong>مجموعه مرجع ثابت (Anchor Set)</strong> نگه دار که هم ورودی‌ها، هم خروجی‌های مورد داوری و هم نمره انسانی‌شون ثابت باشه. داور رو دوره‌ای روی همین مجموعه اجرا کن؛ تغییر ماندگار نمره‌ها می‌تونه نشونه عوض شدن داور یا تنظیمات ارزیابی باشه.</li>
+</ul>
+<h3>ج) متریک‌های خودکار متنی (Auto Metrics) 🤖</h3>
+<p>یه سری الگوریتم ریاضی مثل <strong>BLEU</strong> یا <strong>ROUGE</strong> هستن که شباهت کلمات خروجی رو با متن مرجع می‌سنجن.</p>
+<ul>
+<li><strong>نکته:</strong> اینا برای کارهای خلاقانه یا چت، معمولاً <strong>کافی نیستن</strong>. چون ممکنه مدل یه جواب عالی بده که کلماتش با متن مرجع فرق داره ولی معنیش یکیه. پس زیاد روشون حساب نکن.</li>
+</ul>
+<p><strong>جایگزین‌های مدرن‌تر:</strong></p>
+<ul>
+<li><strong>معیار BERTScore:</strong> به جای مقایسه کلمه‌به‌کلمه، از امبدینگ استفاده می‌کنه و <strong>شباهت معنایی</strong> رو می‌سنجه. یعنی اگه مدل بگه «ماشین» و متن مرجع بگه «خودرو»، امتیاز بالایی می‌ده (چون معنی یکیه).</li>
+<li><strong>شباهت بین امبدینگ‌ها (Embedding Similarity):</strong> خروجی مدل و متن مرجع رو هر دو تبدیل به امبدینگ می‌کنی و شباهت کسینوسی می‌گیری. این روش از BLEU/ROUGE خیلی بهتر معنی رو می‌فهمه.</li>
+<li><strong>قاعده کلی:</strong> برای ترجمه و خلاصه‌سازی، BLEU/ROUGE هنوز مرجعن؛ ولی برای تولید محتوا و چت، BERTScore یا داوری LLM بهتر جواب می‌ده.</li>
+</ul>
+<h3>د) مقایسه جفتی و امتیازدهی ELO 🏆</h3>
+<p>یه روش دیگه که خیلی تو ارزیابی مدل‌ها (مثل <a href="https://arena.ai">LMArena</a>) استفاده می‌شه، <strong>مقایسه جفتی (Pairwise Comparison)</strong> هست:</p>
+<ul>
+<li>دو تا خروجی (از دو مدل یا دو پرامپت) رو <strong>کنار هم</strong> به داور (انسان یا LLM) نشون می‌دی و می‌پرسی «کدوم بهتره؟»</li>
+<li>بعد از تعداد زیادی مقایسه، با سیستم امتیازدهی <strong>ELO</strong> (مثل رتبه‌بندی شطرنج) به هر مدل یا پرامپت یه <strong>امتیاز</strong> می‌دی.</li>
+<li><strong>مزیت:</strong> آدم‌ها راحت‌تر می‌تونن بگن «A بهتر از B هست» تا اینکه بگن «A نمره ۳.۷ می‌گیره»؛ مقایسه نسبی ساده‌تر از نمره‌دهی مطلقه.</li>
+</ul>
+<p><img src="images/vis-42-evaluation-methods-map.png" alt="نقشه مقایسه ارزیابی انسانی، مدل داور، متریک خودکار و مقایسه جفتی از نظر هزینه و کیفیت"></p>
+<blockquote>
+<p>🖼️ هر روش ارزیابی جای خودش رو داره؛ انسان دقیقه ولی گرونه، متریک خودکار ارزونه ولی سطحیه و مدل داور وسط این دوتاست.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۲. طراحی معیارهای ارزیابی (Rubric) 📝</h2>
+<p>برای اینکه نمره دادن الکی نباشه، باید &quot;متر&quot; داشته باشیم. به این مترها می‌گن Rubric. چند تا معیار مهم:</p>
+<ul>
+<li><strong>دقت (Accuracy):</strong> آیا اطلاعاتی که داده درسته؟ (توهم نزده؟)</li>
+<li><strong>وضوح (Clarity):</strong> آیا جواب گیج‌کننده نیست؟ راحت خونده می‌شه؟</li>
+<li><strong>کامل بودن (Completeness):</strong> آیا به همه قسمت‌های سوال کاربر جواب داده؟</li>
+<li><strong>امنیت (Safety):</strong> آیا حرف زشت، خطرناک یا نژادپرستانه نزده؟</li>
+<li><strong>وفاداری (Faithfulness):</strong> آیا جواب با کانتکست/منابعی که بهش دادی سازگاره؟ (چیزی اضافه نکرده؟)</li>
+</ul>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۳. تست A/B: کدوم پرامپت بهتره؟ 🅰️/🅱️</h2>
+<p>وقتی دو تا پرامپت مختلف داری و نمی‌دونی کدومش بهتره، باید <strong>A/B Test</strong> کنی.</p>
+<ol>
+<li><strong>پرامپت A</strong> رو به ۱۰۰ تا سوال بزن.</li>
+<li><strong>پرامپت B</strong> رو به همون ۱۰۰ تا سوال بزن.</li>
+<li>حالا (با روش انسانی یا مدل داور) ببین کدوم گروه نمره بالاتری می‌گیره. 
+اینجوری با اطمینان می‌گی: &quot;پرامپت B بیست درصد بهتر از A عمل کرد&quot;. 😎</li>
+</ol>
+<blockquote>
+<p><strong>معناداری آماری 📊:</strong> حواست باشه: اینکه «پرامپت B یه ذره بهتر بود» لزوماً به این معنی نیست که واقعاً بهتره! اگه تعداد نمونه‌هات کمه (مثلاً ۱۰ تا)، ممکنه تفاوت <strong>تصادفی</strong> باشه. برای اطمینان:</p>
+<ul>
+<li>حداقل <strong>۵۰ تا ۱۰۰</strong> نمونه تست کن.</li>
+<li>اگه تفاوت نمره‌ها کمتر از ۵ درصد بود، احتمالاً <strong>معنادار نیست</strong> و نباید بر اساسش تصمیم بگیری.</li>
+<li>برای کارهای جدی، از تست‌های آماری مثل <strong>t-test</strong> یا <strong>بازه اطمینان bootstrap</strong> استفاده کن تا مطمئن بشی تفاوت واقعیه.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>نکته:</strong> اگه از سیستم <strong>RAG</strong> استفاده می‌کنی، ارزیابیش داستان خودش رو داره (وفاداری، ارتباط و...) که توی <a href="#%DB%B6-%D8%A7%D8%B1%D8%B2%DB%8C%D8%A7%D8%A8%DB%8C-rag-%D8%A7%D8%B2-%DA%A9%D8%AC%D8%A7-%D8%A8%D9%81%D9%87%D9%85%DB%8C%D9%85-%D8%AE%D9%88%D8%A8%D9%87-%EF%B8%8F">بخش RAG</a> مفصل توضیح دادیم.</p>
+</blockquote>
+<h3>یه روال عملی پیشنهادی (سریع و قابل اجرا) 🧪</h3>
+<ol>
+<li><strong>هدف رو دقیق کن:</strong> خروجی خوب یعنی چی؟ (مثلاً «درست + کوتاه + امن»)</li>
+<li><strong>دیتاست بساز:</strong> ۵۰ تا ۲۰۰ مثال واقعی و لبه‌ای جمع کن؛ همون جاهایی که سیستم واقعاً توشون خراب می‌کنه.</li>
+<li><strong>معیار (Rubric) رو بنویس:</strong> معیارها + وزن‌ها (مثلاً Accuracy مهم‌تر از Style).</li>
+<li><strong>نسخه پایه (Baseline) بگیر:</strong> یک نسخه پرامپت/سیستم رو فریز کن و خروجی‌ها رو لاگ کن.</li>
+<li><strong>نمره بده:</strong> یا انسانی، یا داور LLM (یا ترکیبی).</li>
+<li><strong>تست A/B کن:</strong> هر بار فقط یه چیز رو تغییر بده و با همون دیتاست مقایسه کن.</li>
+<li><strong>مانیتور کن:</strong> بعد از دیپلوی، نمونه‌برداری و ارزیابی دوره‌ای داشته باش تا رگرسیون رو زود ببینی.</li>
+</ol>
+<h3>ساختن دیتاست ارزیابی خوب 📦</h3>
+<p>یکی از مهم‌ترین کارها که خیلی‌ها ازش رد می‌شن، <strong>ساختن یه دیتاست ارزیابی درست‌وحسابی</strong> هست. مثل طراحی یه امتحان خوب برای دانشجوهاست؛ اگه سوالات ساده باشن، نمی‌فهمی کی واقعاً بلده!</p>
+<ul>
+<li><strong>تنوع داشته باش:</strong> نمونه‌هایی از همه دسته‌بندی‌ها و سناریوهای واقعی بذار، نه فقط مسیر بی‌دردسر (همون happy path!).</li>
+<li><strong>حالت‌های خاص و مرزی (Edge Cases) رو فراموش نکن:</strong> سوالات عجیب، ورودی‌های خالی، متن‌های خیلی بلند، زبان مختلط (فارسی-انگلیسی).</li>
+<li><strong>نمونه‌های خصمانه بذار:</strong> ورودی‌هایی که عمداً برای گول‌زدن مدل ساخته شده‌اند، مثل یه Prompt Injection ساده.</li>
+<li><strong>توزیع واقعی رو حفظ کن:</strong> اگه ۸۰٪ سوالات واقعی کاربرات درباره محصوله، دیتاستت هم باید همین نسبت رو داشته باشه.</li>
+<li><strong>پاسخ مرجع (Gold Answer) داشته باش:</strong> برای هر نمونه، جواب درست (یا حداقل ویژگی‌های جواب خوب) رو مشخص کن.</li>
+</ul>
+<h3>تست رگرسیون (Regression Testing) 🔄</h3>
+<p>وقتی پرامپت یا سیستم رو تغییر می‌دی، شاید یه بخش بهتر بشه ولی بخش دیگه <strong>خراب بشه</strong>! مثل اینکه یه باگ رو فیکس کنی و دو تا باگ جدید بسازی. برای همین:</p>
+<ul>
+<li><strong>دیتاست ارزیابی رو نگه دار:</strong> بعد از هر تغییر، <strong>همه</strong> تست‌های قبلی رو دوباره اجرا کن.</li>
+<li><strong>مقایسه خودکار:</strong> خروجی جدید رو با خروجی قبلی مقایسه کن. اگه نمره تو هر معیار <strong>افت</strong> کرد، یعنی رگرسیون داری.</li>
+<li><strong>هشدار خودکار:</strong> تو CI/CD یه مرحله بذار که اگه نمره ارزیابی از حد آستانه پایین‌تر رفت، <strong>هشدار</strong> بده.</li>
+</ul>
+<p><img src="images/vis-43-eval-dataset-regression.png" alt="ساخت دیتاست ارزیابی با نمونه‌های واقعی و لبه‌ای و مسیر تست رگرسیون قبل از انتشار"></p>
+<blockquote>
+<p>🖼️ دیتاست ارزیابی رو قفل کن و هر نسخه جدید رو با همون معیارها بسنج؛ اگه رگرسیون دیدی، انتشار متوقف می‌شه.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h2>۴. ارزیابی آنلاین در مقابل آفلاین 🌐</h2>
+<p>یه تفکیک مهم که باید بدونی: ارزیابی به دو دسته <strong>آفلاین</strong> و <strong>آنلاین</strong> تقسیم می‌شه.</p>
+<p><strong>ارزیابی آفلاین (قبل از دیپلوی) 🧪:</strong></p>
+<ul>
+<li>روی یه <strong>دیتاست ثابت</strong> اجرا می‌شه (همون دیتاست ارزیابی که ساختی).</li>
+<li>قبل از اینکه سیستم رو به دست کاربر بدی، <strong>امتحانش می‌کنی</strong>.</li>
+<li>مثل اینکه قبل از امتحان نهایی، یه <strong>آزمون آزمایشی</strong> بدی.</li>
+<li>مثال: تست A/B روی ۱۰۰ نمونه، داوری LLM، محاسبه BERTScore.</li>
+</ul>
+<p><strong>ارزیابی آنلاین (بعد از دیپلوی) 📡:</strong></p>
+<ul>
+<li>روی <strong>ترافیک واقعی کاربران</strong> انجام می‌شه.</li>
+<li>از بازخورد کاربر استفاده می‌کنی (لایک/دیسلایک، نرخ کلیک، زمان موندن).</li>
+<li><strong>نمونه‌برداری</strong> می‌کنی و خروجی‌های واقعی رو بررسی می‌کنی.</li>
+<li>مثال: ۵٪ از مکالمات رو تصادفی انتخاب کن و با LLM-as-Judge بررسی کن.</li>
+</ul>
+<blockquote>
+<p><strong>ترکیب هر دو:</strong> بهترین سیستم‌ها <strong>هم</strong> ارزیابی آفلاین دارن (برای اطمینان قبل از دیپلوی) <strong>هم</strong> آنلاین (برای کشف مشکلاتی که تو دیتاست نبودن). مثل تست ماشین می‌مونه: هم تو کارخونه تست می‌شه، هم تو جاده واقعی!</p>
+</blockquote>
+<p><img src="images/vis-44-offline-online-evaluation.png" alt="دو مسیر ارزیابی آفلاین با دیتاست ثابت و آنلاین با شاخص واقعی که همدیگه رو تغذیه می‌کنن"></p>
+<blockquote>
+<p>🖼️ ارزیابی آفلاین قبل از انتشار با دیتاست ثابت انجام می‌شه؛ ارزیابی آنلاین سیستم زنده رو می‌سنجه و نمونه‌های تازه به دیتاست برمی‌گردن.</p>
+</blockquote>
+<div align="center">
+
+<h2>۵. ابزارهای ارزیابی و مانیتورینگ (Observability) 🔭</h2>
+<p>تا اینجا <strong>روش</strong> ارزیابی رو یاد گرفتی؛ ولی تو پروژه واقعی این کارها رو دستی انجام نمی‌دن. یه دسته ابزار تخصصی هست که بهشون <strong>پلتفرم مشاهده‌پذیری (Observability)</strong> می‌گن و سه تا کار اصلی رو خودکار می‌کنن:</p>
+<ol>
+<li><strong>ردیابی (Tracing):</strong> هر درخواست از ورود تا خروج چه مسیری رفت؟ کدوم پرامپت، کدوم مدل، چند توکن، چقدر هزینه، چقدر تاخیر؟</li>
+<li><strong>ارزیابی مداوم:</strong> همون ارزیاب‌هایی که ساختی (داور LLM، تست رگرسیون) به‌صورت خودکار روی نمونه‌ای از ترافیک واقعی اجرا می‌شن.</li>
+<li><strong>مدیریت پرامپت:</strong> نسخه‌بندی پرامپت‌ها و مقایسه عملکردشون؛ یه چیزی شبیه Git ولی برای پرامپت.</li>
+</ol>
+<p>اسم‌هایی که خوبه بشناسی:</p>
+<table>
+<thead>
+<tr>
+<th>ابزار</th>
+<th>ویژگی</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><a href="https://langfuse.com">Langfuse</a></strong></td>
+<td>متن‌باز و قابل میزبانی روی سرور خودت؛ محبوب‌ترین نقطه شروع</td>
+</tr>
+<tr>
+<td><strong><a href="https://smith.langchain.com">LangSmith</a></strong></td>
+<td>از تیم LangChain؛ بهترین یکپارچگی با LangChain و LangGraph</td>
+</tr>
+<tr>
+<td><strong><a href="https://promptfoo.dev">promptfoo</a></strong></td>
+<td>تست و مقایسه پرامپت‌ها + تست نفوذ، از خط فرمان</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/confident-ai/deepeval">DeepEval</a></strong></td>
+<td>مثل pytest ولی برای LLM؛ تست ارزیابی داخل CI</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>قانون طلایی این فصل:</strong> «بدون ارزیابی، چیزی رو عوض نکن.» اول یه دیتاست ارزیابی کوچیک بساز، بعد هر تغییرِ پرامپت یا مدل رو با همون بسنج. عادت ساده‌ایه، ولی فرق تیم‌های حرفه‌ای با بقیه دقیقاً همینه.</p>
+</blockquote>
+<hr>
+<br>
+
+<div align="center">
+
+<h1>از نمونه اولیه تا محصول قابل‌اتکا 🏭</h1>
+<p>تا اینجا قطعه‌ها رو جداگانه دیدی: پرامپت، ابزار، ایجنت، اعتبارسنجی، ارزیابی و امنیت. اما چیزی که معمولاً دیر به چشم میاد اینه: <strong>یه نمونه اولیه که روی لپ‌تاپ خودت خوب کار می‌کنه، با محصولی که کاربر واقعی بهش تکیه می‌کنه زمین تا آسمون فرق داره.</strong> این فصل همون پل رو می‌سازه؛ چیز تازه‌ای حفظ نمی‌کنی، فقط همون قطعه‌ها رو از زاویه محصول کنار هم می‌ذاری.</p>
+<br>
+
+<div align="center">
+
+<h2>یه مدل ذهنی که همه‌چیز رو سر جاش می‌ذاره 🧩</h2>
+<p>هرچی جلوتر بری این جمله بیشتر به دردت می‌خوره: <strong>مدل «قضاوت و زبان» می‌ده؛ سیستمی که دورش می‌سازی «کنترل، حافظه، ابزار، اعتبارسنجی و ایمنی» می‌ده.</strong> مدل رو مثل یه متخصص باهوش ولی حواس‌پرت بدون: خودش بین دو درخواست حافظه ماندگار نداره، بدون ابزار دستش به جایی بند نیست و گاهی با اطمینان کامل اشتباه می‌کنه. کار تو اینه که محیط کارش رو طوری بچینی که اطلاعات درست رو ببینه، ابزار مناسب داشته باشه و از خط قرمزها رد نشه.</p>
+<p>تو منابع انگلیسی به کدی که این محیط رو دور مدل می‌سازه <strong>هارنس (Harness)</strong> می‌گن. <strong>مهندسی هارنس (Harness Engineering)</strong> یعنی ساختن و بهتر کردن همین سیستم: چه اطلاعاتی وارد کانتکست بشه، کدوم ابزار در دسترس باشه، نتیجه چطور بررسی بشه و چه زمانی کار متوقف بشه. تقریباً هر چیزی که تا اینجای راهنما یاد گرفتی، یه تکه از همین هارنسه.</p>
+<p>از همین‌جا یه قاعده طلایی درمیاد: <strong>هر چیزی که واقعاً مهمه رو بذار روی دوش کد و قاعده‌ای که خودت کنترلش می‌کنی، نه روی امید به حرف‌شنوی مدل.</strong> پرامپت برای راهنمایی عالیه، ولی تضمین کار کده. مثلاً نوشتن «پول رو دو بار برنگردون» تو پرامپت فقط یه خواهشه؛ چیزی که واقعاً جلوی بازپرداخت دوباره رو می‌گیره، سازوکاریه که پایین‌تر می‌بینیم.</p>
+<p><img src="images/vis-21-llm-harness-mental-model.png" alt="LLM در مرکز هارنسی شامل پرامپت، کانتکست، حافظه، ابزار، گردش‌کار، اعتبارسنجی، ایمنی و مشاهده‌پذیری"></p>
+<blockquote>
+<p>🖼️ هارنس، کانتکست، حافظه، ابزار، کنترل اجرا و ایمنی رو دور مدل هماهنگ می‌کنه.</p>
+</blockquote>
+<br>
+
+<div align="center">
+
+<h2>هفت اسمی که همیشه قاطی می‌شن 🔀</h2>
+<p>این چند تا کلمه رو همه‌جا کنار هم می‌شنوی و راحت با هم قاطی می‌شن؛ ولی هر کدوم چیز متفاوتی رو توصیف می‌کنه:</p>
+<table>
+<thead>
+<tr>
+<th>اصطلاح</th>
+<th>به زبان ساده</th>
+<th>مرز اصلیش</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>مدل (LLM)</td>
+<td>شبکه‌ای که ورودی رو می‌گیره و خروجی می‌سازه</td>
+<td>خود مدل</td>
+</tr>
+<tr>
+<td>پرامپت (Prompt)</td>
+<td>دستور، سوال و مثال‌هایی که به مدل می‌دی</td>
+<td>یه بخش از ورودی</td>
+</tr>
+<tr>
+<td>کانتکست (Context)</td>
+<td>همه اطلاعاتی که مدل تو این نوبت می‌بینه</td>
+<td>کل ورودی قابل‌دیدن</td>
+</tr>
+<tr>
+<td>گردش‌کار (Workflow)</td>
+<td>مسیر ثابتی که خودت از قبل کد کردی</td>
+<td>تصمیم‌ها از قبل مشخصن</td>
+</tr>
+<tr>
+<td>ایجنت (Agent)</td>
+<td>سیستمی که از مدل و ابزار استفاده می‌کنه و قدم بعدی رو انتخاب می‌کنه</td>
+<td>مسیر حین اجرا انتخاب می‌شه</td>
+</tr>
+<tr>
+<td>فریم‌ورک (Framework)</td>
+<td>کتابخونه‌ای با قطعه‌های آماده برای ساخت، مثل LangGraph</td>
+<td>ابزار ساخت</td>
+</tr>
+<tr>
+<td>هارنس (Harness)</td>
+<td>کدی که کانتکست، ابزار، حافظه و کنترل اجرا رو برای مدل هماهنگ می‌کنه</td>
+<td>سیستم زمان اجرا</td>
+</tr>
+</tbody></table>
+<p>فرق مهم اینه: تو <strong>گردش‌کار</strong> مسیر رو از قبل می‌نویسی، ولی <strong>ایجنت</strong> می‌تونه حین اجرا قدم بعدی رو انتخاب کنه. <strong>فریم‌ورک</strong> ابزار ساخت این سیستم رو می‌ده و <strong>هارنس</strong> همون سیستمیه که واقعاً دور مدل اجرا می‌شه.</p>
+<p>چهار کار مهندسی هم هست که اسم‌هاشون شبیه هم به نظر میاد، ولی هر کدوم سوال متفاوتی رو جواب می‌ده:</p>
+<ul>
+<li><strong>مهندسی پرامپت:</strong> «چطوری بپرسم؟» ← وقتی مدل دستور رو بد می‌فهمه یا خروجی رو تو قالب اشتباه می‌ده.</li>
+<li><strong><a href="#%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C-%DA%A9%D8%A7%D9%86%D8%AA%DA%A9%D8%B3%D8%AA-context-engineering-">مهندسی کانتکست</a>:</strong> «چی جلوی چشم مدل بذارم؟» ← وقتی اطلاعات لازم دم دستش نیست.</li>
+<li><strong>مهندسی هارنس:</strong> «سیستم دور مدل چطور رفتار کنه؟» ← وقتی کل سیستم شکننده یا ناامنه و دیباگش سخته.</li>
+<li><strong><a href="#%D9%85%D8%B9%D9%85%D8%A7%D8%B1%DB%8C-%D9%88-%D8%B4%D8%AE%D8%B5%DB%8C%E2%80%8C%D8%B3%D8%A7%D8%B2%DB%8C-fine-tuning-vs-rag-%EF%B8%8F">مهندسی مدل</a>:</strong> «کدوم مدل رو انتخاب کنم؛ اصلاً فاین‌تیون لازم دارم؟» ← وقتی توان پایه مدل کم میاره.</li>
+</ul>
+<br>
+
+<div align="center">
+
+<h2>نردبان پیچیدگی: ساده شروع کن، فقط وقتی لازم شد بالا برو 🪜</h2>
+<p>یه اشتباه رایج اینه که آدم از همون اول می‌ره سراغ پیچیده‌ترین معماری، مثلاً چند ایجنت که با هم حرف می‌زنن. ولی هر پله‌ای که بالا می‌ری، هزینه، تاخیر و تعداد چیزهایی که می‌تونن خراب بشن بیشتر می‌شه. پس از پایین‌ترین پله شروع کن و فقط وقتی بالا برو که پله فعلی از پس کارت برنمیاد؛ نه چون «پیچیده‌تر باحال‌تره».</p>
+<p><img src="images/vis-22-complexity-ladder.png" alt="نردبانی از تک‌فراخوانی تا چند Agent با افزایش هم‌زمان انعطاف، هزینه و ریسک"></p>
+<blockquote>
+<p>🖼️ هر پله انعطاف بیشتری می‌ده، اما هزینه، تاخیر و احتمال خرابی رو هم بالا می‌بره.</p>
+</blockquote>
+<p>نکته ظریفش اینه: پله‌های پایین <strong>قطعی‌تر و قابل‌پیش‌بینی‌ترن</strong> چون خودت مسیر رو نوشتی؛ پله‌های بالا <strong>انعطاف‌پذیرترن ولی خطای بیشتری هم دارن</strong> چون مدل مسیر رو انتخاب می‌کنه. تو فصل <a href="#%D8%A7%DB%8C%D8%AC%D9%86%D8%AA%E2%80%8C%D9%87%D8%A7%DB%8C-%D9%87%D9%88%D8%B4-%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C-ai-agents-">ایجنت‌های هوش مصنوعی</a> دیدی که کِی این انعطاف واقعاً لازمه.</p>
+<br>
+
+<div align="center">
+
+<h2>سه عادتی که اپت رو قابل‌اتکا می‌کنه 🛡️</h2>
+<p><strong>۱. اجرای دوباره نباید اثر اضافه ایجاد کنه (Idempotency).</strong> 🔑</p>
+<p>شبکه گاهی درست وسط کار قطع می‌شه: درخواست بازپرداخت به سرویس رسیده، ولی جوابش برنگشته. اپ خیال می‌کنه کاری انجام نشده و دوباره درخواست رو می‌فرسته؛ حالا ممکنه مشتری دو بار پول بگیره. راهش یه **کلید یکتا (Idempotency Key)**ـه. اگه سرویس بیرونی این قابلیت رو داره، هر بار تلاش رو با همون کلید بفرست؛ اگه سرویس دست خودته، کلید و نتیجه بار اول رو ذخیره کن. وقتی همون کلید دوباره رسید، نتیجه قبلی رو برگردون و کار رو تکرار نکن. همین الگو برای پرداخت، ثبت سفارش و ارسال ایمیل هم جلوی اثر تکراری رو می‌گیره.</p>
+<p><strong>۲. وقتی مطمئن نیستی، دست نگه دار.</strong> 🪂</p>
+<p>وقتی ابزار جواب نداده، اعتبارسنجی رد شده یا اطلاعات کافی نیست، بدترین کار اینه که سیستم با اعتمادبه‌نفس یه کار اشتباه بکنه. عادت درست اینه که کار حساس رو انجام نده، صادقانه بگه «مطمئن نیستم» و اگه لازمه کار رو به یه آدم پاس بده. یه سیستم قابل‌اتکا اونی نیست که هیچ‌وقت اشتباه نمی‌کنه؛ اونیه که وقتی اشتباه می‌کنه، جوری اشتباه می‌کنه که بشه جمعش کرد.</p>
+<p><strong>۳. یادت باشه هر خطا مشکل پرامپت نیست.</strong> 🔍</p>
+<p>وقتی خروجی خراب می‌شه، اولین واکنش خیلی‌ها اینه که برن سراغ پرامپت و یه پاراگراف دیگه بهش اضافه کنن. ولی خیلی وقت‌ها ریشه مشکل جای دیگه‌ست و پرامپت چاق‌تر فقط اوضاع رو بدتر می‌کنه. قبل از دست‌زدن به پرامپت، به همین ترتیب چک کن:</p>
+<p>۱. <strong>اطلاعات لازم اصلاً تو کانتکست بود؟</strong> اگه نه، مشکل بازیابی یا مهندسی کانتکسته، نه پرامپت.
+۲. <strong>ابزار درست در دسترس بود و توضیحش واضح بود؟</strong> اگه مدل ابزار اشتباه رو صدا زد، مشکل ممکنه به طراحی ابزار و <a href="#%DB%B3-%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-schema-">Schema</a> برگرده، نه پرامپت.
+۳. <strong>جریان کار درست پیش رفت و سر وقت متوقف شد؟</strong> اگه تو حلقه گیر کرد یا زود ول کرد، مشکل کنترل جریان، تلاش دوباره یا شرط توقفه.
+۴. <strong>اعتبارسنجی یا تایید انسانی جلوی کار بد رو گرفت؟</strong> اگه خروجی خراب از این لایه رد شد و به کاربر یا ابزار رسید، مشکل از <a href="#%DB%B8-%D8%B1%D8%A7%D9%87%DA%A9%D8%A7%D8%B1%D9%87%D8%A7%DB%8C-%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87-%D9%88-%D9%84%D8%A7%DB%8C%D9%87%E2%80%8C%D9%84%D8%A7%DB%8C%D9%87-defense-in-depth-%EF%B8%8F">اعتبارسنجی و ایمنی</a>ـه.
+۵. <strong>تازه اگه هیچ‌کدوم اینا نبود،</strong> برو سراغ خود پرامپت.</p>
+<br>
+
+<div align="center">
+
+<h2>آینده: هارنس‌هایی که خودشون رو بهتر می‌کنن 🔮</h2>
+<p>تا اینجا فرض کردیم آدم هارنس رو می‌سازه و بهترش می‌کنه. ولی می‌شه بخشی از همین کار رو هم خودکار کرد؟ دو ایده پژوهشی تازه دقیقاً دارن همین سوال رو امتحان می‌کنن:</p>
+<ul>
+<li><strong><a href="https://arxiv.org/abs/2603.28052">متا-هارنس (Meta-Harness)</a>:</strong> یه ایجنت قوی‌تر، ردپای اجرای ایجنت هدف رو می‌خونه، ضعف‌های تکراریش رو پیدا می‌کنه و تغییرهایی برای پرامپت، ابزار یا منطق هارنس پیشنهاد می‌ده.</li>
+<li><strong><a href="https://arxiv.org/abs/2606.09498">سلف-هارنس (Self-Harness)</a>:</strong> خود ایجنت از روی شکست‌هاش تغییرهایی برای هارنس خودش پیشنهاد می‌ده؛ بدون اینکه وزن‌های مدل عوض بشه.</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>ولی واقع‌بین باش:</strong> این‌ها فعلاً <strong>پژوهشی‌ان، نه آماده استفاده تو پروداکشن.</strong> مدل ممکنه شکست‌هاش رو بد تحلیل کنه یا به جای حل واقعی مسئله، معیار ارزیابی رو دور بزنه. تا وقتی این روش‌ها پخته‌تر بشن، حلقه بهبود انسان‌محور مطمئن‌تره: ردپا رو ببین، مشکل‌های تکراری رو دسته‌بندی کن، تغییر کوچیک بده و نتیجه رو روی یه مجموعه آزمون جدا بسنج.</p>
+</blockquote>
+<br>
+
+<blockquote>
+<p>💡 <strong>جان کلام این فصل:</strong> فرق یه نمونه اولیه و یه محصول واقعی فقط تو هوش مدل نیست؛ تو مهندسی چیزیه که دور مدل ساختی. همون قطعه‌هایی که تو این راهنما یاد گرفتی، از <a href="#%DB%B5-%D9%87%D9%86%D8%AF%D9%84-%DA%A9%D8%B1%D8%AF%D9%86-%D8%AE%D8%B7%D8%A7%D9%87%D8%A7-%D9%88%D9%82%D8%AA%DB%8C-%D9%85%D8%AF%D9%84-%D8%AE%D8%B1%D8%A7%D8%A8%E2%80%8C%DA%A9%D8%A7%D8%B1%DB%8C-%D9%85%DB%8C%E2%80%8C%DA%A9%D9%86%D9%87-">تلاش دوباره و مدیریت خطا</a> تا <a href="#%D8%A7%D8%B1%D8%B2%DB%8C%D8%A7%D8%A8%DB%8C-%D9%BE%D8%B1%D8%A7%D9%85%D9%BE%D8%AA-%D9%88-%D8%AE%D8%B1%D9%88%D8%AC%DB%8C-llm-%D8%A7%D8%B2-%DA%A9%D8%AC%D8%A7-%D8%A8%D9%81%D9%87%D9%85%DB%8C%D9%85-%D8%AE%D9%88%D8%A8%D9%87-">ارزیابی</a> و <a href="#%D9%88%D8%A7%D9%82%D8%B9%DB%8C%D8%AA-%D8%AA%D9%84%D8%AE-%D8%A7%DB%8C%D8%AC%D9%86%D8%AA%E2%80%8C%D9%87%D8%A7-%DA%A9%D8%AC%D8%A7-%D8%AE%D8%B1%D8%A7%D8%A8-%D9%85%DB%8C%E2%80%8C%DA%A9%D9%86%D9%86-">تایید انسانی و دفاع لایه‌لایه</a>، وقتی درست کنار هم قرار بگیرن یه نمونه اولیه رو به چیزی تبدیل می‌کنن که می‌شه بهش تکیه کرد.</p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+<br>
+
+
+<div align="center"></div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-0">۱. انواع روش‌های ارزیابی 🕵️‍♂️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-1">الف) ارزیابی انسانی (Human Eval) 👤</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-2">ب) مدل به عنوان داور (LLM-as-a-Judge) ⚖️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-3">ج) متریک‌های خودکار متنی (Auto Metrics) 🤖</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-4">د) مقایسه جفتی و امتیازدهی ELO 🏆</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-5">۲. طراحی معیارهای ارزیابی (Rubric) 📝</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-6">۳. تست A/B: کدوم پرامپت بهتره؟ 🅰️/🅱️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-7">یه روال عملی پیشنهادی (سریع و قابل اجرا) 🧪</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-8">ساختن دیتاست ارزیابی خوب 📦</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-9">تست رگرسیون (Regression Testing) 🔄</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-10">۴. ارزیابی آنلاین در مقابل آفلاین 🌐</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-11">۵. ابزارهای ارزیابی و مانیتورینگ (Observability) 🔭</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-12">یه مدل ذهنی که همه‌چیز رو سر جاش می‌ذاره 🧩</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-13">هفت اسمی که همیشه قاطی می‌شن 🔀</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-14">نردبان پیچیدگی: ساده شروع کن، فقط وقتی لازم شد بالا برو 🪜</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-15">سه عادتی که اپت رو قابل‌اتکا می‌کنه 🛡️</a><a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-16">آینده: هارنس‌هایی که خودشون رو بهتر می‌کنن 🔮</a></div></aside></div></article></main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>
