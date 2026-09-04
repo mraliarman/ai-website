@@ -1,11 +1,23 @@
 {
+  "name": "llm-persian-learning",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build-site.mjs && npx @tailwindcss/cli -i ./src/styles/main.css -o ./dist/assets/main.css --minify && vite build",
+    "preview": "vite preview",
+    "generate": "node scripts/build-site.mjs",
+    "watch:css": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./dist/assets/main.css --watch"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.2",
-    "tailwindcss": "^4.3.2"
-  },
-  "scripts": {
-    "watch": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --watch --minify",
-    "build": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --minify"
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "alpinejs": "^3.15.0",
+    "fuse.js": "^7.1.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^16.0.0",
+    "tailwindcss": "^4.3.2",
+    "vite": "^7.1.0"
   }
 }
