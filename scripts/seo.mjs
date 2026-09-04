@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'public');
-const siteUrl = (process.env.SITE_URL || 'https://example.com').replace(/\/$/, '');
+const siteUrl = (process.env.SITE_URL || 'https://llm.bestjustify.ir').replace(/\/$/, '');
 const siteName = 'LLM به زبان آدمیزاد';
 const siteDescription = 'راهنمای فارسی و کاربردی برای یادگیری و استفاده از مدل‌های زبانی بزرگ (LLM).';
 const authorName = 'تیم LLM به زبان آدمیزاد';
