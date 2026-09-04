@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const run = (args, options = {}) => new Promise((resolve, reject) => {
     const child = spawn('git', args, { cwd: root, stdio: options.capture ? ['ignore', 'pipe', 'pipe'] : 'inherit', windowsHide: true });
