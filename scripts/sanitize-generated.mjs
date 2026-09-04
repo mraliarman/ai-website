@@ -6,30 +6,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'public');
 
 const escapeAttribute = value => String(value)
-  .replaceAll('&', '&amp;')
-  .replaceAll('<', '&lt;')
-  .replaceAll('>', '&gt;')
-  .replaceAll('"', '&quot;')
-  .replaceAll("'", '&#39;')
-  .replaceAll('`', '&#96;');
+  .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;').replaceAll("'", '&#39;').replaceAll('`', '&#96;');
 
 function repairCopyHandlers(html) {
-  const prefix = '@click="navigator.clipboard.writeText("';
-  const suffix = '").then(() => $el.textContent = \'کپی شد\')"';
-  let cursor = 0;
-  let output = '';
-  while (true) {
-    const start = html.indexOf(prefix, cursor);
-    if (start === -1) { output += html.slice(cursor); break; }
-    output += html.slice(cursor, start);
-    const promptStart = start + prefix.length;
-    const end = html.indexOf(suffix, promptStart);
-    if (end === -1) { output += html.slice(start); break; }
-    const prompt = html.slice(promptStart, end);
-    output += `@click="navigator.clipboard.writeText(&quot;${escapeAttribute(prompt)}&quot;).then(() => $el.textContent = 'کپی شد')"`;
-    cursor = end + suffix.length;
-  }
-  return output;
+  const malformed = /@click="navigator\.clipboard\.writeText\("([\s\S]*?)"\)\.then\(\(\) => \$el\.textContent = 'کپی شد'\)"/g;
+  return html.replace(malformed, (_, prompt) => `@click="navigator.clipboard.writeText(&quot;${escapeAttribute(prompt)}&quot;).then(() => $el.textContent = 'کپی شد')"`);
 }
 
 async function walk(dir) {
@@ -44,6 +26,5 @@ async function walk(dir) {
     }
   }
 }
-
 await walk(publicDir);
 console.log('Generated HTML attributes sanitized.');
