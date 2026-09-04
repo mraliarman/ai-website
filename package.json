@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/build-tailwind.mjs && node scripts/build-site.mjs && vite",
+    "dev": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && vite",
     "build": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && vite build",
     "preview": "vite preview",
     "generate": "node scripts/build-site.mjs"
