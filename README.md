@@ -12,7 +12,7 @@ https://github.com/3lf/llm-for-humans
 
 وب‌سایت حاضر توسط فرداد آرمان توسعه داده شده است:
 
-https://github.com/mraliarman/ai-website
+https://llm.bestjustify.ir/
 
 محتوای آموزشی متعلق به پروژه منبع است و این مخزن لایه ارائه، دسته‌بندی، طراحی رابط فارسی، جست‌وجو و تجربه مطالعه را فراهم می‌کند.
 
