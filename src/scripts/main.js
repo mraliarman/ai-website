@@ -1,6 +1,5 @@
 import Alpine from 'alpinejs';
 import Fuse from 'fuse.js';
-import '../styles/main.css';
 window.Alpine = Alpine;
 window.Fuse = Fuse;
 window.normalizeFa = value => String(value || '').replaceAll('ي', 'ی').replaceAll('ى', 'ی').replace(/[\u200c\u200d]/g, '').toLowerCase().trim();
