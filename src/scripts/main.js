@@ -1,39 +1,46 @@
 import Alpine from 'alpinejs';
 import Fuse from 'fuse.js';
-window.Alpine = Alpine;
-window.Fuse = Fuse;
-window.normalizeFa = value => String(value || '').replaceAll('ي', 'ی').replaceAll('ى', 'ی').replace(/[\u200c\u200d]/g, '').toLowerCase().trim();
+
+const normalize = value => String(value ?? '')
+    .normalize('NFKC')
+    .replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[يى]/g, 'ی')
+    .replace(/[ك]/g, 'ک')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
 window.searchState = () => ({
     open: false,
     query: '',
     results: [],
-    index: [],
+    items: [],
     fuse: null,
     async init() {
-        try {
-            const response = await fetch('/search-index.json');
-            this.index = await response.json();
-            const normalized = this.index.map(item => ({ ...item, title: window.normalizeFa(item.title), summary: window.normalizeFa(item.summary), tags: item.tags.map(window.normalizeFa), content: window.normalizeFa(item.content) }));
-            this.fuse = new Fuse(normalized, { keys: ['title', 'summary', 'tags', 'content'], threshold: 0.35, ignoreLocation: true });
-        } catch (error) {
-            this.index = [];
-        }
-    },
-    search() {
-        const query = window.normalizeFa(this.query);
-        this.results = query && this.fuse ? this.fuse.search(query).slice(0, 12).map(item => item.item) : [];
+        const response = await fetch('/search-index.json');
+        this.items = await response.json();
+        this.fuse = new Fuse(this.items, { keys: ['title', 'summary', 'content', 'category'], threshold: 0.34, ignoreLocation: true });
     },
     show() { this.open = true; this.$nextTick(() => this.$refs.input?.focus()); },
-    hide() { this.open = false; this.query = ''; this.results = []; }
+    hide() { this.open = false; this.query = ''; this.results = []; },
+    search() {
+        const query = normalize(this.query);
+        this.results = query && this.fuse ? this.fuse.search(query, { limit: 12 }).map(result => result.item) : [];
+    }
 });
-if (document.body) {
+
+const init = () => {
     document.body.setAttribute('x-data', '{ mobileOpen: false }');
     document.querySelector('#mobile-navigation')?.removeAttribute('x-data');
-}
-document.addEventListener('keydown', event => {
-    if (event.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+    Alpine.start();
+};
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+else init();
+
+window.addEventListener('keydown', event => {
+    if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
         event.preventDefault();
         document.querySelector('[data-search-trigger]')?.click();
     }
 });
-Alpine.start();

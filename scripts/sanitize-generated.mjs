@@ -22,7 +22,7 @@ async function walk(dir) {
     const files = [];
     for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory() && entry.name !== 'source') files.push(...await walk(fullPath));
+        if (entry.isDirectory() && entry.name !== 'source' && entry.name !== 'dist') files.push(...await walk(fullPath));
         else if (entry.isFile() && entry.name.endsWith('.html')) files.push(fullPath);
     }
     return files;

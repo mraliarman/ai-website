@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/build-site.mjs && node scripts/sanitize-generated.mjs && node scripts/build-tailwind.mjs && vite",
-    "build": "node scripts/build-site.mjs && node scripts/sanitize-generated.mjs && node scripts/build-tailwind.mjs && vite build",
+    "dev": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && node scripts/sanitize-generated.mjs && vite",
+    "build": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && node scripts/sanitize-generated.mjs && vite build",
     "preview": "vite preview",
     "generate": "node scripts/build-site.mjs && node scripts/sanitize-generated.mjs",
     "update-source": "node scripts/sync-source.mjs && npm run build"
