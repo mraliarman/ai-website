@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
+const execFileAsync = promisify(execFile);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const input = path.join(root, 'src/styles/main.css');
+const outputDir = path.join(root, 'public/assets');
+const output = path.join(outputDir, 'main.css');
+const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+await fs.mkdir(outputDir, { recursive: true });
+await execFileAsync(npx, ['@tailwindcss/cli', '-i', input, '-o', output, '--minify'], { cwd: root, stdio: 'inherit' });
