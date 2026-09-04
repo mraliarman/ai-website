@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">LLM به زبان آدمیزاد</title>
+<desc id="desc">راهنمای فارسی و کاربردی برای یادگیری هوش مصنوعی و مدل‌های زبانی بزرگ</desc>
+<rect width="1200" height="630" fill="#0a0a0a"/>
+<g stroke="#222" stroke-width="1" opacity=".65">
+<path d="M0 70H1200M0 140H1200M0 210H1200M0 280H1200M0 350H1200M0 420H1200M0 490H1200M0 560H1200"/>
+<path d="M70 0V630M140 0V630M210 0V630M280 0V630M350 0V630M420 0V630M490 0V630M560 0V630M630 0V630M700 0V630M770 0V630M840 0V630M910 0V630M980 0V630M1050 0V630M1120 0V630"/>
+</g>
+<rect x="74" y="74" width="1052" height="482" fill="none" stroke="#6798ff" stroke-opacity=".7"/>
+<circle cx="1048" cy="126" r="6" fill="#6798ff"/>
+<text x="104" y="170" fill="#9aa0aa" font-family="Arial, sans-serif" font-size="24" letter-spacing="4">LLM / راهنمای فارسی</text>
+<text x="104" y="270" fill="#f4f4f4" font-family="Arial, sans-serif" font-size="58" font-weight="400">هوش مصنوعی را ساده، دقیق</text>
+<text x="104" y="340" fill="#f4f4f4" font-family="Arial, sans-serif" font-size="58" font-weight="400">و کاربردی یاد بگیر.</text>
+<text x="104" y="420" fill="#9aa0aa" font-family="Arial, sans-serif" font-size="24">مبانی LLM · پرامپت‌نویسی · RAG · Agent · انتخاب مدل</text>
+<text x="104" y="500" fill="#6798ff" font-family="monospace" font-size="20">ai-website / open source</text>
+</svg>
