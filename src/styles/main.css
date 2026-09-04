@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@theme {
+    --color-obsidian: #101010;
+    --color-carbon: #080808;
+    --color-chalk: #f3f3f3;
+    --color-smoke: #9c9c9c;
+    --color-ash: #c1c1c1;
+    --color-graphite: #212121;
+    --color-iron: #474747;
+    --color-signal-white: #ffffff;
+    --color-compass-gold: #6f6759;
+    --color-card-slate: #3b3d45;
+    --color-pulse-green: #98ff38;
+    --font-sans: "Vazirmatn", sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+    --spacing: 4px;
+    --radius-tag: 4px;
+    --radius-card: 8px;
+    --radius-icon: 99px;
+    --radius-pill: 9999px;
+}
+@font-face {
+    font-family: "Vazirmatn";
+    src: url("https://fonts.gstatic.com/s/vazirmatn/v18/Dxxo8jQKYXQO8kG3S7H8Q1Vx.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: local("IBM Plex Mono");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+[x-cloak] { display: none !important; }
+:root { color-scheme: dark; }
+html { background: var(--color-obsidian); scroll-behavior: smooth; }
+body { margin: 0; background: var(--color-obsidian); color: var(--color-chalk); font-family: var(--font-sans); font-weight: 400; line-height: 1.9; }
+html[dir="rtl"] * { letter-spacing: 0; }
+::selection { background: var(--color-signal-white); color: var(--color-obsidian); }
+.prose-llm h2 { margin-top: 56px; font-size: 34px; font-weight: 400; line-height: 1.35; }
+.prose-llm h3 { margin-top: 40px; font-size: 23px; font-weight: 400; }
+.prose-llm p, .prose-llm li { color: var(--color-ash); font-size: 16px; }
+.prose-llm a { color: var(--color-chalk); text-decoration: underline; text-underline-offset: 4px; }
+.prose-llm strong { font-weight: 400; color: var(--color-chalk); }
+.prose-llm code { border: 1px solid var(--color-graphite); border-radius: var(--radius-tag); background: var(--color-carbon); padding: 2px 6px; font-family: var(--font-mono); font-size: 13px; }
+.prose-llm pre { overflow-x: auto; border: 1px solid var(--color-graphite); border-radius: var(--radius-card); background: var(--color-carbon); padding: 20px; direction: ltr; text-align: left; }
+.prose-llm pre code { border: 0; padding: 0; background: transparent; }
+.prose-llm blockquote { margin: 24px 0; border-right: 2px solid var(--color-iron); padding: 4px 20px; color: var(--color-smoke); }
+.prose-llm table { width: 100%; border-collapse: collapse; margin: 28px 0; }
+.prose-llm th, .prose-llm td { border: 1px solid var(--color-graphite); padding: 10px 12px; text-align: right; }
+.prose-llm th { color: var(--color-chalk); font-weight: 400; }

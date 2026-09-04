@@ -1,0 +1,114 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const sourceUrl = 'https://raw.githubusercontent.com/3lf/llm-for-humans/main/README.md';
+const publicDir = path.join(root, 'public');
+const contentDir = path.join(root, 'src/content/articles');
+const promptDir = path.join(root, 'src/content/developer-prompts');
+const distDir = path.join(root, 'dist');
+const categories = [
+    ['fundamentals', 'مبانی LLM', 'مدل‌های زبانی بزرگ (LLM) چی هستن اصلاً؟', 'پایه‌های LLM، توکن، امبدینگ، پیش‌بینی توکن بعدی و معماری‌های پشت صحنه'],
+    ['prompting-basics', 'پرامپت‌نویسی پایه', 'پرامپت‌نویسی: یعنی چی؟ چطور به LLM دستور بدیم؟', 'اصول نوشتن دستورهای روشن، محدودیت‌ها و مثال‌های ساده'],
+    ['advanced-techniques', 'تکنیک‌های پیشرفته پرامپت‌نویسی', 'چطور پرامپت‌های بهتری بنویسیم؟ (تکنیک‌های پیشرفته‌تر)', 'جداکننده‌ها، خروجی ساختاریافته، لحن، شرط، Few-Shot، CoT و تکرار'],
+    ['parameters', 'پارامترهای مدل', 'پارامترهای مهم در کار با LLMها', 'Temperature، Top-p، Penaltyها، Top-k، Max Tokens، Stop و Seed'],
+    ['system-prompt', 'سیستم پرامپت', 'سیستم پرامپت (System Prompt)', 'تعریف، ساختار، چندنوبتی و نکات حرفه‌ای System Prompt'],
+    ['pro-techniques', 'تکنیک‌های حرفه‌ای پرامپت‌نویسی', 'تکنیک‌های پرامپت‌نویسی', 'Role Prompting، Few-Shot، CoT، ToT، ReAct، Self-Consistency و روش‌های پیشرفته'],
+    ['known-issues', 'مشکلات معروف LLMها', 'مشکلات معروف LLMها', 'توهم، Bias، خطای ریاضی، Prompt Injection، Context Window و مشکلات رایج'],
+    ['accuracy-security', 'افزایش دقت و امنیت LLM', 'چطور دقت و امنیت LLM رو بالاتر ببریم؟', 'Moderation، Fact-Checking، Tool Integration، Self-Evaluation و Defense in Depth'],
+    ['evaluation', 'ارزیابی پرامپت و خروجی', 'ارزیابی پرامپت و خروجی LLM', 'Human Eval، LLM-as-a-Judge، Metrics، Rubric، A/B Test و Observability'],
+    ['finetuning-vs-rag', 'معماری و شخصی‌سازی', 'معماری و شخصی‌سازی (Fine-tuning vs RAG)', 'Fine-tuning، LoRA/QLoRA، داده آموزشی و انتخاب بین Fine-tuning و RAG'],
+    ['context-engineering', 'مهندسی کانتکست', 'مهندسی کانتکست (Context Engineering)', 'طراحی و مدیریت Context برای سیستم‌های قابل‌اعتماد'],
+    ['rag-in-practice', 'RAG در عمل', 'بخش RAG در عمل: زیر کاپوت چه خبره؟', 'معماری RAG، Embedding، Vector DB، Chunking، Retrieval و ارزیابی'],
+    ['prompt-builders', 'ابزارهای ساخت پرامپت', 'ابزارهای ساخت و بهبود پرامپت', 'پرامپت‌سازها، کتابخانه‌ها و بهینه‌سازی خودکار'],
+    ['model-selection', 'انتخاب مدل و Provider', 'راهبرد انتخاب مدل و ارائه‌دهنده', 'کیفیت، Latency، هزینه، مدل‌های بسته و متن‌باز و مسیر انتخاب'],
+    ['free-access', 'دسترسی رایگان و اجرای محلی', 'دسترسی رایگان به API برای استفاده از LLMها', 'سرویس‌های آنلاین، Ollama، LM Studio و سخت‌افزار اجرای محلی'],
+    ['tool-use-mcp', 'ابزارها، MCP و ایجنت‌ها', 'ابزارها و خروجی ساختاریافته (Function Calling)', 'Function Calling، MCP، Structured Output، Agents و Multimodal'],
+    ['reference', 'مرجع و نمونه‌ها', 'پروژه عملی: ساخت دستیار پرسش‌وپاسخ فارسی', 'پروژه عملی، نمونه پرامپت‌ها، چیت‌شیت، اشتباهات رایج و واژه‌نامه']
+];
+const promptCategories = [
+    ['product-discovery', 'کشف نیاز و برنامه‌ریزی محصول', 'PRD، MVP و Epic/Task'],
+    ['software-architecture', 'معماری نرم‌افزار', 'انتخاب استک، دیتابیس، API و ADR'],
+    ['scaffolding', 'راه‌اندازی اولیه پروژه', 'اسکلت پروژه، lint، format و CI'],
+    ['frontend', 'توسعه فرانت‌اند', 'کامپوننت، state، فرم و a11y'],
+    ['backend', 'توسعه بک‌اند', 'endpoint، validation، error handling و auth'],
+    ['database', 'دیتابیس و مدل‌سازی داده', 'schema، migration، index و query optimization'],
+    ['testing', 'تست‌نویسی', 'Unit، Integration، E2E و test data'],
+    ['code-review-debug', 'بازبینی کد و رفع باگ', 'PR review، root cause و refactor'],
+    ['security', 'امنیت', 'SQL Injection، XSS، CSRF، secrets، CORS و OWASP'],
+    ['performance', 'کارایی و سرعت', 'N+1، bundle، caching و Core Web Vitals'],
+    ['seo', 'سئو', 'metadata، JSON-LD، sitemap، robots و ساختار محتوا'],
+    ['devops', 'DevOps و استقرار', 'Docker، CI/CD، environment، monitoring و logs'],
+    ['documentation', 'مستندسازی', 'README، API docs و CONTRIBUTING'],
+    ['pre-launch', 'بازبینی نهایی پیش از انتشار', 'امنیت، سرعت، سئو، تست و آمادگی انتشار']
+];
+const slugify = value => value.toLowerCase().replace(/[\u200c\u200d]/g, '').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
+const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+const layout = ({ title, description, body, active = '' }) => `<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escapeHtml(description)}"><link rel="canonical" href="https://example.com/${active ? active + '/' : ''}"><meta property="og:type" content="article"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/assets/main.css"><title>${escapeHtml(title)} | LLM به زبان آدمیزاد</title></head><body x-data><header class="border-b border-graphite"><nav class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-5"><a href="/" class="text-xl text-chalk no-underline">LLM / آدمیزاد</a><div class="hidden items-center gap-6 md:flex"><a href="/" class="text-sm text-smoke hover:text-chalk">خانه</a><a href="/developer-prompts/" class="text-sm text-smoke hover:text-chalk">پرامپت‌های توسعه‌دهنده</a><a href="/about/" class="text-sm text-smoke hover:text-chalk">درباره پروژه</a></div><button data-search-trigger @click="$dispatch('search-open')" aria-label="جستجو" class="rounded-pill border border-iron px-5 py-2 text-sm text-chalk">SEARCH /</button></nav></header><main>${body}</main><footer class="mt-40 border-t border-graphite"><div class="mx-auto flex max-w-[1200px] justify-between px-4 py-10 text-sm text-smoke"><span>LLM به زبان آدمیزاد</span><a class="text-smoke" href="https://github.com/3lf/llm-for-humans" rel="noopener noreferrer">منبع آموزشی</a></div></footer><div x-data="searchState()" @search-open.window="show()" x-init="init()" x-cloak data-search-modal><template x-if="open"><div class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true"><div class="mx-auto mt-10 max-w-3xl border border-graphite bg-carbon p-6"><div class="flex gap-3"><input x-ref="input" x-model="query" @input.debounce.150ms="search()" @keydown.escape="hide()" type="search" aria-label="جستجوی محتوا" placeholder="جستجو در عنوان، خلاصه، تگ و متن..." class="min-w-0 flex-1 border border-graphite bg-obsidian px-4 py-3 text-chalk outline-none"><button @click="hide()" class="border border-iron px-4 text-smoke" aria-label="بستن">ESC</button></div><div class="mt-6 space-y-3"><template x-for="item in results" :key="item.id"><a :href="item.url" class="block border border-graphite p-4 hover:border-iron"><span class="text-xs text-smoke" x-text="item.category"></span><div class="mt-1 text-lg text-chalk" x-text="item.title"></div><p class="mt-1 text-sm text-smoke" x-text="item.summary"></p></a></template><p x-show="query && !results.length" class="py-10 text-center text-smoke">نتیجه‌ای پیدا نشد.</p></div></div></div></template></div><script type="module" src="/src/scripts/main.js"></script></body></html>`;
+const card = (category, count) => `<a href="/${category[0]}/" class="group block border border-graphite p-6 transition hover:border-iron"><div class="mb-10 flex items-center justify-between"><span class="font-mono text-xs text-smoke">${String(count).padStart(2, '0')}</span><span class="text-compass-gold">＋</span></div><h2 class="text-2xl font-normal text-chalk">${category[1]}</h2><p class="mt-3 text-sm text-smoke">${category[3]}</p></a>`;
+async function fetchSource() {
+    const response = await fetch(sourceUrl);
+    if (!response.ok) throw new Error(`Source fetch failed: ${response.status}`);
+    return response.text();
+}
+function extractSections(source) {
+    const markers = categories.map(([slug, title, start]) => ({ slug, title, start, index: source.indexOf(`# ${start}`) >= 0 ? source.indexOf(`# ${start}`) : source.indexOf(`## ${start}`) }));
+    const valid = markers.filter(item => item.index >= 0).sort((a, b) => a.index - b.index);
+    return valid.map((item, i) => ({ ...item, raw: source.slice(item.index, valid[i + 1]?.index ?? source.length) }));
+}
+function buildPrompts() {
+    const actions = ['تحلیل و طراحی راه‌حل', 'تولید خروجی اجرایی', 'بازبینی کیفیت', 'یافتن ریسک‌ها و edge caseها', 'ساخت برنامه مرحله‌ای'];
+    return promptCategories.flatMap(([category, title, focus]) => actions.map((action, index) => ({
+        id: `${category}-${index + 1}`,
+        title: `${title} — ${action}`,
+        description: `یک پرامپت آماده برای ${focus} با تمرکز بر ${action}.`,
+        category,
+        categoryTitle: title,
+        level: index < 2 ? 'مبتدی' : index < 4 ? 'متوسط' : 'حرفه‌ای',
+        prompt: `نقش (Role):\nتو یک مهندس ارشد در حوزه ${title} هستی و در ${focus} تجربه عملی داری.\n\nهدف (Goal):\nبرای [نام پروژه] با مشخصات [شرح پروژه]، ${action} را انجام بده و خروجی قابل استفاده ارائه کن.\n\nقید و محدودیت (Constraints):\n- تکنولوژی‌ها: [زبان/فریم‌ورک/ابزار]\n- محیط اجرا: [محیط]\n- محدودیت‌های کسب‌وکار: [محدودیت‌ها]\n- اگر اطلاعات کافی نیست، ابتدا موارد ضروری را فهرست کن و فرضیات را جداگانه مشخص کن.\n- از تغییرات غیرضروری خارج از محدوده خودداری کن.\n\nفرمت خروجی:\n1. خلاصه تصمیم‌ها\n2. مراحل اجرایی شماره‌گذاری‌شده\n3. کد یا تنظیمات لازم در صورت نیاز\n4. ریسک‌ها و edge caseها\n5. معیار پذیرش (Acceptance Criteria)`,
+        tags: [category, title, focus],
+        url: `/developer-prompts/#${category}`
+    })));
+}
+async function main() {
+    await fs.mkdir(contentDir, { recursive: true });
+    await fs.mkdir(promptDir, { recursive: true });
+    await fs.mkdir(publicDir, { recursive: true });
+    const source = await fetchSource();
+    const sections = extractSections(source);
+    const generated = [];
+    for (const category of categories) {
+        const found = sections.find(item => item.slug === category[0]);
+        const raw = found?.raw || `# ${category[1]}\n\nاین بخش در زمان build از منبع اصلی استخراج می‌شود.`;
+        const content = raw.replace(/^<div[^>]*>\s*/i, '').replace(/<\/div>\s*/gi, '\n').trim();
+        const file = `---\nid: ${category[0]}\ntitle: ${category[1]}\nslug: ${category[0]}\ncategory: ${category[1]}\ntags: [LLM, AI, فارسی]\nsummary: ${category[3]}\nreadingTime: ${Math.max(2, Math.ceil(content.length / 1800))}\norder: ${categories.findIndex(item => item[0] === category[0]) + 1}\n---\n\n${content}\n`;
+        await fs.writeFile(path.join(contentDir, `${category[0]}.md`), file, 'utf8');
+        generated.push({ ...category, markdown: content, url: `/${category[0]}/` });
+    }
+    const prompts = buildPrompts();
+    await fs.writeFile(path.join(promptDir, 'prompts.json'), JSON.stringify(prompts, null, 2), 'utf8');
+    const index = generated.map(item => ({ id: item[0], title: item[1], slug: item[0], category: item[1], tags: ['LLM', 'AI', 'فارسی'], summary: item[3], content: item.markdown, url: item.url }));
+    for (const prompt of prompts) index.push({ id: prompt.id, title: prompt.title, slug: prompt.id, category: `پرامپت‌ها / ${prompt.categoryTitle}`, tags: prompt.tags, summary: prompt.description, content: prompt.prompt, url: prompt.url });
+    await fs.writeFile(path.join(publicDir, 'search-index.json'), JSON.stringify(index), 'utf8');
+    const homeCards = generated.map((item, index) => card(item, index + 1)).join('');
+    await fs.writeFile(path.join(root, 'index.html'), layout({ title: 'آموزش LLM و پرامپت‌نویسی', description: 'راهنمای فارسی کار با مدل‌های زبانی بزرگ، پرامپت‌نویسی، RAG و ابزارهای LLM.', body: `<section class="mx-auto max-w-[1200px] px-4 pb-32 pt-28"><span class="inline-flex rounded-tag border border-graphite bg-carbon px-3 py-1 text-xs text-smoke"><span class="mr-2 inline-block h-2 w-2 rounded-icon bg-pulse-green"></span>راهنمای فارسی LLM</span><h1 class="mt-8 max-w-5xl text-[42px] font-normal leading-[1.1] tracking-tight md:text-[63px]">هوش مصنوعی را ساده، دقیق و کاربردی یاد بگیر.</h1><p class="mt-8 max-w-2xl text-lg text-smoke">از مبانی LLM و پرامپت‌نویسی تا RAG، Agent، انتخاب مدل و اجرای محلی؛ محتوای مرجع به بخش‌های مستقل و قابل جستجو تبدیل شده است.</p><div class="mt-10 flex flex-wrap gap-3"><a href="/fundamentals/" class="rounded-pill bg-signal-white px-6 py-3 text-sm uppercase text-obsidian">شروع یادگیری</a><a href="/developer-prompts/" class="rounded-card border border-signal-white px-6 py-3 text-sm text-chalk">پرامپت‌های توسعه‌دهنده</a></div></section><div class="mx-auto max-w-[1200px] border-t border-graphite"></div><section class="mx-auto max-w-[1200px] px-4 py-32"><div class="mb-12 flex items-end justify-between"><div><span class="font-mono text-xs text-smoke">CONTENT / 17</span><h2 class="mt-3 text-4xl font-normal">مسیر یادگیری</h2></div></div><div class="grid gap-px bg-graphite md:grid-cols-2">${homeCards}</div></section>` }));
+    for (const item of generated) {
+        const html = marked.parse(item.markdown);
+        const toc = [...item.markdown.matchAll(/^#{2,3}\s+(.+)$/gm)].map((match, i) => `<a class="block py-1 text-sm text-smoke hover:text-chalk" href="#s-${i}">${escapeHtml(match[1])}</a>`).join('');
+        const body = `<article class="mx-auto max-w-[1200px] px-4 py-20"><div class="text-xs text-smoke">خانه / ${item[1]}</div><div class="mt-12 grid gap-16 lg:grid-cols-[1fr_280px]"><div><header class="mb-16 border-b border-graphite pb-10"><span class="font-mono text-xs text-smoke">${String(item[0]).toUpperCase()}</span><h1 class="mt-5 text-4xl font-normal md:text-[44px]">${item[1]}</h1><p class="mt-5 text-lg text-smoke">${item[3]}</p></header><div class="prose-llm max-w-none">${html}</div></div><aside class="hidden border-r border-graphite pr-8 lg:block"><div class="sticky top-8"><div class="mb-4 font-mono text-xs text-smoke">ON THIS PAGE</div>${toc}</div></aside></div></article>`;
+        await fs.mkdir(path.join(root, item[0]), { recursive: true });
+        await fs.writeFile(path.join(root, item[0], 'index.html'), layout({ title: item[1], description: item[3], body, active: item[0] }), 'utf8');
+    }
+    const promptBody = `<section class="mx-auto max-w-[1200px] px-4 py-20" x-data="{ sub: 'all', level: 'all', prompts: ${escapeHtml(JSON.stringify(prompts))} }"><div class="border-b border-graphite pb-12"><span class="font-mono text-xs text-smoke">DEVELOPER / 70</span><h1 class="mt-5 text-4xl font-normal md:text-[63px]">پرامپت‌های حرفه‌ای برای برنامه‌نویس</h1><p class="mt-5 max-w-3xl text-lg text-smoke">۷۰ پرامپت آماده برای کشف محصول، معماری، توسعه، تست، امنیت، کارایی، سئو و انتشار.</p></div><div class="sticky top-0 z-10 mt-8 border-b border-graphite bg-obsidian/95 py-4"><div class="flex flex-wrap gap-3"><select x-model="sub" aria-label="زیر دسته" class="border border-graphite bg-carbon px-3 py-2 text-sm text-chalk"><option value="all">همه زیر‌دسته‌ها</option>${promptCategories.map(item => `<option value="${item[0]}">${item[1]}</option>`).join('')}</select><select x-model="level" aria-label="سطح" class="border border-graphite bg-carbon px-3 py-2 text-sm text-chalk"><option value="all">همه سطوح</option><option value="مبتدی">مبتدی</option><option value="متوسط">متوسط</option><option value="حرفه‌ای">حرفه‌ای</option></select></div></div><div class="mt-8 grid gap-4">${prompts.map(prompt => `<article x-show="(sub === 'all' || sub === '${prompt.category}') && (level === 'all' || level === '${prompt.level}')" class="border border-graphite p-6"><div class="flex flex-wrap gap-2 text-xs text-smoke"><span>${prompt.categoryTitle}</span><span>·</span><span>${prompt.level}</span></div><h2 class="mt-3 text-2xl font-normal text-chalk">${escapeHtml(prompt.title)}</h2><p class="mt-2 text-sm text-smoke">${escapeHtml(prompt.description)}</p><div class="mt-5 relative"><pre class="overflow-x-auto border border-graphite bg-carbon p-4 text-left text-sm text-ash" dir="ltr"><code>${escapeHtml(prompt.prompt)}</code></pre><button @click="navigator.clipboard.writeText(${JSON.stringify(prompt.prompt)}).then(() => $el.textContent = 'COPIED')" class="absolute left-3 top-3 rounded-pill bg-signal-white px-4 py-2 text-xs text-obsidian" aria-label="کپی پرامپت">COPY</button></div></article>`).join('')}</div></section>`;
+    await fs.mkdir(path.join(root, 'developer-prompts'), { recursive: true });
+    await fs.writeFile(path.join(root, 'developer-prompts', 'index.html'), layout({ title: 'پرامپت‌های حرفه‌ای برنامه‌نویس', description: '۷۰ پرامپت آماده برای توسعه‌دهندگان.', body: promptBody, active: 'developer-prompts' }), 'utf8');
+    const about = `<section class="mx-auto max-w-[900px] px-4 py-24"><span class="font-mono text-xs text-smoke">ABOUT / SOURCE</span><h1 class="mt-6 text-5xl font-normal">درباره پروژه</h1><div class="prose-llm mt-12">${marked.parse(source.slice(source.indexOf('# کمک کردن به این پروژه!') >= 0 ? source.indexOf('# کمک کردن به این پروژه!') : Math.max(0, source.length - 12000)))}</div></section>`;
+    await fs.mkdir(path.join(root, 'about'), { recursive: true });
+    await fs.writeFile(path.join(root, 'about', 'index.html'), layout({ title: 'درباره پروژه', description: 'منبع، هدف و راهنمای مشارکت پروژه.', body: about, active: 'about' }), 'utf8');
+    await fs.writeFile(path.join(publicDir, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml\n', 'utf8');
+    const urls = ['', ...generated.map(item => item[0]), 'developer-prompts', 'about'];
+    await fs.writeFile(path.join(publicDir, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(url => `<url><loc>https://example.com/${url}${url ? '/' : ''}</loc></url>`).join('')}</urlset>`, 'utf8');
+}
+main().catch(error => { console.error(error); process.exit(1); });
