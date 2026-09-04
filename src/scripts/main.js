@@ -1,8 +1,9 @@
 import Alpine from 'alpinejs';
 import Fuse from 'fuse.js';
+import '../styles/main.css';
 window.Alpine = Alpine;
 window.Fuse = Fuse;
-window.normalizeFa = value => String(value || '').replaceAll('ي', 'ی').replaceAll('ى', 'ی').replaceAll('ك', 'ک').replace(/[\u200c\u200d]/g, '').toLowerCase().trim();
+window.normalizeFa = value => String(value || '').replaceAll('ي', 'ی').replaceAll('ى', 'ی').replace(/[\u200c\u200d]/g, '').toLowerCase().trim();
 window.searchState = () => ({
     open: false,
     query: '',
@@ -13,7 +14,8 @@ window.searchState = () => ({
         try {
             const response = await fetch('/search-index.json');
             this.index = await response.json();
-            this.fuse = new Fuse(this.index, { keys: ['title', 'summary', 'tags', 'content'], threshold: 0.35, ignoreLocation: true, getFn: (obj, path) => window.normalizeFa(Fuse.config.getFn(obj, path)) });
+            const normalized = this.index.map(item => ({ ...item, title: window.normalizeFa(item.title), summary: window.normalizeFa(item.summary), tags: item.tags.map(window.normalizeFa), content: window.normalizeFa(item.content) }));
+            this.fuse = new Fuse(normalized, { keys: ['title', 'summary', 'tags', 'content'], threshold: 0.35, ignoreLocation: true });
         } catch (error) {
             this.index = [];
         }
@@ -26,10 +28,9 @@ window.searchState = () => ({
     hide() { this.open = false; this.query = ''; this.results = []; }
 });
 document.addEventListener('keydown', event => {
-    if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+    if (event.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
         event.preventDefault();
         document.querySelector('[data-search-trigger]')?.click();
     }
-    if (event.key === 'Escape') document.querySelector('[data-search-modal]')?.__x?.$data?.hide?.();
 });
 Alpine.start();
