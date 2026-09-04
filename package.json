@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/build-site.mjs && vite build",
+    "dev": "node scripts/build-site.mjs && vite",
+    "build": "node scripts/build-site.mjs && npx @tailwindcss/cli -i ./src/styles/main.css -o ./public/assets/main.css --minify && vite build",
     "preview": "vite preview",
     "generate": "node scripts/build-site.mjs"
   },
