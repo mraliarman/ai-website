@@ -1,13 +1,14 @@
 {
   "name": "llm-persian-learning",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && vite",
     "build": "node scripts/build-site.mjs && node scripts/build-tailwind.mjs && vite build",
     "preview": "vite preview",
-    "generate": "node scripts/build-site.mjs"
+    "generate": "node scripts/build-site.mjs",
+    "update-source": "node scripts/sync-source.mjs && npm run build"
   },
   "dependencies": {
     "alpinejs": "^3.15.0",
